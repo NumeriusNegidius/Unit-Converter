@@ -1,0 +1,114 @@
+{
+  "extensionDescription": {
+    "message": "Convert imperial to metric and vice versa.",
+    "description": "Description of the add-on."
+  },
+
+
+  "inputPlaceholder": {
+    "message": "Input value",
+    "description": "The <input> field in the form."
+  },
+
+  "decimals": {
+    "message": "Decimals",
+    "description": "Increase/decrease decimals header."
+  },
+
+  "disclaimer": {
+    "message": "Unit Converter is provided \"as is\", without warranty of any kind, either express or implied.",
+    "description": "Disclaimer text."
+  },
+
+  "hideDisclaimer": {
+    "message": "Hide",
+    "description": "Hide disclaimer link text."
+  },
+
+  "cArea":        {"message": "Area"},
+  "cLength":      {"message": "Length"},
+  "cMass":        {"message": "Mass"},
+  "cPressure":    {"message": "Pressure"},
+  "cSpeed":       {"message": "Speed"},
+  "cTemperature": {"message": "Temperature"},
+  "cTime":        {"message": "Time"},
+  "cVolume":      {"message": "Volume"},
+
+
+  "mm2":   {"message": "Square millimetres"},
+  "cm2":   {"message": "Square centimetres"},
+  "in2":   {"message": "Square inches"},
+  "ft2":   {"message": "Square feet"},
+  "yd2":   {"message": "Square yards"},
+  "m2":    {"message": "Square metres"},
+  "ac":    {"message": "Acres"},
+  "ha":    {"message": "Hectares"},
+  "km2":   {"message": "Square kilometres"},
+  "mi2":   {"message": "Square miles"},
+
+  "mm":    {"message": "Millimetres"},
+  "cm":    {"message": "Centimetres"},
+  "in":    {"message": "Inches"},
+  "dm":    {"message": "Decimetres"},
+  "ft":    {"message": "Feet"},
+  "yd":    {"message": "Yards"},
+  "m":     {"message": "Metres"},
+  "km":    {"message": "Kilometres"},
+  "mi":    {"message": "Miles"},
+  "nmi":   {"message": "Nautical miles"},
+
+  "hg":    {"message": "Hectograms"},
+  "g":     {"message": "Grams"},
+  "oz":    {"message": "Ounces"},
+  "lb":    {"message": "Pounds"},
+  "kg":    {"message": "Kilograms"},
+  "st":    {"message": "Stone"},
+  "tonUS": {"message": "US tonnes"},
+  "t":     {"message": "Metric tonnes"},
+  "tonUK": {"message": "Imperial tonnes"},
+
+  "Pa":    {"message": "Pascals"},
+  "cmH2O": {"message": "Centimetres of water"},
+  "torr":  {"message": "Torr"},
+  "mmHg":  {"message": "Millimetres of mercury"},
+  "inH2O": {"message": "Inches of water"},
+  "kPa":   {"message": "Kilopascals"},
+  "inHg":  {"message": "Inches of mercury"},
+  "psi":   {"message": "Pounds per square inch"},
+  "bar":   {"message": "Bars"},
+  "atm":   {"message": "Atmosphere"},
+
+  "kmph":  {"message": "Kilometres per hour"},
+  "fps":   {"message": "Feet per second"},
+  "mph":   {"message": "Miles per hour"},
+  "knot":  {"message": "Knots"},
+  "mps":   {"message": "metres per second"},
+
+  "C":     {"message": "Celcius"},
+  "K":     {"message": "Kelvin"},
+  "F":     {"message": "Fahrenheit"},
+
+  "ms":    {"message": "Milliseconds"},
+  "sec":   {"message": "Seconds"},
+  "min":   {"message": "Minutes"},
+  "hour":  {"message": "Hours"},
+  "day":   {"message": "Days"},
+  "week":  {"message": "Weeks"},
+  "month": {"message": "Months"},
+  "year":  {"message": "Years"},
+
+  "ml":    {"message": "Millilitres"},
+  "cl":    {"message": "Centilitres"},
+  "in3":   {"message": "Cubic inches"},
+  "fOzUK": {"message": "Imperial fluid ounces"},
+  "fOzUS": {"message": "US fluid ounces"},
+  "cupUS": {"message": "US cups"},
+  "ptUS":  {"message": "US pints"},
+  "ptUK":  {"message": "Imperial pints"},
+  "l":     {"message": "Litres"},
+  "galUS": {"message": "US gallons"},
+  "galUK": {"message": "Imperial gallons"},
+  "ft3":   {"message": "Cubic feet"},
+  "m3":    {"message": "Cubic metres"}
+
+}

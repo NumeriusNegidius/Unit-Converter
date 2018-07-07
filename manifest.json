@@ -11,9 +11,14 @@
 
   "browser_action": {
     "browser_style": true,
-    "default_icon": "icons/icon.svg",
+    "default_icon": "icons/icon-dark.svg",
     "default_title": "Unit Converter",
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "theme_icons": [{
+      "light": "icons/icon-light.svg",
+      "dark": "icons/icon-dark.svg",
+      "size": 16
+    }]
   },
 
   "applications": {

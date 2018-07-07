@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+  "name": "Unit Converter",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "en_US",
+  "version": "0.9",
+
+  "permissions": [
+    "storage"
+  ],
+
+  "browser_action": {
+    "browser_style": true,
+    "default_icon": "icons/icon.svg",
+    "default_title": "Unit Converter",
+    "default_popup": "popup.html"
+  }
+}

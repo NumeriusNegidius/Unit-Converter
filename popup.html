@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="popup.css">
+  </head>
+
+<body>
+  <form>
+    <button id="showDisclaimer" class="iconic">?</button>
+    <h1>Unit Converter</h1>
+    <select id="category"></select><select id="unit"></select>
+    <input id="value" type="text" maxlength="24" autocomplete="off">
+    <button id="reset" class="iconic">&times;</button>
+  </form>
+
+  <div id="tools">
+    <span id="labelDec"></span>
+    <button id="addDec" class="iconic">+</button><button id="subDec" class="iconic">-</button>
+  </div>
+
+  <div id="output"></div>
+
+  <div id="disclaimer">
+    <span id="disclaimerText"></span>
+    <button id="dismiss" class="link"></button>
+  </div>
+
+
+ <script src="popup.js"></script>
+</body>
+
+</html>

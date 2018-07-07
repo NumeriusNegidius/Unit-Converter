@@ -14,5 +14,11 @@
     "default_icon": "icons/icon.svg",
     "default_title": "Unit Converter",
     "default_popup": "popup.html"
+  },
+
+  "applications": {
+    "gecko": {
+      "id": "unit-converter@NumeriusNegidius"
+    }
   }
 }

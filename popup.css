@@ -75,9 +75,6 @@ select:hover, button:hover {background-color: #ebebeb;}
   font-size: var(--font-small);
 }
 
-ul {margin: 0; padding: 0;}
-
-
 .iconic {
   height: 26px;
   width: 26px;
@@ -100,6 +97,7 @@ ul {margin: 0; padding: 0;}
   background: transparent;
   color: #0a84ff;
   padding: 0;
+  font-size: inherit;
 }
 
 .link:hover {
@@ -116,13 +114,14 @@ ul {margin: 0; padding: 0;}
   float: right;
   opacity: 0.3;
 }
+
 #reset {
   background-image: url("icons/reset.svg");
   position: absolute;
   height: 19px;
   width: 19px;
   right: 20px;
-  top: 82px;
+  bottom: 15px;
   background-size: auto 16px;
 }
 

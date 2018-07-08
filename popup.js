@@ -152,11 +152,21 @@ function round(val, decimals) {
 }
 
 function executeCalc() {
-  let inValue = elValue.value;
   let inUnit = elUnit.value;
+  let inValue = elValue.value;
 
-  // Only execute if input value is a number
-  if (!isNaN(parseFloat(inValue)) && Number.isSafeInteger(parseInt(inValue))) {
+  if (inValue.indexOf("/") > 0) {
+    let numerator = inValue.split("/")[0];
+    let denominator = inValue.split("/")[1];
+    inValue = numerator / denominator;
+  }
+
+  // Only execute if input value is a number, is safe and is finite
+  if (isNaN(parseFloat(inValue)) || !Number.isSafeInteger(parseInt(inValue)) || !Number.isFinite(parseFloat(inValue))) {
+    emptyEl(elOutput);
+  }
+  else {
+    console.log(inValue);
     emptyEl(elOutput);
     showEl(elOutput);
     showEl(elTools);
@@ -167,6 +177,7 @@ function executeCalc() {
     });
 
     let category = conversions[inUnitIndex].category;
+
     if (conversions[inUnitIndex].addToSIbase) {
       inValue = parseFloat(inValue) + parseFloat(conversions[inUnitIndex].addToSIbase);
     }
@@ -282,7 +293,7 @@ function changeDec(step) {
 
 function onInput() {
   // Remove all non-digits except deimal separator
-  elValue.value = elValue.value.replace(/[^\d.-]/g, '');
+  elValue.value = elValue.value.replace(/[^\d.-/]/g, '');
 
   if (elValue.value.length > 0) {
     showEl(elReset);
@@ -344,6 +355,7 @@ function initialize() {
     }
     if (response.value) {
       elValue.value = response.value;
+      showEl(elReset);
       executeCalc();
     }
   });

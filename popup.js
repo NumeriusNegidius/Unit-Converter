@@ -369,7 +369,7 @@ function initialize() {
   getStorage.then((response) => {
     populateInputCategory(response.category);
     populateInputUnit(response.unit);
-    if (response.decimals) {
+    if (response.decimals > -1) {
       decimals = response.decimals;
     }
     if (response.hideDisclaimer) {

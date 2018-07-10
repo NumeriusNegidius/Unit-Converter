@@ -200,13 +200,11 @@ function executeCalc() {
         product = round(product, decimals);
 
         if (product != 0 && elUnit.value != outUnit) {
-          let productLength, decimalStart, decimalEnd, integerEnd, exponentStart;
           let outExponent, outInteger, outDecimals;
           let spanIntClass, spanDecClass;
 
-          productLength = product.length;
-          decimalStart = product.indexOf(".");
-          exponentStart = product.indexOf("e");
+          let decimalStart = product.indexOf(".");
+          let exponentStart = product.indexOf("e");
 
           let productArray = product.split(/[.e]+/);
 
@@ -229,7 +227,7 @@ function executeCalc() {
 
           if (outExponent) {
             let spanExp = createEl("SPAN", elProductContainer, "", "exponent");
-            let spanExpSup = createEl("SUP", spanExp, outExponent);
+            let spanExpSup = createEl("SUP", spanExp, outExponent.replace("+", ""));
           }
 
           if (outInteger == 0) {
@@ -319,7 +317,7 @@ function changeDec(step) {
 
 function onInput() {
   // Remove all non-digits except deimal separator
-  elValue.value = elValue.value.replace(/[^\d.-/]/g, "");
+  elValue.value = elValue.value.replace(/[^\-\d./]/g, "");
 
   if (elValue.value.length > 0) {
     showEl(elReset);

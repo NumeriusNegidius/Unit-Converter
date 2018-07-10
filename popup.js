@@ -139,8 +139,8 @@ var elAddDec = getEl("addDec");
 var elSubtractDec = getEl("subDec");
 var elReset = getEl("reset");
 var elDismiss = getEl("dismiss");
-var elShowDisclaimer = getEl("showDisclaimer");
 var elDisclaimerText = getEl("disclaimerText");
+
 
 function round(val, decimals) {
   if (parseInt(val).toString().length <= MAX_INTEGER) {
@@ -166,7 +166,6 @@ function executeCalc() {
     emptyEl(elOutput);
   }
   else {
-    console.log(inValue);
     emptyEl(elOutput);
     showEl(elOutput);
     showEl(elTools);
@@ -184,12 +183,11 @@ function executeCalc() {
     let inValueInSIbase = inValue * conversions[inUnitIndex].toSIbase;
 
     // Create result table
-    let elTable = createEl("table", elOutput);
+    let elTable = createEl("TABLE", elOutput);
 
     for (let i = 0; i < conversions.length; i++) {
       if (conversions[i].category.includes(category)) {
-        let outUnit, outTitle, product, productArr, productInt, productDec, expArr, productExp, addFromSIbase;
-        let spanIntClass, spanDecClass;
+        let outUnit, outTitle, product, addFromSIbase;
 
         outUnit = conversions[i].unit;
         outTitle = l10n(conversions[i].unit);
@@ -201,43 +199,71 @@ function executeCalc() {
         }
         product = round(product, decimals);
 
-        productArr = product.split(".");
-        productInt = parseInt(productArr[0]).toLocaleString("en-US");
-        productDec = productArr[1];
-
-        if (productDec) {
-          expArr = productDec.split("e");
-          if (expArr[1]) {
-            productExp = expArr[1].replace("+", "");
-          }
-          productDec = expArr[0];
-        }
-
         if (product != 0 && elUnit.value != outUnit) {
-          let elRow = createEl("tr", elTable);
-          let elCellTitle = createEl("td", elRow, outTitle);
-          let elCellProduct = createEl("td", elRow);
+          let productLength, decimalStart, decimalEnd, integerEnd, exponentStart;
+          let outExponent, outInteger, outDecimals;
+          let spanIntClass, spanDecClass;
 
-          if (productExp) {
-            let spanExp = createEl("span", elCellProduct, "", "exponent");
-            let spanExpSup = createEl("sup", spanExp, productExp);
+          productLength = product.length;
+          decimalStart = product.indexOf(".");
+          exponentStart = product.indexOf("e");
+
+          let productArray = product.split(/[.e]+/);
+
+          outInteger = parseInt(productArray[0]).toLocaleString("en-US");
+
+          if (decimalStart > 0) {
+            outDecimals = productArray[1];
+            outExponent = productArray[2];
+          }
+          else if (exponentStart) {
+            outExponent = productArray[1];
           }
 
-          if (productInt == 0) {
+          let elRow = createEl("TR", elTable);
+          let elCellTitle = createEl("TD", elRow, outTitle);
+          let elCellProduct = createEl("TD", elRow);
+
+          let elProductContainer = createEl("SPAN", elCellProduct, "", "copy");
+          elProductContainer.dataset.raw = round(product, decimals);
+
+          if (outExponent) {
+            let spanExp = createEl("SPAN", elProductContainer, "", "exponent");
+            let spanExpSup = createEl("SUP", spanExp, outExponent);
+          }
+
+          if (outInteger == 0) {
             spanIntClass = "deemphasize";
           }
-          let spanInt = createEl("span", elCellProduct, productInt, spanIntClass);
+
+          let spanInt = createEl("SPAN", elProductContainer, outInteger, spanIntClass);
 
           if (decimals > 0) {
-            if (productDec == 0) {
+            if (outDecimals == 0) {
               spanDecClass = "deemphasize";
             }
-            let spanDec = createEl("span", elCellProduct, "." + productDec, spanDecClass);
+            let spanDec = createEl("SPAN", elProductContainer, "." + outDecimals, spanDecClass);
           }
 
         }
       }
     }
+    handleCopyButtons();
+  }
+}
+
+function handleCopyButtons() {
+  var elCopySpans = document.getElementsByTagName("SPAN");
+
+  for (var i = 0; i < elCopySpans.length; i++) {
+    elCopySpans[i].addEventListener("click", function() {
+      if (this.dataset.raw) {
+        let copyBuffer = createEl("TEXTAREA", elOutput, this.dataset.raw, "copyBuffer");
+        copyBuffer.select();
+        document.execCommand("copy");
+        output.removeChild(copyBuffer);
+      }
+    });
   }
 }
 
@@ -247,7 +273,7 @@ function populateInputUnit(select) {
   let selectedCategory = elCategory.options[elCategory.selectedIndex].value;
   for (let i = 0; i < conversions.length; i++) {
     if (selectedCategory == conversions[i].category) {
-      let elOption = createEl("option", elUnit, l10n(conversions[i].unit));
+      let elOption = createEl("OPTION", elUnit, l10n(conversions[i].unit));
       elOption.value = conversions[i].unit;
 
       if (select == conversions[i].unit) {
@@ -261,7 +287,7 @@ function populateInputCategory(select) {
   let previousCategory = "";
   for (let i = 0; i < conversions.length; i++) {
     if (previousCategory != conversions[i].category) {
-      let elOption = createEl("option", elCategory, conversions[i].category);
+      let elOption = createEl("OPTION", elCategory, conversions[i].category);
       if (select == conversions[i].category) {
         elOption.selected = "true";
       }
@@ -293,7 +319,7 @@ function changeDec(step) {
 
 function onInput() {
   // Remove all non-digits except deimal separator
-  elValue.value = elValue.value.replace(/[^\d.-/]/g, '');
+  elValue.value = elValue.value.replace(/[^\d.-/]/g, "");
 
   if (elValue.value.length > 0) {
     showEl(elReset);
@@ -348,10 +374,6 @@ function initialize() {
     }
     if (response.hideDisclaimer) {
       hideEl(disclaimer);
-      showEl(elShowDisclaimer);
-    }
-    else {
-      hideEl(elShowDisclaimer);
     }
     if (response.value) {
       elValue.value = response.value;
@@ -398,14 +420,8 @@ elReset.addEventListener("click", function() {
 
 elDismiss.addEventListener("click", function() {
   hideEl(disclaimer);
-  showEl(elShowDisclaimer);
 
-  browser.storage.local.set({hideDisclaimer: true});
-});
-
-elShowDisclaimer.addEventListener("click", function() {
-  showEl(disclaimer);
-  hideEl(elShowDisclaimer);
-
-  browser.storage.local.set({hideDisclaimer: false});
+  browser.storage.local.set({
+    hideDisclaimer: true
+  });
 });

@@ -85,15 +85,12 @@ select:active, button:active {background-color: var(--color-active);}
 
 .message {
   position: absolute;
-  margin-top: 70px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 70px auto 0 auto;
   height: 100px;
   width: 100px;
   left: 0;
   right: 0;
-  text-align: center;
-  animation: fadeout 1s cubic-bezier(1, 0, 1, 1);
+  animation: fadeout 1s cubic-bezier(0.680, -0.550, 0.265, 1.550);
   background-color: var(--color-active);
   background-image: url("icons/copy.svg");
   background-position: center;

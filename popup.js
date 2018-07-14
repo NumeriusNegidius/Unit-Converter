@@ -155,12 +155,13 @@ function round(val, decimals) {
 function executeCalc() {
   let inUnit = elUnit.value;
   let inValue = elValue.value;
-
+  // Calculate inValue if entered as a fraction
   if (inValue.indexOf("/") > 0) {
     let numerator = inValue.split("/")[0];
     let denominator = inValue.split("/")[1];
-    inValue = numerator / denominator;
+    inValue = parseFloat(numerator) / parseFloat(denominator);
   }
+  inValue = parseFloat(inValue).toString();
 
   // Only execute if input value is a number, is safe and is finite
   if (isNaN(parseFloat(inValue)) || !Number.isSafeInteger(parseInt(inValue)) || !Number.isFinite(parseFloat(inValue))) {
@@ -322,24 +323,20 @@ function changeDec(step) {
 }
 
 function onInput() {
-  // Allowed characters "0-9", ".", "/", "-"
+  // Allowed characters in input value: "0-9", ".", "/", "-"
+
   let caret = elValue.selectionStart;
   let refVal = elValue.value;
   let returnVal = elValue.value.replace(/[^\-\d./]/g, "");
 
+  // If entered or pasted input contains non-allowed characters, position the
+  // caret to right after allowed input
   if (refVal.length > returnVal.length) {
-    console.log(refVal.length, returnVal.length);
     caret = caret - (refVal.length - returnVal.length);
   }
-//  console.log("caret", caret, "strlength", refVal.length);
 
-
-//  if (posFirstPoint == 0) {
-//    // DOES NOT ACCOUNT FOR NEGATIVE NUMBERS
-//    returnVal = "0." + returnVal.replace(/\./g, "");
-//    caret = caret + 2;
-//  }
-
+  // If entered or pasted input contains more than 1 ".", remove all but the
+  // first and position the caret to right after allowed input
   let posFirstPoint = returnVal.indexOf(".");
   if (returnVal.split(".").length > 2) {
     returnVal = returnVal.substr(0, posFirstPoint + 1)
@@ -347,6 +344,9 @@ function onInput() {
     caret--;
   }
 
+  // If entered or pasted input contains "/", don't allow it to be the first
+  // character. Then remove all but one of them (the first), and position the
+  // caret to where it were
   let posFirstDivider = returnVal.indexOf("/");
   if (posFirstDivider == 0) {
     returnVal = returnVal.substr(1);
@@ -358,17 +358,21 @@ function onInput() {
     caret--;
   }
 
+  // If entered or pasted input contains "-", only allow it to be the first
+  // character. Then remove all but the first, and position the caret to where
+  // it were
   let posFirstMinus = returnVal.indexOf("-");
   if (posFirstMinus > 0) {
     returnVal = returnVal.replace(/-/g, "");
     caret--;
   }
   else if (returnVal.split("-").length > 2) {
-    returnVal = returnVal.substr(0, 1);
+    returnVal = returnVal.substr(0, 1)
               + returnVal.substr(1).replace(/-/g, "");
     caret--;
   }
 
+  // Update the input value field and position the caret
   elValue.value = returnVal;
   elValue.setSelectionRange(caret, caret);
 

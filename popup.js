@@ -140,6 +140,7 @@ var elSubtractDec = getEl("subDec");
 var elReset = getEl("reset");
 var elDismiss = getEl("dismiss");
 var elDisclaimerText = getEl("disclaimerText");
+var elMessage = getEl("message");
 
 
 function round(val, decimals) {
@@ -219,8 +220,9 @@ function executeCalc() {
           }
 
           let elRow = createEl("TR", elTable);
-          let elCellTitle = createEl("TD", elRow, outTitle);
-          let elCellProduct = createEl("TD", elRow);
+          let elCell = createEl("TD", elRow);
+          let elCellTitle = createEl("DIV", elCell, outTitle);
+          let elCellProduct = createEl("DIV", elCell);
 
           let elProductContainer = createEl("SPAN", elCellProduct, "", "copy");
           elProductContainer.dataset.raw = round(product, decimals);
@@ -257,6 +259,10 @@ function handleCopyButtons() {
     elCopySpans[i].addEventListener("click", function() {
       if (this.dataset.raw) {
         let copyBuffer = createEl("TEXTAREA", elOutput, this.dataset.raw, "copyBuffer");
+        elMessage.className = "message"
+        setTimeout(function(){
+          elMessage.classList.remove("message");
+        }, 2000);
         copyBuffer.select();
         document.execCommand("copy");
         output.removeChild(copyBuffer);
@@ -316,8 +322,55 @@ function changeDec(step) {
 }
 
 function onInput() {
-  // Remove all non-digits except deimal separator
-  elValue.value = elValue.value.replace(/[^\-\d./]/g, "");
+  // Allowed characters "0-9", ".", "/", "-"
+  let caret = elValue.selectionStart;
+  let refVal = elValue.value;
+  let returnVal = elValue.value.replace(/[^\-\d./]/g, "");
+
+  if (refVal.length > returnVal.length) {
+    console.log(refVal.length, returnVal.length);
+    caret = caret - (refVal.length - returnVal.length);
+  }
+//  console.log("caret", caret, "strlength", refVal.length);
+
+
+//  if (posFirstPoint == 0) {
+//    // DOES NOT ACCOUNT FOR NEGATIVE NUMBERS
+//    returnVal = "0." + returnVal.replace(/\./g, "");
+//    caret = caret + 2;
+//  }
+
+  let posFirstPoint = returnVal.indexOf(".");
+  if (returnVal.split(".").length > 2) {
+    returnVal = returnVal.substr(0, posFirstPoint + 1)
+              + returnVal.substr(posFirstPoint + 1).replace(/\./g, "");
+    caret--;
+  }
+
+  let posFirstDivider = returnVal.indexOf("/");
+  if (posFirstDivider == 0) {
+    returnVal = returnVal.substr(1);
+    caret--;
+  }
+  if (returnVal.split("/").length > 2) {
+    returnVal = returnVal.substr(0, posFirstDivider + 1)
+              + returnVal.substr(posFirstDivider + 1).replace(/\//g, "");
+    caret--;
+  }
+
+  let posFirstMinus = returnVal.indexOf("-");
+  if (posFirstMinus > 0) {
+    returnVal = returnVal.replace(/-/g, "");
+    caret--;
+  }
+  else if (returnVal.split("-").length > 2) {
+    returnVal = returnVal.substr(0, 1);
+              + returnVal.substr(1).replace(/-/g, "");
+    caret--;
+  }
+
+  elValue.value = returnVal;
+  elValue.setSelectionRange(caret, caret);
 
   if (elValue.value.length > 0) {
     showEl(elReset);

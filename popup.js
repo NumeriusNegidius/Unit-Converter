@@ -205,12 +205,13 @@ function executeCalc() {
           let outExponent, outInteger, outDecimals;
           let spanIntClass, spanDecClass;
 
+          let productSign = Math.sign(product);
           let decimalStart = product.indexOf(".");
           let exponentStart = product.indexOf("e");
 
           let productArray = product.split(/[.e]+/);
 
-          outInteger = parseInt(productArray[0]).toLocaleString("en-US");
+          outInteger = parseInt(productArray[0]).toLocaleString("eo").replace(/-/g, "");
 
           if (decimalStart > 0) {
             outDecimals = productArray[1];
@@ -231,6 +232,10 @@ function executeCalc() {
           if (outExponent) {
             let spanExp = createEl("SPAN", elProductContainer, "", "exponent");
             let spanExpSup = createEl("SUP", spanExp, outExponent.replace("+", ""));
+          }
+
+          if (productSign == -1) {
+            let spanneg = createEl("SPAN", elProductContainer, "−", "negative");
           }
 
           if (outInteger == 0) {

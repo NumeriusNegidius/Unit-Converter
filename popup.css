@@ -177,6 +177,9 @@ td div:nth-child(2) {
 }
 
 .deemphasize {color: #b1b1b3 !important;}
+.negative {
+  color: #d70022 !important;
+}
 .exponent {
   color: #008ea4;
   white-space: nowrap;

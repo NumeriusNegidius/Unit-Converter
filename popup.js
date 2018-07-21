@@ -1,89 +1,89 @@
- "use strict";
+"use strict";
 
 var conversions = [
-  // AREA, SIbase = m2.
-  {"unit" : "mm2",   "toSIbase" : 0.000001,       "fromSIbase" : 1000000,        "category" : l10n("cArea")},
-  {"unit" : "cm2",   "toSIbase" : 0.0001,         "fromSIbase" : 10000,          "category" : l10n("cArea")},
-  {"unit" : "in2",   "toSIbase" : 0.00064516,     "fromSIbase" : 1550.0031,      "category" : l10n("cArea")},
-  {"unit" : "ft2",   "toSIbase" : 0.092903,       "fromSIbase" : 10.763910417,   "category" : l10n("cArea")},
-  {"unit" : "yd2",   "toSIbase" : 0.836127,       "fromSIbase" : 1.1959900463,   "category" : l10n("cArea")},
-  {"unit" : "m2",    "toSIbase" : 1,              "fromSIbase" : 1,              "category" : l10n("cArea")},
-  {"unit" : "ac",    "toSIbase" : 4046.8564224,   "fromSIbase" : 0.0002471054,   "category" : l10n("cArea")},
-  {"unit" : "ha",    "toSIbase" : 10000,          "fromSIbase" : 0.0001,         "category" : l10n("cArea")},
-  {"unit" : "km2",   "toSIbase" : 1000000,        "fromSIbase" : 0.000001,       "category" : l10n("cArea")},
-  {"unit" : "mi2",   "toSIbase" : 2589988.110336, "fromSIbase" : 3.861018768e-7, "category" : l10n("cArea")},
+ // AREA, SIbase = m2.
+ {"unit" : "mm2",   "toSIbase" : 0.000001,       "fromSIbase" : 1000000,        "sys": "m", "category" : l10n("cArea")},
+ {"unit" : "cm2",   "toSIbase" : 0.0001,         "fromSIbase" : 10000,          "sys": "m", "category" : l10n("cArea")},
+ {"unit" : "m2",    "toSIbase" : 1,              "fromSIbase" : 1,              "sys": "m", "category" : l10n("cArea")},
+ {"unit" : "ha",    "toSIbase" : 10000,          "fromSIbase" : 0.0001,         "sys": "m", "category" : l10n("cArea")},
+ {"unit" : "km2",   "toSIbase" : 1000000,        "fromSIbase" : 0.000001,       "sys": "m", "category" : l10n("cArea")},
+ {"unit" : "in2",   "toSIbase" : 0.00064516,     "fromSIbase" : 1550.0031,      "sys": "i", "category" : l10n("cArea")},
+ {"unit" : "ft2",   "toSIbase" : 0.092903,       "fromSIbase" : 10.763910417,   "sys": "i", "category" : l10n("cArea")},
+ {"unit" : "yd2",   "toSIbase" : 0.836127,       "fromSIbase" : 1.1959900463,   "sys": "i", "category" : l10n("cArea")},
+ {"unit" : "ac",    "toSIbase" : 4046.8564224,   "fromSIbase" : 0.0002471054,   "sys": "i", "category" : l10n("cArea")},
+ {"unit" : "mi2",   "toSIbase" : 2589988.110336, "fromSIbase" : 3.861018768e-7, "sys": "i", "category" : l10n("cArea")},
 
-  // LENGTH, SIbase = m.
-  {"unit" : "mm",    "toSIbase" : 0.001,          "fromSIbase" : 1000,           "category" : l10n("cLength")},
-  {"unit" : "cm",    "toSIbase" : 0.01,           "fromSIbase" : 100,            "category" : l10n("cLength")},
-  {"unit" : "in",    "toSIbase" : 0.0254,         "fromSIbase" : 39.3701,        "category" : l10n("cLength")},
-  {"unit" : "dm",    "toSIbase" : 0.1,            "fromSIbase" : 10,             "category" : l10n("cLength")},
-  {"unit" : "ft",    "toSIbase" : 0.3048,         "fromSIbase" : 3.28084,        "category" : l10n("cLength")},
-  {"unit" : "yd",    "toSIbase" : 0.9144,         "fromSIbase" : 1.09361,        "category" : l10n("cLength")},
-  {"unit" : "m",     "toSIbase" : 1,              "fromSIbase" : 1,              "category" : l10n("cLength")},
-  {"unit" : "km",    "toSIbase" : 1000,           "fromSIbase" : 0.001,          "category" : l10n("cLength")},
-  {"unit" : "mi",    "toSIbase" : 1609.34,        "fromSIbase" : 0.000621371,    "category" : l10n("cLength")},
-  {"unit" : "nmi",   "toSIbase" : 1852,           "fromSIbase" : 0.000539957,    "category" : l10n("cLength")},
+ // LENGTH, SIbase = m.
+ {"unit" : "mm",    "toSIbase" : 0.001,          "fromSIbase" : 1000,           "sys" : "m", "category" : l10n("cLength")},
+ {"unit" : "cm",    "toSIbase" : 0.01,           "fromSIbase" : 100,            "sys" : "m", "category" : l10n("cLength")},
+ {"unit" : "dm",    "toSIbase" : 0.1,            "fromSIbase" : 10,             "sys" : "m", "category" : l10n("cLength")},
+ {"unit" : "m",     "toSIbase" : 1,              "fromSIbase" : 1,              "sys" : "m", "category" : l10n("cLength")},
+ {"unit" : "km",    "toSIbase" : 1000,           "fromSIbase" : 0.001,          "sys" : "m", "category" : l10n("cLength")},
+ {"unit" : "in",    "toSIbase" : 0.0254,         "fromSIbase" : 39.3701,        "sys" : "i", "category" : l10n("cLength")},
+ {"unit" : "ft",    "toSIbase" : 0.3048,         "fromSIbase" : 3.28084,        "sys" : "i", "category" : l10n("cLength")},
+ {"unit" : "yd",    "toSIbase" : 0.9144,         "fromSIbase" : 1.09361,        "sys" : "i", "category" : l10n("cLength")},
+ {"unit" : "mi",    "toSIbase" : 1609.34,        "fromSIbase" : 0.000621371,    "sys" : "i", "category" : l10n("cLength")},
+ {"unit" : "nmi",   "toSIbase" : 1852,           "fromSIbase" : 0.000539957,    "sys" : "o", "category" : l10n("cLength")},
 
-  // MASS, SIbase = kg.
-  {"unit" : "hg",    "toSIbase" : 0.01,           "fromSIbase" : 100,            "category" : l10n("cMass")},
-  {"unit" : "g",     "toSIbase" : 0.001,          "fromSIbase" : 1000,           "category" : l10n("cMass")},
-  {"unit" : "oz",    "toSIbase" : 0.0283495,      "fromSIbase" : 35.273990723,   "category" : l10n("cMass")},
-  {"unit" : "lb",    "toSIbase" : 0.453592,       "fromSIbase" : 2.2046244202,   "category" : l10n("cMass")},
-  {"unit" : "kg",    "toSIbase" : 1,              "fromSIbase" : 1,              "category" : l10n("cMass")},
-  {"unit" : "st",    "toSIbase" : 6.35029,        "fromSIbase" : 0.157473,       "category" : l10n("cMass")},
-  {"unit" : "tonUS", "toSIbase" : 907.1847,       "fromSIbase" : 0.0011023122,   "category" : l10n("cMass")},
-  {"unit" : "t",     "toSIbase" : 1000,           "fromSIbase" : 0.001,          "category" : l10n("cMass")},
-  {"unit" : "tonUK", "toSIbase" : 1016.047,       "fromSIbase" : 0.0009842073,   "category" : l10n("cMass")},
+ // MASS, SIbase = kg.
+ {"unit" : "g",     "toSIbase" : 0.001,          "fromSIbase" : 1000,           "sys" : "m", "category" : l10n("cMass")},
+ {"unit" : "hg",    "toSIbase" : 0.01,           "fromSIbase" : 100,            "sys" : "m", "category" : l10n("cMass")},
+ {"unit" : "kg",    "toSIbase" : 1,              "fromSIbase" : 1,              "sys" : "m", "category" : l10n("cMass")},
+ {"unit" : "t",     "toSIbase" : 1000,           "fromSIbase" : 0.001,          "sys" : "m", "category" : l10n("cMass")},
+ {"unit" : "oz",    "toSIbase" : 0.0283495,      "fromSIbase" : 35.273990723,   "sys" : "i", "category" : l10n("cMass")},
+ {"unit" : "lb",    "toSIbase" : 0.453592,       "fromSIbase" : 2.2046244202,   "sys" : "i", "category" : l10n("cMass")},
+ {"unit" : "st",    "toSIbase" : 6.35029,        "fromSIbase" : 0.157473,       "sys" : "i", "category" : l10n("cMass")},
+ {"unit" : "tonUS", "toSIbase" : 907.1847,       "fromSIbase" : 0.0011023122,   "sys" : "i", "category" : l10n("cMass")},
+ {"unit" : "tonUK", "toSIbase" : 1016.047,       "fromSIbase" : 0.0009842073,   "sys" : "i", "category" : l10n("cMass")},
 
-  // PRESSURE, SIbase = Pa.
-  {"unit" : "Pa",    "toSIbase" : 1,              "fromSIbase" : 1,              "category" : l10n("cPressure")},
-  {"unit" : "cmH2O", "toSIbase" : 98.0665,        "fromSIbase" : 0.0101972,      "category" : l10n("cPressure")},
-  {"unit" : "torr",  "toSIbase" : 133.32236842,   "fromSIbase" : 0.0075006168,   "category" : l10n("cPressure")},
-  {"unit" : "mmHg",  "toSIbase" : 133.322387415,  "fromSIbase" : 0.0075006376,   "category" : l10n("cPressure")},
-  {"unit" : "inH2O", "toSIbase" : 248.843,        "fromSIbase" : 0.0040185981,   "category" : l10n("cPressure")},
-  {"unit" : "kPa",   "toSIbase" : 1000,           "fromSIbase" : 0.001,          "category" : l10n("cPressure")},
-  {"unit" : "inHg",  "toSIbase" : 3386.389,       "fromSIbase" : 0.0002953006,   "category" : l10n("cPressure")},
-  {"unit" : "psi",   "toSIbase" : 6894.7572932,   "fromSIbase" : 0.0001450377,   "category" : l10n("cPressure")},
-  {"unit" : "bar",   "toSIbase" : 100000,         "fromSIbase" : 0.00001,        "category" : l10n("cPressure")},
-  {"unit" : "atm",   "toSIbase" : 101325,         "fromSIbase" : 0.0000098692,   "category" : l10n("cPressure")},
+ // PRESSURE, SIbase = Pa.
+ {"unit" : "Pa",    "toSIbase" : 1,              "fromSIbase" : 1,              "sys" : "m", "category" : l10n("cPressure")},
+ {"unit" : "kPa",   "toSIbase" : 1000,           "fromSIbase" : 0.001,          "sys" : "m", "category" : l10n("cPressure")},
+ {"unit" : "bar",   "toSIbase" : 100000,         "fromSIbase" : 0.00001,        "sys" : "m", "category" : l10n("cPressure")},
+ {"unit" : "psi",   "toSIbase" : 6894.7572932,   "fromSIbase" : 0.0001450377,   "sys" : "i", "category" : l10n("cPressure")},
+ {"unit" : "cmH2O", "toSIbase" : 98.0665,        "fromSIbase" : 0.0101972,      "sys" : "o", "category" : l10n("cPressure")},
+ {"unit" : "torr",  "toSIbase" : 133.32236842,   "fromSIbase" : 0.0075006168,   "sys" : "o", "category" : l10n("cPressure")},
+ {"unit" : "mmHg",  "toSIbase" : 133.322387415,  "fromSIbase" : 0.0075006376,   "sys" : "o", "category" : l10n("cPressure")},
+ {"unit" : "inH2O", "toSIbase" : 248.843,        "fromSIbase" : 0.0040185981,   "sys" : "o", "category" : l10n("cPressure")},
+ {"unit" : "inHg",  "toSIbase" : 3386.389,       "fromSIbase" : 0.0002953006,   "sys" : "o", "category" : l10n("cPressure")},
+ {"unit" : "atm",   "toSIbase" : 101325,         "fromSIbase" : 0.0000098692,   "sys" : "o", "category" : l10n("cPressure")},
 
-  // SPEED, SIbase = km/h.
-  {"unit" : "kmph",  "toSIbase" : 1,              "fromSIbase" : 1,              "category" : l10n("cSpeed")},
-  {"unit" : "fps",   "toSIbase" : 1.09728,        "fromSIbase" : 0.911344,       "category" : l10n("cSpeed")},
-  {"unit" : "mph",   "toSIbase" : 1.60934,        "fromSIbase" : 0.621371,       "category" : l10n("cSpeed")},
-  {"unit" : "knot",  "toSIbase" : 1.852,          "fromSIbase" : 0.539957,       "category" : l10n("cSpeed")},
-  {"unit" : "mps",   "toSIbase" : 3.6,            "fromSIbase" : 0.277778,       "category" : l10n("cSpeed")},
+ // SPEED, SIbase = km/h.
+ {"unit" : "kmph",  "toSIbase" : 1,              "fromSIbase" : 1,              "sys" : "m", "category" : l10n("cSpeed")},
+ {"unit" : "mps",   "toSIbase" : 3.6,            "fromSIbase" : 0.277778,       "sys" : "m", "category" : l10n("cSpeed")},
+ {"unit" : "fps",   "toSIbase" : 1.09728,        "fromSIbase" : 0.911344,       "sys" : "i", "category" : l10n("cSpeed")},
+ {"unit" : "mph",   "toSIbase" : 1.60934,        "fromSIbase" : 0.621371,       "sys" : "i", "category" : l10n("cSpeed")},
+ {"unit" : "knot",  "toSIbase" : 1.852,          "fromSIbase" : 0.539957,       "sys" : "o", "category" : l10n("cSpeed")},
 
-  // TEMPERATURE, SIbase = C.
-  {"unit" : "C",     "toSIbase" : 1,   "addToSIbase" : 0,       "fromSIbase" : 1,   "addFromSIbase": 0,      "category" : l10n("cTemperature")},
-  {"unit" : "K",     "toSIbase" : 1,   "addToSIbase" : -273.15, "fromSIbase" : 1,   "addFromSIbase": 273.15, "category" : l10n("cTemperature")},
-  {"unit" : "F",     "toSIbase" : 5/9, "addToSIbase" : -32,     "fromSIbase" : 1.8, "addFromSIbase": 32,     "category" : l10n("cTemperature")},
+ // TEMPERATURE, SIbase = C.
+ {"unit" : "K",     "toSIbase" : 1,   "addToSIbase" : -273.15, "fromSIbase" : 1,   "addFromSIbase": 273.15, "sys": "m", "category" : l10n("cTemperature")},
+ {"unit" : "C",     "toSIbase" : 1,   "addToSIbase" : 0,       "fromSIbase" : 1,   "addFromSIbase": 0,      "sys": "m", "category" : l10n("cTemperature")},
+ {"unit" : "F",     "toSIbase" : 5/9, "addToSIbase" : -32,     "fromSIbase" : 1.8, "addFromSIbase": 32,     "sys": "i", "category" : l10n("cTemperature")},
 
-  // TIME, SIbase = day.
-  {"unit" : "ms",    "toSIbase" : 1.157407407e-8, "fromSIbase" : 86400000,       "category" : l10n("cTime")},
-  {"unit" : "sec",   "toSIbase" : 0.0000115741,   "fromSIbase" : 86400,          "category" : l10n("cTime")},
-  {"unit" : "min",   "toSIbase" : 0.0006944444,   "fromSIbase" : 1440,           "category" : l10n("cTime")},
-  {"unit" : "hour",  "toSIbase" : 0.0416666667,   "fromSIbase" : 24,             "category" : l10n("cTime")},
-  {"unit" : "day",   "toSIbase" : 1,              "fromSIbase" : 1,              "category" : l10n("cTime")},
-  {"unit" : "week",  "toSIbase" : 7,              "fromSIbase" : 0.1428571429,   "category" : l10n("cTime")},
-  {"unit" : "month", "toSIbase" : 30.4375,        "fromSIbase" : 0.0328542094,   "category" : l10n("cTime")},
-  {"unit" : "year",  "toSIbase" : 365.25,         "fromSIbase" : 0.0027378508,   "category" : l10n("cTime")},
+ // TIME, SIbase = day.
+ {"unit" : "ms",    "toSIbase" : 1.157407407e-8, "fromSIbase" : 86400000,       "sys" : "m", "category" : l10n("cTime")},
+ {"unit" : "sec",   "toSIbase" : 0.0000115741,   "fromSIbase" : 86400,          "sys" : "m", "category" : l10n("cTime")},
+ {"unit" : "min",   "toSIbase" : 0.0006944444,   "fromSIbase" : 1440,           "sys" : "m", "category" : l10n("cTime")},
+ {"unit" : "hour",  "toSIbase" : 0.0416666667,   "fromSIbase" : 24,             "sys" : "m", "category" : l10n("cTime")},
+ {"unit" : "day",   "toSIbase" : 1,              "fromSIbase" : 1,              "sys" : "m", "category" : l10n("cTime")},
+ {"unit" : "week",  "toSIbase" : 7,              "fromSIbase" : 0.1428571429,   "sys" : "m", "category" : l10n("cTime")},
+ {"unit" : "month", "toSIbase" : 30.4375,        "fromSIbase" : 0.0328542094,   "sys" : "m", "category" : l10n("cTime")},
+ {"unit" : "year",  "toSIbase" : 365.25,         "fromSIbase" : 0.0027378508,   "sys" : "m", "category" : l10n("cTime")},
 
-  // VOLUME, SIbase = l.
-  {"unit" : "ml",    "toSIbase" : 0.001,          "fromSIbase" : 1000,           "category" : l10n("cVolume")},
-  {"unit" : "cl",    "toSIbase" : 0.01,           "fromSIbase" : 100,            "category" : l10n("cVolume")},
-  {"unit" : "in3",   "toSIbase" : 0.016387064,    "fromSIbase" : 61.023744095,   "category" : l10n("cVolume")},
-  {"unit" : "fOzUK", "toSIbase" : 0.0284130625,   "fromSIbase" : 35.195079728,   "category" : l10n("cVolume")},
-  {"unit" : "fOzUS", "toSIbase" : 0.0295735156,   "fromSIbase" : 33.814038638,   "category" : l10n("cVolume")},
-  {"unit" : "cupUS", "toSIbase" : 0.236588125,    "fromSIbase" : 4.2267548297,   "category" : l10n("cVolume")},
-  {"unit" : "ptUS",  "toSIbase" : 0.473176,       "fromSIbase" : 2.1133774149,   "category" : l10n("cVolume")},
-  {"unit" : "ptUK",  "toSIbase" : 0.56826125,     "fromSIbase" : 1.7597539864,   "category" : l10n("cVolume")},
-  {"unit" : "l",     "toSIbase" : 1,              "fromSIbase" : 1,              "category" : l10n("cVolume")},
-  {"unit" : "galUS", "toSIbase" : 3.78541,        "fromSIbase" : 0.264172,       "category" : l10n("cVolume")},
-  {"unit" : "galUK", "toSIbase" : 4.54609,        "fromSIbase" : 0.2199692483,   "category" : l10n("cVolume")},
-  {"unit" : "ft3",   "toSIbase" : 28.316846592,   "fromSIbase" : 0.0353146667,   "category" : l10n("cVolume")},
-  {"unit" : "m3",    "toSIbase" : 1000,           "fromSIbase" : 0.001,          "category" : l10n("cVolume")},
+ // VOLUME, SIbase = l.
+ {"unit" : "ml",    "toSIbase" : 0.001,          "fromSIbase" : 1000,           "sys" : "m", "category" : l10n("cVolume")},
+ {"unit" : "cl",    "toSIbase" : 0.01,           "fromSIbase" : 100,            "sys" : "m", "category" : l10n("cVolume")},
+ {"unit" : "l",     "toSIbase" : 1,              "fromSIbase" : 1,              "sys" : "m", "category" : l10n("cVolume")},
+ {"unit" : "m3",    "toSIbase" : 1000,           "fromSIbase" : 0.001,          "sys" : "m", "category" : l10n("cVolume")},
+ {"unit" : "in3",   "toSIbase" : 0.016387064,    "fromSIbase" : 61.023744095,   "sys" : "i", "category" : l10n("cVolume")},
+ {"unit" : "fOzUK", "toSIbase" : 0.0284130625,   "fromSIbase" : 35.195079728,   "sys" : "i", "category" : l10n("cVolume")},
+ {"unit" : "fOzUS", "toSIbase" : 0.0295735156,   "fromSIbase" : 33.814038638,   "sys" : "i", "category" : l10n("cVolume")},
+ {"unit" : "cupUS", "toSIbase" : 0.236588125,    "fromSIbase" : 4.2267548297,   "sys" : "i", "category" : l10n("cVolume")},
+ {"unit" : "ptUS",  "toSIbase" : 0.473176,       "fromSIbase" : 2.1133774149,   "sys" : "i", "category" : l10n("cVolume")},
+ {"unit" : "ptUK",  "toSIbase" : 0.56826125,     "fromSIbase" : 1.7597539864,   "sys" : "i", "category" : l10n("cVolume")},
+ {"unit" : "galUS", "toSIbase" : 3.78541,        "fromSIbase" : 0.264172,       "sys" : "i", "category" : l10n("cVolume")},
+ {"unit" : "galUK", "toSIbase" : 4.54609,        "fromSIbase" : 0.2199692483,   "sys" : "i", "category" : l10n("cVolume")},
+ {"unit" : "ft3",   "toSIbase" : 28.316846592,   "fromSIbase" : 0.0353146667,   "sys" : "i", "category" : l10n("cVolume")},
 
 ]
 
@@ -184,14 +184,17 @@ function executeCalc() {
     }
     let inValueInSIbase = inValue * conversions[inUnitIndex].toSIbase;
 
+    let previousOutSystem;
+
     // Create result table
     let elTable = createEl("TABLE", elOutput);
 
     for (let i = 0; i < conversions.length; i++) {
       if (conversions[i].category.includes(category)) {
-        let outUnit, outTitle, product, addFromSIbase;
+        let outUnit, outSystem, outTitle, product, addFromSIbase;
 
         outUnit = conversions[i].unit;
+        outSystem = conversions[i].sys;
         outTitle = l10n(conversions[i].unit);
         addFromSIbase = conversions[i].addFromSIbase;
 
@@ -219,6 +222,11 @@ function executeCalc() {
           }
           else if (exponentStart) {
             outExponent = productArray[1];
+          }
+
+          if (outSystem != previousOutSystem) {
+            let elRowH = createEl("TR", elTable);
+            let elCellH = createEl("TD", elRowH, l10n("sys" + outSystem.toUpperCase()), "head");
           }
 
           let elRow = createEl("TR", elTable);
@@ -250,7 +258,7 @@ function executeCalc() {
             }
             let spanDec = createEl("SPAN", elProductContainer, "." + outDecimals, spanDecClass);
           }
-
+          previousOutSystem = outSystem;
         }
       }
     }

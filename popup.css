@@ -1,7 +1,7 @@
 :root {
   --font-regular: 15px;
   --font-small: 12px;
-  --color-border: 1px solid #d7d7db;
+  --border: 1px solid #d7d7db;
   --color-background: #f9f9fa;
   --color-hover: #ebebeb;
   --color-active: #dadada;
@@ -40,7 +40,7 @@ input, select {
   font-size: var(--font-regular);
   color: #0c0c0d;
   height: 30px;
-  border: var(--color-border);
+  border: var(--border);
   border-radius: 2px;
   -moz-appearance: none;
   padding: 0px 12px;
@@ -71,14 +71,14 @@ select:active, button:active {background-color: var(--color-active);}
   display: none;
 }
 #tools {
-  border-top: var(--color-border);
+  border-top: var(--border);
   display: none;
   padding: 5px 10px;
   font-size: var(--font-small);
   text-align: right;
 }
 #disclaimer {
-  border-top: var(--color-border);
+  border-top: var(--border);
   padding: 10px 15px;
   font-size: var(--font-small);
 }
@@ -156,9 +156,16 @@ table {
 }
 
 td {
-  border-top: var(--color-border);
+  border-top: var(--border);
   padding: 5px 15px;
   position: relative;
+}
+
+td.head {
+  font-size: var(--font-small);
+  font-weight: bold;
+  text-align: center;
+  background-color: var(--color-hover);
 }
 
 td div:nth-child(1) {
@@ -176,7 +183,7 @@ td div:nth-child(2) {
   padding-left: 0;
 }
 
-.deemphasize {color: #b1b1b3 !important;}
+.deemphasize {opacity: 0.4;}
 .negative {
   color: #d70022 !important;
 }

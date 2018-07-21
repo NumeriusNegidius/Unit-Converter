@@ -1,29 +1,9 @@
 {
-  "extensionDescription": {
-    "message": "Convert imperial to metric and vice versa.",
-    "description": "Description of the add-on."
-  },
-
-
-  "inputPlaceholder": {
-    "message": "Input value",
-    "description": "The <input> field in the form."
-  },
-
-  "decimals": {
-    "message": "Decimals",
-    "description": "Increase/decrease decimals header."
-  },
-
-  "disclaimer": {
-    "message": "Unit Converter is provided \"as is\", without warranty of any kind, either express or implied.",
-    "description": "Disclaimer text."
-  },
-
-  "hideDisclaimer": {
-    "message": "Hide",
-    "description": "Hide disclaimer link text."
-  },
+  "extensionDescription": { "message": "Convert imperial to metric and vice versa." },
+  "inputPlaceholder":     { "message": "Input value" },
+  "decimals":             { "message": "Decimals" },
+  "disclaimer":           { "message": "Unit Converter is provided \"as is\", without warranty of any kind, either express or implied." },
+  "hideDisclaimer":       { "message": "Hide" },
 
   "cArea":        {"message": "Area"},
   "cLength":      {"message": "Length"},

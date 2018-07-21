@@ -1,29 +1,13 @@
 {
-  "extensionDescription": {
-    "message": "Convert imperial to metric and vice versa.",
-    "description": "Description of the add-on."
-  },
+  "extensionDescription": { "message": "Convert imperial to metric and vice versa." },
+  "inputPlaceholder":     { "message": "Input value" },
+  "decimals":             { "message": "Decimals" },
+  "disclaimer":           { "message": "Unit Converter is provided \"as is\", without warranty of any kind, either express or implied." },
+  "hideDisclaimer":       { "message": "Hide" },
 
-
-  "inputPlaceholder": {
-    "message": "Input value",
-    "description": "The <input> field in the form."
-  },
-
-  "decimals": {
-    "message": "Decimals",
-    "description": "Increase/decrease decimals header."
-  },
-
-  "disclaimer": {
-    "message": "Unit Converter is provided \"as is\", without warranty of any kind, either express or implied.",
-    "description": "Disclaimer text."
-  },
-
-  "hideDisclaimer": {
-    "message": "Hide",
-    "description": "Hide disclaimer link text."
-  },
+  "sysM":        {"message": "Metric"},
+  "sysI":        {"message": "Imperial/US customary"},
+  "sysO":        {"message": "Other"},
 
   "cArea":        {"message": "Area"},
   "cLength":      {"message": "Length"},
@@ -33,7 +17,6 @@
   "cTemperature": {"message": "Temperature"},
   "cTime":        {"message": "Time"},
   "cVolume":      {"message": "Volume"},
-
 
   "mm2":   {"message": "Square millimetres"},
   "cm2":   {"message": "Square centimetres"},
@@ -82,7 +65,7 @@
   "fps":   {"message": "Feet per second"},
   "mph":   {"message": "Miles per hour"},
   "knot":  {"message": "Knots"},
-  "mps":   {"message": "metres per second"},
+  "mps":   {"message": "Metres per second"},
 
   "C":     {"message": "Celcius"},
   "K":     {"message": "Kelvin"},

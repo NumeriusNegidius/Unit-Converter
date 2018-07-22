@@ -10,6 +10,7 @@
   "sOther":       {"message": "Other"},
 
   "cArea":        {"message": "Area"},
+  "cEnergy":      {"message": "Energy"},
   "cLength":      {"message": "Length"},
   "cMass":        {"message": "Mass"},
   "cPressure":    {"message": "Pressure"},
@@ -28,6 +29,14 @@
   "m2":     {"message": "Square metres"},
   "ac":     {"message": "Acres"},
   "mi2":    {"message": "Square miles"},
+
+  "kJ":     {"message": "Kilojoule"},
+  "J":      {"message": "Joule"},
+  "ftlb":   {"message": "Foot-pounds"},
+  "kcal":   {"message": "Kilocalories"},
+  "gcal":   {"message": "Gram calories"},
+  "Wh":     {"message": "Watt hours"},
+  "kWh":    {"message": "Kilowatt hours"},
 
   "mm":     {"message": "Millimetres"},
   "cm":     {"message": "Centimetres"},

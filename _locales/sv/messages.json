@@ -10,6 +10,7 @@
   "sOther":       {"message": "Andra system"},
 
   "cArea":        {"message": "Area"},
+  "cEnergy":      {"message": "Energi"},
   "cLength":      {"message": "Längd"},
   "cMass":        {"message": "Massa"},
   "cPressure":    {"message": "Tryck"},
@@ -28,6 +29,14 @@
   "yd2":    {"message": "Kvadratyard"},
   "ac":     {"message": "Brittiska tunnland"},
   "mi2":    {"message": "Kvadratmile"},
+
+  "kJ":     {"message": "Kilojoule"},
+  "J":      {"message": "Joule"},
+  "ftlb":   {"message": "Foot-pound"},
+  "kcal":   {"message": "Kilokalori"},
+  "gcal":   {"message": "Gramkalori"},
+  "Wh":     {"message": "Wattimme"},
+  "kWh":    {"message": "Kilowattimme"},
 
   "mm":     {"message": "Millimeter"},
   "cm":     {"message": "Centimeter"},

@@ -13,6 +13,15 @@ var conversions = [
  {"unit" : "ac",     "toSIbase" : 4046.8564224,   "system" : "sImperial", "category" : "cArea"},
  {"unit" : "mi2",    "toSIbase" : 2589988.110336, "system" : "sImperial", "category" : "cArea"},
 
+ // ENERGY, SIbase = J.
+ {"unit" : "kJ",     "toSIbase" : 0.001,          "system" : "sMetric",   "category" : "cEnergy"},
+ {"unit" : "J",      "toSIbase" : 1,              "system" : "sMetric",   "category" : "cEnergy"},
+ {"unit" : "ftlb",   "toSIbase" : 0.737562,       "system" : "sImperial", "category" : "cEnergy"},
+ {"unit" : "kcal",   "toSIbase" : 0.000239006,    "system" : "sOther",    "category" : "cEnergy"},
+ {"unit" : "gcal",   "toSIbase" : 0.239006,       "system" : "sOther",    "category" : "cEnergy"},
+ {"unit" : "Wh",     "toSIbase" : 0.000277778,    "system" : "sOther",    "category" : "cEnergy"},
+ {"unit" : "kWh",    "toSIbase" : 2.7778e-7,      "system" : "sOther",    "category" : "cEnergy"},
+
  // LENGTH, SIbase = m.
  {"unit" : "mm",     "toSIbase" : 0.001,          "system" : "sMetric",   "category" : "cLength"},
  {"unit" : "cm",     "toSIbase" : 0.01,           "system" : "sMetric",   "category" : "cLength"},

@@ -38,6 +38,8 @@
   "Wh":     {"message": "Watt hours"},
   "kWh":    {"message": "Kilowatt hours"},
 
+  "nm":     {"message": "Nanometres"},
+  "mcm":    {"message": "Micrometres"},
   "mm":     {"message": "Millimetres"},
   "cm":     {"message": "Centimetres"},
   "dm":     {"message": "Decimetres"},
@@ -48,7 +50,11 @@
   "yd":     {"message": "Yards"},
   "mi":     {"message": "Miles"},
   "nmi":    {"message": "Nautical miles"},
+  "ly":     {"message": "Light-years"},
+  "pc":     {"message": "Parsecs"},
 
+  "mg":     {"message": "Milligrams"},
+  "ct":     {"message": "Carat"},
   "g":      {"message": "Grams"},
   "hg":     {"message": "Hectograms"},
   "kg":     {"message": "Kilograms"},

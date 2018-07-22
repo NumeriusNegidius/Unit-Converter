@@ -23,7 +23,6 @@ var conversions = [
  {"unit" : "kWh",    "toSIbase" : 3600000,           "system" : "sOther",    "category" : "cEnergy"},
 
  // LENGTH, SIbase = m.
- {"unit" : "nm",     "toSIbase" : 0.000000001,       "system" : "sMetric",   "category" : "cLength"},
  {"unit" : "mcm",    "toSIbase" : 0.000001,          "system" : "sMetric",   "category" : "cLength"},
  {"unit" : "mm",     "toSIbase" : 0.001,             "system" : "sMetric",   "category" : "cLength"},
  {"unit" : "cm",     "toSIbase" : 0.01,              "system" : "sMetric",   "category" : "cLength"},

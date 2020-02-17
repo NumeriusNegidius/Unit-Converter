@@ -114,9 +114,9 @@ select {
   border: none;
   background-color: var(--color-select-bg);
   background-image: var(--icon-dropdown);
-  background-position: right 3px center;
+  background-position: right 9px center;
   background-repeat: no-repeat;
-  background-size: auto 18px;
+  background-size: auto 12px;
   padding-inline-start: 7px;
   padding-inline-end: 24px;
   text-overflow: ellipsis;

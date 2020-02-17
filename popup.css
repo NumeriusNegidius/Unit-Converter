@@ -24,6 +24,7 @@
   --color-link: #0a84ff;
   --color-link-hover: #003eaa;
 
+  --icon-logo: url("icons/icon-inline.svg");
   --icon-zoom-in: url("icons/zoom-in.svg");
   --icon-zoom-out: url("icons/zoom-out.svg");
   --icon-reset: url("icons/reset.svg");
@@ -53,6 +54,7 @@
     --color-copy-bg-hover: #404044; /* REMOVE THIS AFTER CHECKING */
     --color-copy-bg-active: #404044;
 
+    --icon-logo: url("icons/icon-inline-neg.svg");
     --icon-zoom-in: url("icons/zoom-in-neg.svg");
     --icon-zoom-out: url("icons/zoom-out-neg.svg");
     --icon-reset: url("icons/reset-neg.svg");
@@ -78,7 +80,7 @@ h1 {
   font-size: 18px;
   font-weight: normal;
   margin: 0 0 10px 0;
-  background-image: url("icons/icon-dark.svg");
+  background-image: var(--icon-logo);
   background-position: left 0 center;
   background-repeat: no-repeat;
   background-size: auto 18px;

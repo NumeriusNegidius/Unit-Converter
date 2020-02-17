@@ -5,7 +5,6 @@
 
   --color-body-bg: #ffffff;
   --color-text: #1a1a1a;
-  --color-text-header: #1a1a1a; /*#737373;*/
   --color-text-negative: #d70022 !important;
   --color-text-exponent: #008ea4;
 
@@ -18,14 +17,48 @@
   --color-input-border-focus: 2px solid #0084ff;
   --color-input-outline-focus: 0 0 0 3px #a8d7ff;
 
-  --color-tr-bg-hover: #ededed;
-  --color-copy-bg-hover: #ebebeb;
-  --color-copy-bg-active: #dadada;
+  --color-tr-bg-hover: #e1e1e2;
+  --color-copy-bg-hover: #e1e1e2; /* REMOVE THIS AFTER CHECKING */
+  --color-copy-bg-active: #e1e1e2;
 
   --color-link: #0a84ff;
   --color-link-hover: #003eaa;
 
+  --icon-zoom-in: url("icons/zoom-in.svg");
+  --icon-zoom-out: url("icons/zoom-out.svg");
+  --icon-reset: url("icons/reset.svg");
+  --icon-dropdown: url("icons/dropdown.svg");
+  --icon-copy: url("icons/copy.svg");
+
   --margin-group: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --border-divider: 1px solid #5c5c61;
+
+    --color-body-bg: #2a2a2e;
+    --color-text: #f9f9fa;
+
+    --color-select-bg: #404043;
+    --color-select-bg-hover: #49494d;
+    --color-select-bg-active: #525254;
+
+    --color-input-bg: #202023;
+    --color-input-border: 1px solid #4c4c4e;
+    --color-input-border-focus: 2px solid #0084ff;
+    --color-input-outline-focus: 0 0 0 3px #0f4570;
+
+    --color-tr-bg-hover: #404044;
+    --color-copy-bg-hover: #404044; /* REMOVE THIS AFTER CHECKING */
+    --color-copy-bg-active: #404044;
+
+    --icon-zoom-in: url("icons/zoom-in-neg.svg");
+    --icon-zoom-out: url("icons/zoom-out-neg.svg");
+    --icon-reset: url("icons/reset-neg.svg");
+    --icon-dropdown: url("icons/dropdown-neg.svg");
+    --icon-copy: url("icons/copy-neg.svg");
+  }
 }
 
 * {
@@ -80,7 +113,7 @@ input:focus {
 select {
   border: none;
   background-color: var(--color-select-bg);
-  background-image: url("icons/dropdown.svg");
+  background-image: var(--icon-dropdown);
   background-position: right 3px center;
   background-repeat: no-repeat;
   background-size: auto 18px;
@@ -96,15 +129,21 @@ select:active, button:active {background-color: var(--color-select-bg-active);}
 #unit {width: 200px;}
 #value {width: 320px;}
 #reset {
-  height: 26px;
-  width: 26px;
+  position: absolute;
+  display: none;
+  height: 19px;
+  width: 19px;
+  right: 20px;
+  bottom: 15px;
   border: none;
-  background: transparent;
+  background-color: transparent;
   color: transparent;
+  background-image: var(--icon-reset);;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: auto 16px;
+  background-size: auto 14px;
 }
+
 #output {
   position: relative;
   display: none;
@@ -129,7 +168,7 @@ select:active, button:active {background-color: var(--color-select-bg-active);}
   right: 0;
   animation: fadeout 1s cubic-bezier(0.680, -0.550, 0.265, 1.550);
   background-color: var(--color-copy-bg-active);
-  background-image: url("icons/copy.svg");
+  background-image: var(--icon-copy);
   background-position: center;
   background-repeat: no-repeat;
   background-size: auto 50px;
@@ -164,6 +203,7 @@ button.iconic:active {background-color: var(--color-select-bg-active);}
 }
 
 .link {
+  font-size: var(--font-small);
   border: none;
   background: transparent;
   color: var(--color-link);
@@ -176,19 +216,8 @@ button.iconic:active {background-color: var(--color-select-bg-active);}
   text-decoration: underline;
 }
 
-#addDec {background-image: url("icons/zoom-in.svg");}
-#subDec {background-image: url("icons/zoom-out.svg");}
-
-#reset {
-  background-image: url("icons/reset.svg");
-  position: absolute;
-  display: none;
-  height: 19px;
-  width: 19px;
-  right: 20px;
-  bottom: 15px;
-  background-size: auto 16px;
-}
+#addDec {background-image: var(--icon-zoom-in);}
+#subDec {background-image: var(--icon-zoom-out);}
 
 table {
   width: 100%;
@@ -215,7 +244,6 @@ tr.head td {
   padding-top: var(--margin-group);
   font-weight: bold;
   text-align: center;
-  color: var(--color-text-header);
 }
 
 td div:nth-child(1) {
@@ -246,12 +274,12 @@ td div:nth-child(2) {
 .copy:hover {
   display: inline-block;
   background-color: var(--color-copy-bg-hover);
-  margin: -1px -7px -1px -25px;
+  margin: -3px -7px -3px -25px;
   padding: 1px 7px 1px 25px;
-  background-image: url("icons/copy.svg");
-  background-position: 5px;
+  background-image: var(--icon-copy);
+  background-position: 0px;
   background-repeat: no-repeat;
-  background-size: auto 12px;
+  background-size: auto 16px;
 }
 
 .copy:active {

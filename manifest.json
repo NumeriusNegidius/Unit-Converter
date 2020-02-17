@@ -3,7 +3,7 @@
   "name": "Unit Converter",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
-  "version": "0.9.4",
+  "version": "0.9.5",
 
   "permissions": [
     "storage"
@@ -14,8 +14,8 @@
     "default_title": "Unit Converter",
     "default_popup": "popup.html",
     "theme_icons": [{
-      "light": "icons/icon-light.svg",
-      "dark": "icons/icon-dark.svg",
+      "light": "icons/icon.svg",
+      "dark": "icons/icon-neg.svg",
       "size": 16
     }]
   },

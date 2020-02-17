@@ -1,11 +1,31 @@
 :root {
   --font-regular: 15px;
-  --font-small: 12px;
-  --border: 1px solid #d7d7db;
-  --color-text: #0c0c0d;
-  --color-background: #f9f9fa;
-  --color-hover: #ebebeb;
-  --color-active: #dadada;
+  --font-small: 13px;
+  --border-divider: 1px solid #d7d7db;
+
+  --color-body-bg: #ffffff;
+  --color-text: #1a1a1a;
+  --color-text-header: #1a1a1a; /*#737373;*/
+  --color-text-negative: #d70022 !important;
+  --color-text-exponent: #008ea4;
+
+  --color-select-bg: #e1e1e2;
+  --color-select-bg-hover: #c9c9ca;
+  --color-select-bg-active: #b1b1b2;
+
+  --color-input-bg: #ffffff;
+  --color-input-border: 1px solid #b5b5b5;
+  --color-input-border-focus: 2px solid #0084ff;
+  --color-input-outline-focus: 0 0 0 3px #a8d7ff;
+
+  --color-tr-bg-hover: #ededed;
+  --color-copy-bg-hover: #ebebeb;
+  --color-copy-bg-active: #dadada;
+
+  --color-link: #0a84ff;
+  --color-link-hover: #003eaa;
+
+  --margin-group: 6px;
 }
 
 * {
@@ -14,10 +34,10 @@
 
 html, body {
   width: 350px;
-  background-color: var(--color-background);
+  background-color: var(--color-body-bg);
   color: var(--color-text);
+  font-size: var(--font-small);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  font-size: var(--font-regular);
   margin: 0;
 }
 
@@ -41,17 +61,25 @@ input, select {
   font-size: var(--font-regular);
   color: var(--color-text);
   height: 30px;
-  border: var(--border);
   border-radius: 2px;
   -moz-appearance: none;
-  padding: 0px 12px;
+  padding: 0px 10px;
   margin: 0 0 5px 0;
 }
+input {
+  border: var(--color-input-border);
+  background-color: var(--color-input-bg);
+}
 
-input:focus {border-color: #0a84ff;}
+input:focus {
+  border: var(--color-input-border-focus);
+  box-shadow: var(--color-input-outline-focus);
+  padding: 0 9px;
+}
 
 select {
-  background-color: var(--color-background);
+  border: none;
+  background-color: var(--color-select-bg);
   background-image: url("icons/dropdown.svg");
   background-position: right 3px center;
   background-repeat: no-repeat;
@@ -61,27 +89,35 @@ select {
   text-overflow: ellipsis;
 }
 
-select:hover, button:hover {background-color: var(--color-hover);}
-select:active, button:active {background-color: var(--color-active);}
+select:hover, button:hover {background-color: var(--color-select-bg-hover);}
+select:active, button:active {background-color: var(--color-select-bg-active);}
 
 #category {width: 115px; margin-right: 5px;}
 #unit {width: 200px;}
 #value {width: 320px;}
+#reset {
+  height: 26px;
+  width: 26px;
+  border: none;
+  background: transparent;
+  color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto 16px;
+}
 #output {
   position: relative;
   display: none;
 }
 #tools {
-  border-top: var(--border);
+  border-top: var(--border-divider);
   display: none;
-  padding: 5px 10px;
-  font-size: var(--font-small);
+  padding: 6px 13px 0 13px;
   text-align: right;
 }
 #disclaimer {
-  border-top: var(--border);
+  border-top: var(--border-divider);
   padding: 10px 15px;
-  font-size: var(--font-small);
 }
 
 .message {
@@ -92,7 +128,7 @@ select:active, button:active {background-color: var(--color-active);}
   left: 0;
   right: 0;
   animation: fadeout 1s cubic-bezier(0.680, -0.550, 0.265, 1.550);
-  background-color: var(--color-active);
+  background-color: var(--color-copy-bg-active);
   background-image: url("icons/copy.svg");
   background-position: center;
   background-repeat: no-repeat;
@@ -106,18 +142,22 @@ select:active, button:active {background-color: var(--color-active);}
   to {opacity: 0;}
 }
 
-.iconic {
-  height: 26px;
-  width: 26px;
+button.iconic {
+  height: 20px;
+  width: 20px;
   border: none;
-  background: transparent;
+  border-radius: 2px;
+  background-color: var(--color-select-bg);
   color: transparent;
   text-align: center;
-  margin: 0;
+  margin: 0 2px;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: auto 16px;
+  background-size: auto 12px;
 }
+
+button.iconic:hover {background-color: var(--color-select-bg-hover);}
+button.iconic:active {background-color: var(--color-select-bg-active);}
 
 .iconic:disabled {
   opacity: 0.2;
@@ -126,14 +166,13 @@ select:active, button:active {background-color: var(--color-active);}
 .link {
   border: none;
   background: transparent;
-  color: #0a84ff;
+  color: var(--color-link);
   padding: 0;
-  font-size: inherit;
 }
 
 .link:hover {
   background: transparent !important;
-  color: #003eaa;
+  color: var(--color-link-hover);
   text-decoration: underline;
 }
 
@@ -154,26 +193,33 @@ select:active, button:active {background-color: var(--color-active);}
 table {
   width: 100%;
   border-spacing: 0;
+  margin-bottom: var(--margin-group);
 }
 
 td {
-  border-top: var(--border);
-  padding: 5px 15px;
+  padding: 3px 15px;
   position: relative;
   line-height: 20px;
 }
 
-td.head {
-  font-size: var(--font-small);
+tr.result:hover td {
+  background-color: var(--color-tr-bg-hover);
+}
+
+tr.space td {
+  height: var(--margin-group);
+}
+
+tr.head td {
+  border-top: var(--border-divider);
+  padding-top: var(--margin-group);
   font-weight: bold;
   text-align: center;
-  color: #737373;
-  background-color: var(--color-hover);
+  color: var(--color-text-header);
 }
 
 td div:nth-child(1) {
   text-align: left;
-  font-size: var(--font-small);
   float: left;
 }
 
@@ -186,18 +232,20 @@ td div:nth-child(2) {
 
 .deemphasize {opacity: 0.4;}
 .negative {
-  color: #d70022 !important;
+  color: var(--color-text-negative);
 }
 .exponent {
-  color: #008ea4;
+  display: inline-block;
+  color: var(--color-text-exponent);
   white-space: nowrap;
+  margin-top: -3px;
 }
 .exponent:before {content: "10";}
 .exponent:after {content: " × ";}
 
 .copy:hover {
   display: inline-block;
-  background-color: var(--color-hover);
+  background-color: var(--color-copy-bg-hover);
   margin: -1px -7px -1px -25px;
   padding: 1px 7px 1px 25px;
   background-image: url("icons/copy.svg");
@@ -207,7 +255,7 @@ td div:nth-child(2) {
 }
 
 .copy:active {
-  background-color: var(--color-active);
+  background-color: var(--color-copy-bg-active);
 }
 
 .copyBuffer {

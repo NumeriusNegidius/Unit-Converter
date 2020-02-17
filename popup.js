@@ -247,11 +247,13 @@ function executeCalc() {
           }
 
           if (outSystem != previousOutSystem) {
-            let elRowH = createEl("TR", elTable);
-            let elCellH = createEl("TD", elRowH, l10n(outSystem), "head");
+            let elRowSpacer = createEl("TR", elTable, null, "space");
+            let elCellSpacer = createEl("TD", elRowSpacer, null);
+            let elRowH = createEl("TR", elTable, null, "head");
+            let elCellH = createEl("TD", elRowH, l10n(outSystem));
           }
 
-          let elRow = createEl("TR", elTable);
+          let elRow = createEl("TR", elTable, null, "result");
           let elCell = createEl("TD", elRow);
           let elCellTitle = createEl("DIV", elCell, outTitle);
           let elCellProduct = createEl("DIV", elCell);

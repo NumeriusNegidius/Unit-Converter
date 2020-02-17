@@ -235,6 +235,16 @@ tr.result:hover td {
   background-color: var(--color-tr-bg-hover);
 }
 
+tr.result:hover .copy {
+  display: inline-block;
+  margin: -3px -7px -3px -25px;
+  padding: 1px 7px 1px 25px;
+  background-image: var(--icon-copy);
+  background-position: 0px;
+  background-repeat: no-repeat;
+  background-size: auto 16px;
+}
+
 tr.space td {
   height: var(--margin-group);
 }
@@ -270,21 +280,6 @@ td div:nth-child(2) {
 }
 .exponent:before {content: "10";}
 .exponent:after {content: " × ";}
-
-.copy:hover {
-  display: inline-block;
-  background-color: var(--color-copy-bg-hover);
-  margin: -3px -7px -3px -25px;
-  padding: 1px 7px 1px 25px;
-  background-image: var(--icon-copy);
-  background-position: 0px;
-  background-repeat: no-repeat;
-  background-size: auto 16px;
-}
-
-.copy:active {
-  background-color: var(--color-copy-bg-active);
-}
 
 .copyBuffer {
   position: absolute;

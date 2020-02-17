@@ -257,9 +257,9 @@ function executeCalc() {
           let elCell = createEl("TD", elRow);
           let elCellTitle = createEl("DIV", elCell, outTitle);
           let elCellProduct = createEl("DIV", elCell);
+          elCell.dataset.raw = round(product, decimals);
 
           let elProductContainer = createEl("SPAN", elCellProduct, "", "copy");
-          elProductContainer.dataset.raw = round(product, decimals);
 
           if (outExponent) {
             let spanExp = createEl("SPAN", elProductContainer, "", "exponent");
@@ -291,7 +291,7 @@ function executeCalc() {
 }
 
 function handleCopyButtons() {
-  var elCopySpans = document.getElementsByTagName("SPAN");
+  var elCopySpans = document.getElementsByTagName("TD");
 
   for (var i = 0; i < elCopySpans.length; i++) {
     elCopySpans[i].addEventListener("click", function() {

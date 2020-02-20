@@ -136,6 +136,8 @@ input:focus {
 #selectorSelected:active {background-color: var(--color-select-bg-active);}
 
 #value {width: 320px;}
+#value:disabled {opacity: 0.2;}
+
 
 .reset {
   position: absolute;

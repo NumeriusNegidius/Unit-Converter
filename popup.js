@@ -352,6 +352,8 @@ function onFilter() {
 }
 
 function populateSelector(select, filterText) {
+  elValue.disabled = false;
+
   if (select) {
     setSelectorSelectedText(select);
   }
@@ -394,8 +396,7 @@ function populateSelector(select, filterText) {
       markSelector(select);
       elDefDesc.dataset.unit = conversions[i].unit;
       previousCategory = conversions[i].category;
-  }
-
+    }
   }
 
   // Create Event Listeners for each option
@@ -554,17 +555,27 @@ function initialize() {
   let getStorage = browser.storage.local.get();
 
   getStorage.then((response) => {
-    populateSelector(response.unit);
-
     if (response.decimals > -1) {
       decimals = response.decimals;
     }
+
     if (response.hideDisclaimer) {
       hideEl(disclaimer);
     }
+
+    if (response.unit) {
+      populateSelector(response.unit);
+    } else {
+      populateSelector();
+      elValue.disabled = true;
+    }
+
     if (response.value) {
       elValue.value = response.value;
       showEl(elReset);
+    }
+
+    if (response.unit && response.value) {
       executeCalc();
     }
   });

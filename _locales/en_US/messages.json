@@ -189,7 +189,7 @@
   "tbspUS":          {"message": "US tablespoons"},
   "tbspUSDict":      {"message": "tbsp"},
   "in3":             {"message": "Cubic inches"},
-  "in3Dict":         {"message": "in3, cu in, cuin, ci, c.i."},
+  "in3Dict":         {"message": "in3m, cu in, cuin, ci, c.i."},
   "fOzUK":           {"message": "Imperial fluid ounces"},
   "fOzUKDict":       {"message": "fl oz, floz, ozfl, oz fl"},
   "fOzUS":           {"message": "US fluid ounces"},

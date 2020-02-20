@@ -67,7 +67,7 @@ var conversions = [
  {"unit" : "mps",    "toSIbase" : 3.6,               "system" : "sMetric",   "category" : "cSpeed"},
  {"unit" : "fps",    "toSIbase" : 1.09728,           "system" : "sImperial", "category" : "cSpeed"},
  {"unit" : "mph",    "toSIbase" : 1.60934,           "system" : "sImperial", "category" : "cSpeed"},
- {"unit" : "knot",   "toSIbase" : 1.852,             "system" : "sOther",    "category" : "cSpeed"},
+ {"unit" : "kn",     "toSIbase" : 1.852,             "system" : "sOther",    "category" : "cSpeed"},
 
  // TEMPERATURE, SIbase = C.
  {"unit" : "K",      "toSIbase" : 1,   "addToSIbase" : -273.15, "addFromSIbase": 273.15, "system": "sMetric",   "category" : "cTemperature"},
@@ -151,7 +151,12 @@ function emptyEl(element) {
   }
 }
 
-var elCategory = getEl("category");
+// MAKE VARIABLES OF AV ELEMENTS USED
+var elSelectorSelected = getEl("selectorSelected");
+var elSelector = getEl("selector");
+var elSelectorList = getEl("selectorList");
+var elCloseSelector = getEl("closeSelector");
+var elFilter = getEl("filter");
 var elUnit = getEl("unit");
 var elValue = getEl("value");
 var elOutput = getEl("output");
@@ -177,19 +182,33 @@ function round(val, decimals) {
 function executeCalc() {
   let inUnit = elUnit.value;
   let inValue = elValue.value;
+
   // Calculate inValue if entered as a fraction
   if (inValue.indexOf("/") > 0) {
     let numerator = inValue.split("/")[0];
     let denominator = inValue.split("/")[1];
     inValue = parseFloat(numerator) / parseFloat(denominator);
   }
+
   inValue = parseFloat(inValue).toString();
 
-  // Only execute if input value is a number, is safe and is finite
-  if (isNaN(parseFloat(inValue)) || !Number.isSafeInteger(parseInt(inValue)) || !Number.isFinite(parseFloat(inValue))) {
-    emptyEl(elOutput);
+  if (inValue.toString().length > 14) {
+    inValue = parseFloat(inValue).toExponential().toString();
   }
-  else {
+
+  // Only execute if input value is a number, is safe and is finite
+  // if (isNaN(parseFloat(inValue)) || !Number.isSafeInteger(parseInt(inValue)) || !Number.isFinite(parseFloat(inValue))) {
+  if (isNaN(parseFloat(inValue))) {
+    console.log(inValue, "is NaN");
+
+  } else if (!Number.isSafeInteger(parseInt(inValue))) {
+    console.log(inValue, "is not safe");
+  } else if (!Number.isFinite(parseFloat(inValue))) {
+    // emptyEl(elOutput);
+    console.log(inValue, "is not finite");
+  } else {
+    console.log(inValue, "is aN");
+
     emptyEl(elOutput);
     showEl(elOutput);
     showEl(elTools);
@@ -309,33 +328,98 @@ function handleCopyButtons() {
   }
 }
 
-function populateInputUnit(select) {
-  emptyEl(elUnit);
+// THIS IS THE FAUX SELECT DROPDOWN IN CLOSED STATE
+function setSelectorSelectedText(select) {
+  let unitIndex = conversions.findIndex(function(item){
+    return item.unit === select;
+  });
+  let selectorUnit = select;
+  let selectorCategory = conversions[unitIndex].category;
 
-  let selectedCategory = elCategory.options[elCategory.selectedIndex].value;
+  elUnit.value = selectorUnit;
+  elSelectorSelected.textContent = l10n(selectorUnit) + " (" + l10n(selectorCategory) + ")";
+}
+
+function onFilter() {
+  let selectedUnit = ""
+  if (elUnit.value) {
+    selectedUnit = elUnit.value;
+  }
+  console.log("elFilter.value must be sanitized!");
+  let filterText = elFilter.value;
+
+  populateSelector(selectedUnit, filterText);
+}
+
+function populateSelector(select, filterText) {
+  if (select) {
+    setSelectorSelectedText(select);
+  }
+
+  // Empty list first...
+  let elSelectorChild = elSelectorList.lastElementChild;
+  while (elSelectorChild) {
+    elSelectorList.removeChild(elSelectorChild);
+    elSelectorChild = elSelectorList.lastElementChild;
+  }
+
+  // ...then populate list
+  let previousCategory = "";
   for (let i = 0; i < conversions.length; i++) {
-    if (selectedCategory == conversions[i].category) {
-      let elOption = createEl("OPTION", elUnit, l10n(conversions[i].unit));
-      elOption.value = conversions[i].unit;
 
-      if (select == conversions[i].unit) {
-        elOption.selected = "true";
+
+    let elDefDesc;
+    if (filterText) {
+      let unitDict = ""
+      // unitDict += conversions[i].unit + " ";
+      unitDict += l10n(conversions[i].unit) + " ";
+      unitDict += l10n(conversions[i].category) + " ";
+      unitDict += l10n(conversions[i].unit.toString() + "Dict");
+      console.log(unitDict);
+
+      if (unitDict.toLowerCase().search(filterText.toLowerCase()) > -1) {
+        if (previousCategory != conversions[i].category) {
+          let elDefTerm = createEl("DT", elSelectorList, l10n(conversions[i].category));
+        }
+        elDefDesc = createEl("DD", elSelectorList, l10n(conversions[i].unit));
+        markSelector(select);
+        elDefDesc.dataset.unit = conversions[i].unit;
+        previousCategory = conversions[i].category;
       }
-    }
+    } else {
+      if (previousCategory != conversions[i].category) {
+        let elDefTerm = createEl("DT", elSelectorList, l10n(conversions[i].category));
+      }
+      elDefDesc = createEl("DD", elSelectorList, l10n(conversions[i].unit));
+      markSelector(select);
+      elDefDesc.dataset.unit = conversions[i].unit;
+      previousCategory = conversions[i].category;
+  }
+
+  }
+
+  // Create Event Listeners for each option
+  var elSelectorValues = document.getElementsByTagName("DD");
+  for (let i = 0; i < elSelectorValues.length; i++) {
+    elSelectorValues[i].addEventListener("click", function() {
+      elUnit.value = elSelectorValues[i].dataset.unit;
+
+      setSelectorSelectedText(elUnit.value);
+      markSelector(elUnit.value);
+      closeSelector();
+      executeCalc();
+    });
   }
 }
 
-function populateInputCategory(select) {
-  let previousCategory = "";
-  for (let i = 0; i < conversions.length; i++) {
-    if (previousCategory != conversions[i].category) {
-      let elOption = createEl("OPTION", elCategory, l10n(conversions[i].category));
-      elOption.value = conversions[i].category;
-      if (select == conversions[i].category) {
-        elOption.selected = "true";
-      }
+function markSelector(select) {
+  var elSelectorValues = document.getElementsByTagName("DD");
+  for (let i = 0; i < elSelectorValues.length; i++) {
+    if (elSelectorValues[i].dataset.unit != select) {
+      elSelectorValues[i].classList.remove("checked");
+    } else {
+      elSelectorValues[i].classList.add("checked");
     }
-    previousCategory = conversions[i].category;
   }
 }
 
@@ -359,6 +443,7 @@ function changeDec(step) {
     executeCalc();
   }
 }
+
 
 function onInput() {
   // Allowed characters in input value: "0-9", ".", "/", "-"
@@ -426,7 +511,6 @@ function onInput() {
 
 function setStorage() {
   browser.storage.local.set({
-    category: elCategory.value,
     value: elValue.value,
     unit: elUnit.value,
     decimals: decimals,
@@ -434,13 +518,22 @@ function setStorage() {
   });
 }
 
-function removeStorage() {
-  browser.storage.local.remove("category");
-  browser.storage.local.remove("value");
-  browser.storage.local.remove("unit");
-  browser.storage.local.remove("decimals");
-  browser.storage.local.remove("timestamp");
-  browser.storage.local.remove("hideDisclaimer");
+// //WHEN IS THIS USED????????
+// function removeStorage() {
+//   browser.storage.local.remove("category");
+//   browser.storage.local.remove("value");
+//   browser.storage.local.remove("unit");
+//   browser.storage.local.remove("decimals");
+//   browser.storage.local.remove("timestamp");
+//   browser.storage.local.remove("hideDisclaimer");
+// }
+
+function closeSelector() {
+  elFilter.value = "";
+  showEl(elSelectorSelected);
+  hideEl(elSelector);
+
+  populateSelector(elUnit.value);
 }
 
 function resetInValue() {
@@ -452,6 +545,7 @@ function resetInValue() {
 function initialize() {
   // Localize
   elValue.placeholder = l10n("inputPlaceholder");
+  elFilter.placeholder = l10n("filterPlaceholder");
   elLabelDec.textContent = l10n("decimals");
   elDisclaimerText.textContent = l10n("disclaimer");
   elDismiss.textContent = l10n("hideDisclaimer");
@@ -460,8 +554,8 @@ function initialize() {
   let getStorage = browser.storage.local.get();
 
   getStorage.then((response) => {
-    populateInputCategory(response.category);
-    populateInputUnit(response.unit);
+    populateSelector(response.unit);
+
     if (response.decimals > -1) {
       decimals = response.decimals;
     }
@@ -487,18 +581,22 @@ elValue.addEventListener("input", function() {
   executeCalc();
 });
 
-elUnit.addEventListener("change", function() {
-  executeCalc();
+elFilter.addEventListener("input", function() {
+  onFilter();
+})
+
+elSelectorSelected.addEventListener("click", function() {
+  showEl(elSelector);
+  hideEl(elSelectorSelected);
 });
 
-elCategory.addEventListener("change", function() {
-  populateInputUnit();
-  executeCalc();
+elCloseSelector.addEventListener("click", function() {
+  closeSelector();
 });
 
 elAddDec.addEventListener("click", function() {
   changeDec(1);
-})
+});
 
 elSubtractDec.addEventListener("click", function() {
   changeDec(-1);

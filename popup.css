@@ -339,10 +339,11 @@ td div:nth-child(2) {
 
 .message {
   z-index: 3;
-  position: absolute;
-  margin: 70px auto 0 auto;
+  position: fixed;
+  margin: 0 auto;
   height: 100px;
   width: 100px;
+  top: 170px;
   left: 0;
   right: 0;
   animation: fadeout 1s cubic-bezier(0.680, -0.550, 0.265, 1.550);

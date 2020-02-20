@@ -346,6 +346,7 @@ function onFilter() {
     selectedUnit = elUnit.value;
   }
   console.log("elFilter.value must be sanitized!");
+  console.log("elFilter.value should be resetable!");
   let filterText = elFilter.value;
 
   populateSelector(selectedUnit, filterText);
@@ -377,7 +378,6 @@ function populateSelector(select, filterText) {
       unitDict += l10n(conversions[i].unit) + " ";
       unitDict += l10n(conversions[i].category) + " ";
       unitDict += l10n(conversions[i].unit.toString() + "Dict");
-      console.log(unitDict);
 
       if (unitDict.toLowerCase().search(filterText.toLowerCase()) > -1) {
         if (previousCategory != conversions[i].category) {

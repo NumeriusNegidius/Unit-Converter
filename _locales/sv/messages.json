@@ -1,10 +1,12 @@
 {
-  "extensionDescription": { "message": "Konvertera enheter från och till metersystemet." },
+  "extensionDescription": { "message": "Konvertera enheter till och från metersystemet." },
   "inputPlaceholder":     { "message": "Värde" },
   "filterPlaceholder":    { "message": "Filtrera enheter" },
   "decimals":             { "message": "Decimaler" },
-  "disclaimer":           { "message": "Unit Converter is provided \"as is\", without warranty of any kind, either express or implied." },
+  "disclaimer":           { "message": "Unit Converter tillhandahålls ”i befintligt skick”, utan garantier av något slag, varken uttryckliga eller underförstådda." },
   "hideDisclaimer":       { "message": "Göm" },
+  "hiddenConversions":    { "message": "konverteringar dolda." },
+  "selectorText":         { "message": "Välj enhet" },
 
   "sMetric":               {"message": "Metersystemet"},
   "sImperial":             {"message": "Brittiska och amerikanska system"},

@@ -106,14 +106,12 @@ var conversions = [
  {"unit" : "galUS",  "toSIbase" : 3.78541,           "system" : "sImperial", "category" : "cVolume"},
  {"unit" : "galUK",  "toSIbase" : 4.54609,           "system" : "sImperial", "category" : "cVolume"},
  {"unit" : "ft3",    "toSIbase" : 28.316846592,      "system" : "sImperial", "category" : "cVolume"},
-
 ]
 
 const MAX_INTEGER = 15;
 const MAX_DECIMALS = 10;
 const MIN_DECIMALS = 0;
 var decimals = 2;
-
 
 // ELEMENT MANIPULATION FUNCTIONS/SHORTHANDS
 function l10n(text) {
@@ -152,23 +150,26 @@ function emptyEl(element) {
 }
 
 // MAKE VARIABLES OF AV ELEMENTS USED
+var elInput = getEl("input");
 var elSelectorSelected = getEl("selectorSelected");
 var elSelector = getEl("selector");
+var elSelectorVeil = getEl("selectorVeil");
 var elSelectorList = getEl("selectorList");
 var elCloseSelector = getEl("closeSelector");
 var elFilter = getEl("filter");
+var elResetFilter = getEl("resetFilter");
 var elUnit = getEl("unit");
 var elValue = getEl("value");
 var elOutput = getEl("output");
+
 var elTools = getEl("tools");
-var elLabelDec = getEl("labelDec");
-var elAddDec = getEl("addDec");
-var elSubtractDec = getEl("subDec");
-var elReset = getEl("reset");
+var elDecimalsLabel = getEl("decimalsLabel");
+var elDecimalsAdd = getEl("decimalsAdd");
+var elDecimalsSubtract = getEl("decimalsSubtract");
+var elResetValue = getEl("resetValue");
 var elDismiss = getEl("dismiss");
 var elDisclaimerText = getEl("disclaimerText");
-var elMessage = getEl("message");
-
+var elPopup = getEl("popup");
 
 function round(val, decimals) {
   if (parseInt(val).toString().length <= MAX_INTEGER) {
@@ -190,9 +191,7 @@ function executeCalc() {
     inValue = parseFloat(numerator) / parseFloat(denominator);
   }
 
-  inValue = parseFloat(inValue).toString();
-
-  if (inValue.toString().length > 14) {
+  if (inValue.toString().length > MAX_INTEGER) {
     inValue = parseFloat(inValue).toExponential().toString();
   }
 
@@ -200,15 +199,16 @@ function executeCalc() {
   // if (isNaN(parseFloat(inValue)) || !Number.isSafeInteger(parseInt(inValue)) || !Number.isFinite(parseFloat(inValue))) {
   if (isNaN(parseFloat(inValue))) {
     console.log(inValue, "is NaN");
-
+  } else if (parseFloat(inValue) == 0) {
+    emptyEl(elOutput);
+    console.log("Input number is 0");
   } else if (!Number.isSafeInteger(parseInt(inValue))) {
-    console.log(inValue, "is not safe");
+    emptyEl(elOutput);
+    console.log("Input number is not safe (too big)");
   } else if (!Number.isFinite(parseFloat(inValue))) {
-    // emptyEl(elOutput);
-    console.log(inValue, "is not finite");
+    emptyEl(elOutput);
+    console.log("Input number is infinite");
   } else {
-    console.log(inValue, "is aN");
-
     emptyEl(elOutput);
     showEl(elOutput);
     showEl(elTools);
@@ -219,7 +219,6 @@ function executeCalc() {
     });
 
     let category = conversions[inUnitIndex].category;
-
     if (conversions[inUnitIndex].addToSIbase) {
       inValue = parseFloat(inValue) + parseFloat(conversions[inUnitIndex].addToSIbase);
     }
@@ -230,8 +229,12 @@ function executeCalc() {
     // Create result table
     let elTable = createEl("TABLE", elOutput);
 
+    // Count how many possible conversions there are and how many units are actually shown
+    let countUnitsInCategory = 0;
+    let countUnitsShown = 0;
     for (let i = 0; i < conversions.length; i++) {
       if (conversions[i].category.includes(category)) {
+        countUnitsInCategory++;
         let outUnit, outSystem, outTitle, product, addFromSIbase;
 
         outUnit = conversions[i].unit;
@@ -246,6 +249,7 @@ function executeCalc() {
         product = round(product, decimals);
 
         if (product != 0 && elUnit.value != outUnit && Number.isSafeInteger(Math.round(product))) {
+          countUnitsShown++;
           let outExponent, outInteger, outDecimals;
           let spanIntClass, spanDecClass;
 
@@ -276,7 +280,7 @@ function executeCalc() {
           let elCell = createEl("TD", elRow);
           let elCellTitle = createEl("DIV", elCell, outTitle);
           let elCellProduct = createEl("DIV", elCell);
-          elCell.dataset.raw = round(product, decimals);
+          elCell.dataset.copyText = round(product, decimals);
 
           let elProductContainer = createEl("SPAN", elCellProduct, "", "copy");
 
@@ -305,6 +309,14 @@ function executeCalc() {
         }
       }
     }
+
+    if (countUnitsShown < (countUnitsInCategory - 1)) {
+      // Subtract 1, because input unit is never shown in output
+      let elFootnoteText = (countUnitsInCategory - countUnitsShown - 1) + " "
+                         + l10n("hiddenConversions");
+      let elFootnote = createEl("DIV", elOutput, elFootnoteText, "footnote");
+    }
+
     handleCopyButtons();
   }
 }
@@ -314,11 +326,11 @@ function handleCopyButtons() {
 
   for (var i = 0; i < elCopySpans.length; i++) {
     elCopySpans[i].addEventListener("click", function() {
-      if (this.dataset.raw) {
-        let copyBuffer = createEl("TEXTAREA", elOutput, this.dataset.raw, "copyBuffer");
-        elMessage.className = "message"
+      if (this.dataset.copyText) {
+        let copyBuffer = createEl("TEXTAREA", elOutput, this.dataset.copyText, "copyBuffer");
+        elPopup.className = "popupCopy"
         setTimeout(function(){
-          elMessage.classList.remove("message");
+          elPopup.classList.remove("popupCopy");
         }, 2000);
         copyBuffer.select();
         document.execCommand("copy");
@@ -345,11 +357,15 @@ function onFilter() {
   if (elUnit.value) {
     selectedUnit = elUnit.value;
   }
-  console.log("elFilter.value must be sanitized!");
-  console.log("elFilter.value should be resetable!");
-  let filterText = elFilter.value;
 
-  populateSelector(selectedUnit, filterText);
+  if (elFilter.value.length > 0) {
+    showEl(elResetFilter);
+  }
+  else {
+    hideEl(elResetFilter);
+  }
+
+  populateSelector(selectedUnit, elFilter.value);
 }
 
 function populateSelector(select, filterText) {
@@ -370,8 +386,7 @@ function populateSelector(select, filterText) {
   let previousCategory = "";
   for (let i = 0; i < conversions.length; i++) {
 
-
-    let elDefDesc;
+    let elSelectorUnit;
     if (filterText) {
       let unitDict = ""
       // unitDict += conversions[i].unit + " ";
@@ -381,20 +396,20 @@ function populateSelector(select, filterText) {
 
       if (unitDict.toLowerCase().search(filterText.toLowerCase()) > -1) {
         if (previousCategory != conversions[i].category) {
-          let elDefTerm = createEl("DT", elSelectorList, l10n(conversions[i].category));
+          let elSelectorCategory = createEl("DT", elSelectorList, l10n(conversions[i].category));
         }
-        elDefDesc = createEl("DD", elSelectorList, l10n(conversions[i].unit));
+        elSelectorUnit = createEl("DD", elSelectorList, l10n(conversions[i].unit));
         markSelector(select);
-        elDefDesc.dataset.unit = conversions[i].unit;
+        elSelectorUnit.dataset.unit = conversions[i].unit;
         previousCategory = conversions[i].category;
       }
     } else {
       if (previousCategory != conversions[i].category) {
-        let elDefTerm = createEl("DT", elSelectorList, l10n(conversions[i].category));
+        let elSelectorCategory = createEl("DT", elSelectorList, l10n(conversions[i].category));
       }
-      elDefDesc = createEl("DD", elSelectorList, l10n(conversions[i].unit));
+      elSelectorUnit = createEl("DD", elSelectorList, l10n(conversions[i].unit));
       markSelector(select);
-      elDefDesc.dataset.unit = conversions[i].unit;
+      elSelectorUnit.dataset.unit = conversions[i].unit;
       previousCategory = conversions[i].category;
     }
   }
@@ -424,31 +439,30 @@ function markSelector(select) {
   }
 }
 
-function changeDec(step) {
+function changeDecimals(step) {
   if (decimals + step >= MIN_DECIMALS && decimals + step <= MAX_DECIMALS) {
     decimals = decimals + step;
 
     if (decimals == MIN_DECIMALS) {
-      elSubtractDec.disabled = true;
+      elDecimalsSubtract.disabled = true;
     }
     else {
-      elSubtractDec.disabled = false;
+      elDecimalsSubtract.disabled = false;
     }
 
     if (decimals == MAX_DECIMALS) {
-      elAddDec.disabled = true;
+      elDecimalsAdd.disabled = true;
     }
     else {
-      elAddDec.disabled = false;
+      elDecimalsAdd.disabled = false;
     }
     executeCalc();
   }
 }
 
-
+// Sanitize value input
 function onInput() {
   // Allowed characters in input value: "0-9", ".", "/", "-"
-
   let caret = elValue.selectionStart;
   let refVal = elValue.value;
   let returnVal = elValue.value.replace(/[^\-\d./]/g, "");
@@ -501,10 +515,10 @@ function onInput() {
   elValue.setSelectionRange(caret, caret);
 
   if (elValue.value.length > 0) {
-    showEl(elReset);
+    showEl(elResetValue);
   }
   else {
-    hideEl(elReset);
+    hideEl(elResetValue);
     hideEl(elOutput);
     hideEl(elTools);
   }
@@ -519,35 +533,34 @@ function setStorage() {
   });
 }
 
-// //WHEN IS THIS USED????????
-// function removeStorage() {
-//   browser.storage.local.remove("category");
-//   browser.storage.local.remove("value");
-//   browser.storage.local.remove("unit");
-//   browser.storage.local.remove("decimals");
-//   browser.storage.local.remove("timestamp");
-//   browser.storage.local.remove("hideDisclaimer");
-// }
+function openSelector() {
+  showEl(elSelector);
+  showEl(elSelectorVeil);
+  hideEl(elSelectorSelected);
+  hideEl(elTools);
+  hideEl(elOutput);
+
+  elInput.classList.add("whenSelectorOpen");
+}
 
 function closeSelector() {
-  elFilter.value = "";
   showEl(elSelectorSelected);
   hideEl(elSelector);
+  hideEl(elSelectorVeil);
+  showEl(elOutput);
+
+  elFilter.value = "";
+  elInput.classList.remove("whenSelectorOpen");
 
   populateSelector(elUnit.value);
 }
 
-function resetInValue() {
-  elValue.value = "";
-  elValue.focus();
-  setStorage();
-}
-
 function initialize() {
   // Localize
+  elSelectorSelected.textContent = l10n("selectorText");
   elValue.placeholder = l10n("inputPlaceholder");
   elFilter.placeholder = l10n("filterPlaceholder");
-  elLabelDec.textContent = l10n("decimals");
+  elDecimalsLabel.textContent = l10n("decimals");
   elDisclaimerText.textContent = l10n("disclaimer");
   elDismiss.textContent = l10n("hideDisclaimer");
 
@@ -572,7 +585,7 @@ function initialize() {
 
     if (response.value) {
       elValue.value = response.value;
-      showEl(elReset);
+      showEl(elResetValue);
     }
 
     if (response.unit && response.value) {
@@ -597,27 +610,38 @@ elFilter.addEventListener("input", function() {
 })
 
 elSelectorSelected.addEventListener("click", function() {
-  showEl(elSelector);
-  hideEl(elSelectorSelected);
+  openSelector();
 });
 
 elCloseSelector.addEventListener("click", function() {
   closeSelector();
 });
 
-elAddDec.addEventListener("click", function() {
-  changeDec(1);
+elSelectorVeil.addEventListener("click", function() {
+  closeSelector();
 });
 
-elSubtractDec.addEventListener("click", function() {
-  changeDec(-1);
+elDecimalsAdd.addEventListener("click", function() {
+  changeDecimals(1);
 });
 
-elReset.addEventListener("click", function() {
-  resetInValue();
+elDecimalsSubtract.addEventListener("click", function() {
+  changeDecimals(-1);
+});
+
+elResetValue.addEventListener("click", function() {
+  elValue.value = "";
+  elValue.focus();
+  setStorage();
   emptyEl(elOutput);
   hideEl(elOutput);
   hideEl(elTools);
+});
+
+elResetFilter.addEventListener("click", function() {
+  elFilter.value = "";
+  elFilter.focus();
+  onFilter();
 });
 
 elDismiss.addEventListener("click", function() {

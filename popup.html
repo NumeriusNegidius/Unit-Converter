@@ -7,36 +7,42 @@
   </head>
 
 <body>
-  <div id="input">
+  <header id="input">
     <form>
       <h1>Unit Converter</h1>
       <input type="hidden" id="unit">
-      <div id="selectorSelected">Choose...</div>
+      <div id="selectorSelected"></div>
 
-      <div id="selector">
-        <input id="filter" type="text" maxlength="50" autocomplete="off">
-        <div id="closeSelector" class="">&Hat;</div>
-        <dl id="selectorList"></dl>
+      <div class="inputGroup">
+        <input id="value" type="text" maxlength="15" autocomplete="off">
+        <button id="resetValue" class="reset">&times;</button>
       </div>
-
-      <input id="value" type="text" maxlength="24" autocomplete="off">
-      <button id="reset" class="reset">&times;</button>
     </form>
 
     <div id="tools">
-      <span id="labelDec"></span>
-      <button id="addDec" class="iconic">+</button><button id="subDec" class="iconic">-</button>
+      <span id="decimalsLabel"></span>
+      <button id="decimalsAdd" class="iconic">+</button><button id="decimalsSubtract" class="iconic">-</button>
     </div>
+  </header>
+
+  <div id="selectorVeil"></div>
+  <div id="selector">
+    <div class="inputGroup">
+      <input id="filter" type="text" maxlength="50" autocomplete="off">
+      <button id="resetFilter" class="reset resetFilter">&times;</button>
+    </div>
+    <div id="closeSelector" class="">&Hat;</div>
+    <dl id="selectorList"></dl>
   </div>
 
-  <div id="output"></div>
+  <main id="output"></main>
 
-  <div id="disclaimer">
+  <footer id="disclaimer">
     <span id="disclaimerText"></span>
     <button id="dismiss" class="link"></button>
-  </div>
+  </footer>
 
-  <div id="message"></div>
+  <div id="popup"></div>
 
  <script src="popup.js"></script>
 </body>

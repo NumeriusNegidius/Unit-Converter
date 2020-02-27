@@ -88,10 +88,13 @@ h1 {
 /* FORM/INPUT */
 
 #input {
-  z-index: 1;
-  background-color: var(--color-body-bg);
   position: sticky;
   top: 0;
+  z-index: 1;
+  background-color: var(--color-body-bg);
+}
+#input.whenSelectorOpen {
+  height: 384px;
 }
 
 form {
@@ -138,34 +141,47 @@ input:focus {
 #value {width: 320px;}
 #value:disabled {opacity: 0.2;}
 
+.inputGroup {
+  position: relative;
+}
 
 .reset {
   position: absolute;
   display: none;
   height: 19px;
   width: 19px;
-  right: 20px;
-  bottom: 15px;
+  right: 5px;
+  top: 5px;
   background-color: transparent;
   background-image: var(--icon-reset);;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: auto 14px;
+  background-size: auto 13px;
+}
+
+.resetFilter {
+  right: 25px;
+  top: 3px;
+  background-size: auto 12px;
 }
 
 #selector {
-  position: relative;
+  position: absolute;
+  top: 42px;
+  left: 15px;
+  z-index: 3;
+  width: 320px;
   display: none;
   border: none;
   border-radius: 2px;
   background-color: var(--color-select-bg);
-  padding: 0;
+  padding: 5px 10px;
   margin-bottom: 5px;
 }
 
 #selector dl {
-  margin: 0;
-  max-height: 300px;
+  margin: -5px -10px;
+  height: 300px;
   overflow: scroll;
 }
 
@@ -176,13 +192,11 @@ input:focus {
   border-top: var(--border-divider);
 }
 #selector dt:first-of-type {border: none;}
-
 #selector dd {
   padding: 3px 30px;
   margin: 0;
 }
 #selector dd:hover {background-color: var(--color-select-bg-active);}
-
 #selector dd.checked {
   background-image: var(--icon-check);
   background-position: left 10px center;
@@ -193,7 +207,7 @@ input:focus {
 #filter {
   font-size: var(--font-small);
   width: 280px;
-  margin: 5px 0 0 10px;
+  margin-bottom: 10px;
   height: 26px;
 }
 
@@ -212,6 +226,13 @@ input:focus {
   background-size: auto 12px;
 }
 
+#selectorVeil {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 384px;
+}
 
 /* TOOLS */
 
@@ -222,6 +243,7 @@ input:focus {
   padding: 6px 13px;
   text-align: right;
 }
+
 .iconic {
   height: 20px;
   width: 20px;
@@ -236,8 +258,9 @@ input:focus {
 .iconic:hover {background-color: var(--color-select-bg-hover);}
 .iconic:active {background-color: var(--color-select-bg-active);}
 .iconic:disabled {opacity: 0.2;}
-#addDec {background-image: var(--icon-zoom-in);}
-#subDec {background-image: var(--icon-zoom-out);}
+
+#decimalsAdd {background-image: var(--icon-zoom-in);}
+#decimalsSubtract {background-image: var(--icon-zoom-out);}
 
 
 /* RESULTS/OUTPUT */
@@ -303,7 +326,9 @@ td div:nth-child(2) {
 }
 
 .deemphasize {opacity: 0.4;}
+
 .negative {color: var(--color-text-negative);}
+
 .exponent {
   display: inline-block;
   color: var(--color-text-exponent);
@@ -316,19 +341,24 @@ td div:nth-child(2) {
 
 /* DISCLAIMER */
 
+.footnote {
+  padding: 5px 15px;
+  border-top: var(--border-divider);
+}
+
 #disclaimer {
   border-top: var(--border-divider);
   padding: 10px 15px;
 }
-#disclaimer .link {
+
+.link {
   font-size: var(--font-small);
   border: none;
   background: transparent;
   color: var(--color-link);
   padding: 0;
 }
-
-#disclaimer .link:hover {
+.link:hover {
   background: transparent !important;
   color: var(--color-link-hover);
   text-decoration: underline;
@@ -337,7 +367,7 @@ td div:nth-child(2) {
 
 /* COPY STUFF  */
 
-.message {
+.popupCopy {
   z-index: 3;
   position: fixed;
   margin: 0 auto;

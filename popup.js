@@ -87,21 +87,26 @@ function executeCalc() {
     inValue = parseFloat(inValue).toExponential().toString();
   }
 
+  emptyEl(elOutput);
+
   // Only execute if input value is a number, is safe and is finite
-  // if (isNaN(parseFloat(inValue)) || !Number.isSafeInteger(parseInt(inValue)) || !Number.isFinite(parseFloat(inValue))) {
   if (isNaN(parseFloat(inValue))) {
     console.log(inValue, "is NaN");
+    hideEl(elTools);
+
   } else if (parseFloat(inValue) == 0) {
-    emptyEl(elOutput);
+    hideEl(elTools);
     console.log("Input number is 0");
+
   } else if (!Number.isSafeInteger(parseInt(inValue))) {
-    emptyEl(elOutput);
+    hideEl(elTools);
     console.log("Input number is not safe (too big)");
+
   } else if (!Number.isFinite(parseFloat(inValue))) {
-    emptyEl(elOutput);
-    console.log("Input number is infinite");
+    hideEl(elTools);
+    console.log("Input number is not finite");
+
   } else {
-    emptyEl(elOutput);
     showEl(elOutput);
     showEl(elTools);
     setStorage();
@@ -412,7 +417,6 @@ function onInput() {
   else {
     hideEl(elResetValue);
     hideEl(elOutput);
-    hideEl(elTools);
   }
 }
 

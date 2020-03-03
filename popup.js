@@ -6,8 +6,8 @@ const MIN_DECIMALS = 0;
 var decimals = 2;
 
 // ELEMENT MANIPULATION FUNCTIONS/SHORTHANDS
-function l10n(text) {
-  return browser.i18n.getMessage(text.toString());
+function l10n(text, arg) {
+  return browser.i18n.getMessage(text.toString(), arg);
 }
 
 function getEl(element) {
@@ -51,6 +51,7 @@ var elCloseSelector = getEl("closeSelector");
 var elFilter = getEl("filter");
 var elResetFilter = getEl("resetFilter");
 var elUnit = getEl("unit");
+var elKeepHidableShown = getEl("keepHidableShown");
 var elValue = getEl("value");
 var elOutput = getEl("output");
 
@@ -64,12 +65,7 @@ var elDisclaimerText = getEl("disclaimerText");
 var elPopup = getEl("popup");
 
 function round(val, decimals) {
-  if (parseInt(val).toString().length <= MAX_INTEGER) {
-    return Number.parseFloat(val).toFixed(decimals);
-  }
-  else {
-    return Number.parseFloat(val).toExponential(decimals);
-  }
+  return Number.parseFloat(val).toFixed(decimals);
 }
 
 function executeCalc() {
@@ -122,104 +118,149 @@ function executeCalc() {
     let inValueInSIbase = inValue * conversions[inUnitIndex].toSIbase;
 
     let previousOutSystem;
-
-    // Create result table
-    let elTable = createEl("TABLE", elOutput);
-
-    // Count how many possible conversions there are and how many units are actually shown
-    let countUnitsInCategory = 0;
-    let countUnitsShown = 0;
+    let countUnitsHidden = 0;
+    // Create conversion list
     for (let i = 0; i < conversions.length; i++) {
       if (conversions[i].category.includes(category)) {
-        countUnitsInCategory++;
-        let outUnit, outSystem, outTitle, product, addFromSIbase;
 
-        outUnit = conversions[i].unit;
-        outSystem = conversions[i].system;
-        outTitle = l10n(conversions[i].unit);
-        addFromSIbase = conversions[i].addFromSIbase;
-
-        product = (1 / conversions[i].toSIbase) * inValueInSIbase;
+        // Get conversion data and do the math
+        let outUnit = conversions[i].unit;
+        let outSystem = conversions[i].system;
+        let addFromSIbase = conversions[i].addFromSIbase;
+        let unroundedProduct = (1 / conversions[i].toSIbase) * inValueInSIbase;
         if (conversions[i].addFromSIbase) {
-          product = product + conversions[i].addFromSIbase;
+          unroundedProduct = unroundedProduct + conversions[i].addFromSIbase;
         }
-        product = round(product, decimals);
+        let product = round(unroundedProduct, decimals);
 
-        if (product != 0 && elUnit.value != outUnit && Number.isSafeInteger(Math.round(product))) {
-          countUnitsShown++;
-          let outExponent, outInteger, outDecimals;
-          let spanIntClass, spanDecClass;
+        // Don't show input unit among output conversions
+        if (elUnit.value != outUnit) {
+          let outInteger, outDecimals;
 
-          let productSign = Math.sign(product);
-          let decimalStart = product.indexOf(".");
-          let exponentStart = product.indexOf("e");
+          let productSign = Math.sign(product);     // Whether positive or negative. Returns 1 or -1
+          let productArray = product.split(".");    // Split at decimal point
 
-          let productArray = product.split(/[.e]+/);
-
+          //Convert to Esperanto, since it uses " " as thousands separator
           outInteger = parseInt(productArray[0]).toLocaleString("eo").replace(/-/g, "");
 
-          if (decimalStart > 0) {
+          if (productArray.length > 0) {
             outDecimals = productArray[1];
-            outExponent = productArray[2];
-          }
-          else if (exponentStart) {
-            outExponent = productArray[1];
           }
 
+          // Make category heading row + spacer row above
+          // Also count potential units in system
+          var countUnitsInSystem;
           if (outSystem != previousOutSystem) {
-            let elRowSpacer = createEl("TR", elTable, null, "space");
-            let elCellSpacer = createEl("TD", elRowSpacer, null);
-            let elRowH = createEl("TR", elTable, null, "head");
-            let elCellH = createEl("TD", elRowH, l10n(outSystem));
+            let elSystem = createEl("DIV", elOutput, l10n(outSystem), "system");
+            elSystem.id = outSystem;
+
+            let getUnitsInSystem = conversions.filter(function(data) {
+              return data.category === category && data.system === outSystem && data.unit != inUnit;
+            });
+            countUnitsInSystem = getUnitsInSystem.length;
           }
 
-          let elRow = createEl("TR", elTable, null, "result");
-          let elCell = createEl("TD", elRow);
-          let elCellTitle = createEl("DIV", elCell, outTitle);
-          let elCellProduct = createEl("DIV", elCell);
-          elCell.dataset.copyText = round(product, decimals);
+          // Make conversion row
+          let elConversionRow = createEl("DIV", elOutput, null, "conversion");
+          let elConversionUnit = createEl("DIV", elConversionRow, l10n(outUnit));
+          let elConversionProduct = createEl("DIV", elConversionRow);
 
-          let elProductContainer = createEl("SPAN", elCellProduct, "", "copy");
+          // Conversions that are unsafe or 0 with current decimal settings are hidden by default
+          // To be able to hide elSystem,
+          if (!Number.isSafeInteger(Math.round(product))) {
+            countUnitsInSystem--;
+            countUnitsHidden++;
 
-          if (outExponent) {
-            let spanExp = createEl("SPAN", elProductContainer, "", "exponent");
-            let spanExpSup = createEl("SUP", spanExp, outExponent.replace("+", ""));
-          }
-
-          if (productSign == -1) {
-            let spanneg = createEl("SPAN", elProductContainer, "−", "negative");
-          }
-
-          if (outInteger == 0) {
-            spanIntClass = "deemphasize";
-          }
-
-          let spanInt = createEl("SPAN", elProductContainer, outInteger, spanIntClass);
-
-          if (decimals > 0) {
-            if (outDecimals == 0) {
-              spanDecClass = "deemphasize";
+            let elError = createEl("SPAN", elConversionProduct, l10n("errorTooLarge"), "errorInfo");
+            elConversionRow.classList.add("hidable");
+            if (elKeepHidableShown.value == "1") {
+              elConversionRow.classList.add("shown");
             }
-            let spanDec = createEl("SPAN", elProductContainer, "." + outDecimals, spanDecClass);
+
+          } else if (round(unroundedProduct, MAX_DECIMALS) == 0) {
+            countUnitsInSystem--;
+            countUnitsHidden++;
+
+            let elError = createEl("SPAN", elConversionProduct, l10n("errorTooSmall"), "errorInfo");
+            elConversionRow.classList.add("hidable");
+            if (elKeepHidableShown.value == "1") {
+              elConversionRow.classList.add("shown");
+            }
+
+          } else if (product == 0) {
+            countUnitsInSystem--;
+            countUnitsHidden++;
+
+            let elError = createEl("SPAN", elConversionProduct, l10n("errorTooFewDecimals"), "errorInfo");
+            elConversionRow.classList.add("hidable");
+            if (elKeepHidableShown.value == "1") {
+              elConversionRow.classList.add("shown");
+            }
+
+          } else {
+            // Add copy style and copy data
+            elConversionProduct.classList.add("copy");
+            elConversionRow.dataset.copyText = product;
+
+            if (productSign == -1) {
+              let elNegativeSign = createEl("SPAN", elConversionProduct, "−", "negative");
+            }
+
+            let elInteger = createEl("SPAN", elConversionProduct, outInteger);
+            if (outInteger == 0) {
+              elInteger.classList.add("deemphasize");
+            }
+
+            if (decimals > 0) {
+              let elDecimals = createEl("SPAN", elConversionProduct, "." + outDecimals);
+              if (outDecimals == 0) {
+                elDecimals.classList.add("deemphasize");
+              }
+            }
           }
+          handleHiddenSystems(outSystem, countUnitsInSystem);
           previousOutSystem = outSystem;
         }
       }
     }
 
-    if (countUnitsShown < (countUnitsInCategory - 1)) {
-      // Subtract 1, because input unit is never shown in output
-      let elFootnoteText = (countUnitsInCategory - countUnitsShown - 1) + " "
-                         + l10n("hiddenConversions");
-      let elFootnote = createEl("DIV", elOutput, elFootnoteText, "footnote");
-    }
-
+    handleHiddenUnits(countUnitsHidden);
     handleCopyButtons();
   }
 }
 
+function handleHiddenSystems(outSystem, countUnitsInSystem) {
+  if (countUnitsInSystem == 0 && keepHidableShown.value == "0") {
+    let elSystem = getEl(outSystem);
+    elSystem.classList.add("hidable");
+  }
+}
+
+function handleHiddenUnits(countUnitsHidden) {
+  if (countUnitsHidden > 0 && keepHidableShown.value == "0") {
+    let elFootnoteText = l10n("hiddenConversions", countUnitsHidden);
+    let elFootnote = createEl("DIV", elOutput, elFootnoteText, "footnote");
+    elFootnote.id = "showHidden";
+
+    elFootnote.addEventListener("click", function() {
+      hideEl(elFootnote);
+      if (elKeepHidableShown.value == "0") {
+        elKeepHidableShown.value = 1;
+      } else {
+        elKeepHidableShown.value = 0;
+      }
+
+      let elResults = document.getElementsByClassName("hidable");
+      for (let i = 0; i < elResults.length; i++) {
+        elResults[i].classList.add("shown");
+      }
+
+    });
+  }
+}
+
 function handleCopyButtons() {
-  var elCopySpans = document.getElementsByTagName("TD");
+  var elCopySpans = document.getElementsByClassName("conversion");
 
   for (var i = 0; i < elCopySpans.length; i++) {
     elCopySpans[i].addEventListener("click", function() {
@@ -435,6 +476,8 @@ function openSelector() {
   hideEl(elSelectorSelected);
   hideEl(elTools);
   hideEl(elOutput);
+
+  keepHidableShown.value = 0;
 
   elInput.classList.add("whenSelectorOpen");
 }

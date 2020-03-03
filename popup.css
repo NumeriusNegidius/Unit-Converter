@@ -1,6 +1,7 @@
 :root {
   --font-regular: 15px;
   --font-small: 13px;
+  --font-smaller: 11px;
   --border-divider: 1px solid #d7d7db;
 
   --color-body-bg: #ffffff;
@@ -104,6 +105,7 @@ form {
 
 button {
   border: none;
+  border-radius: 2px;
   color: transparent;
 }
 
@@ -247,7 +249,6 @@ input:focus {
 .iconic {
   height: 20px;
   width: 20px;
-  border-radius: 2px;
   background-color: var(--color-select-bg);
   text-align: center;
   margin: 0 2px;
@@ -269,81 +270,85 @@ input:focus {
   z-index: 0;
   position: relative;
   display: none;
+  margin-top: -7px;
+  margin-bottom: 6px;
 }
 
-table {
-  width: 100%;
-  border-spacing: 0;
-  margin-bottom: var(--margin-group);
-}
-
-td {
-  padding: 5px 15px;
-  position: relative;
-}
-
-tr.space td {
-  height: var(--margin-group);
-  border-bottom: var(--border-divider);
-}
-
-tr.space:first-of-type td {
-  height: 0;
-  padding: 0;
-  border-bottom: none;
-}
-
-tr.head td {
-  padding-top: 12px;
+.system {
+  margin-top: 6px;
+  padding: 12px 15px 5px 15px;;
   font-weight: bold;
   text-align: center;
+  border-top: var(--border-divider);
 }
 
-tr.result:hover td {
+.conversion {
+  padding: 5px 15px;
+}
+
+.conversion::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.conversion:hover {
   background-color: var(--color-tr-bg-hover);
 }
 
-tr.result:hover .copy {
+.conversion:hover .copy {
   display: inline-block;
-  margin: -3px -7px -3px -25px;
-  padding: 1px 7px 1px 25px;
+  padding-left: 25px;
   background-image: var(--icon-copy);
   background-position: 0px;
   background-repeat: no-repeat;
   background-size: auto 16px;
 }
 
-td div:nth-child(1) {
-  text-align: left;
+.hidable {
+  display: none;
+}
+.hidable.shown {
+  display: block;
+}
+
+.conversion div:nth-child(1) {
   float: left;
 }
 
-td div:nth-child(2) {
-  text-align: right;
-  font-weight: bold;
+.conversion div:nth-child(2) {
   float: right;
-  padding-left: 0;
+  font-weight: bold;
+}
+
+.errorInfo {
+  font-size: var(--font-smaller);
+  font-weight: normal;
+  text-transform: uppercase;
+  border-radius: 2px;
+  border: var(--border-divider);
+  opacity: 0.4;
+  padding: 0 5px;
 }
 
 .deemphasize {opacity: 0.4;}
 
 .negative {color: var(--color-text-negative);}
 
-.exponent {
-  display: inline-block;
-  color: var(--color-text-exponent);
-  white-space: nowrap;
-  margin-top: -3px;
-}
-.exponent:before {content: "10";}
-.exponent:after {content: " × ";}
-
 
 /* DISCLAIMER */
 
 .footnote {
-  padding: 5px 15px;
-  border-top: var(--border-divider);
+  margin: 6px 0 -6px 0;
+  padding: 7px 15px;
+  text-align: center;
+  background-color: var(--color-select-bg);
+}
+.footnote:hover {
+  background-color: var(--color-select-bg-hover);
+}
+.footnote:active {
+  background-color: var(--color-select-bg-active);
 }
 
 #disclaimer {

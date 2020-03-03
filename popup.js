@@ -42,25 +42,24 @@ function emptyEl(element) {
 }
 
 // MAKE VARIABLES OF AV ELEMENTS USED
-var elInput = getEl("input");
 var elSelectorSelected = getEl("selectorSelected");
 var elSelector = getEl("selector");
 var elSelectorVeil = getEl("selectorVeil");
 var elSelectorList = getEl("selectorList");
-var elCloseSelector = getEl("closeSelector");
-var elFilter = getEl("filter");
-var elResetFilter = getEl("resetFilter");
+var elSelectorClose = getEl("selectorClose");
+var elSelectorFilter = getEl("selectorFilter");
+var elSelectorFilterReset = getEl("selectorFilterReset");
 var elUnit = getEl("unit");
 var elKeepHidableShown = getEl("keepHidableShown");
 var elValue = getEl("value");
+var elValueReset = getEl("valueReset");
+var elInput = getEl("input");
 var elOutput = getEl("output");
-
 var elTools = getEl("tools");
 var elDecimalsLabel = getEl("decimalsLabel");
 var elDecimalsAdd = getEl("decimalsAdd");
 var elDecimalsSubtract = getEl("decimalsSubtract");
-var elResetValue = getEl("resetValue");
-var elDismiss = getEl("dismiss");
+var elDisclaimerDismiss = getEl("disclaimerDismiss");
 var elDisclaimerText = getEl("disclaimerText");
 var elPopup = getEl("popup");
 
@@ -296,14 +295,14 @@ function onFilter() {
     selectedUnit = elUnit.value;
   }
 
-  if (elFilter.value.length > 0) {
-    showEl(elResetFilter);
+  if (elSelectorFilter.value.length > 0) {
+    showEl(elSelectorFilterReset);
   }
   else {
-    hideEl(elResetFilter);
+    hideEl(elSelectorFilterReset);
   }
 
-  populateSelector(selectedUnit, elFilter.value);
+  populateSelector(selectedUnit, elSelectorFilter.value);
 }
 
 function populateSelector(select, filterText) {
@@ -453,10 +452,10 @@ function onInput() {
   elValue.setSelectionRange(caret, caret);
 
   if (elValue.value.length > 0) {
-    showEl(elResetValue);
+    showEl(elValueReset);
   }
   else {
-    hideEl(elResetValue);
+    hideEl(elValueReset);
     hideEl(elOutput);
   }
 }
@@ -488,7 +487,7 @@ function closeSelector() {
   hideEl(elSelectorVeil);
   showEl(elOutput);
 
-  elFilter.value = "";
+  elSelectorFilter.value = "";
   elInput.classList.remove("whenSelectorOpen");
 
   populateSelector(elUnit.value);
@@ -498,10 +497,10 @@ function initialize() {
   // Localize
   elSelectorSelected.textContent = l10n("selectorText");
   elValue.placeholder = l10n("inputPlaceholder");
-  elFilter.placeholder = l10n("filterPlaceholder");
+  elSelectorFilter.placeholder = l10n("filterPlaceholder");
   elDecimalsLabel.textContent = l10n("decimals");
   elDisclaimerText.textContent = l10n("disclaimer");
-  elDismiss.textContent = l10n("hideDisclaimer");
+  elDisclaimerDismiss.textContent = l10n("hideDisclaimer");
 
   // Get values from last selected
   let getStorage = browser.storage.local.get();
@@ -524,7 +523,7 @@ function initialize() {
 
     if (response.value) {
       elValue.value = response.value;
-      showEl(elResetValue);
+      showEl(elValueReset);
     }
 
     if (response.unit && response.value) {
@@ -544,7 +543,7 @@ elValue.addEventListener("input", function() {
   executeCalc();
 });
 
-elFilter.addEventListener("input", function() {
+elSelectorFilter.addEventListener("input", function() {
   onFilter();
 })
 
@@ -552,7 +551,7 @@ elSelectorSelected.addEventListener("click", function() {
   openSelector();
 });
 
-elCloseSelector.addEventListener("click", function() {
+elSelectorClose.addEventListener("click", function() {
   closeSelector();
 });
 
@@ -568,7 +567,7 @@ elDecimalsSubtract.addEventListener("click", function() {
   changeDecimals(-1);
 });
 
-elResetValue.addEventListener("click", function() {
+elValueReset.addEventListener("click", function() {
   elValue.value = "";
   elValue.focus();
   setStorage();
@@ -577,13 +576,13 @@ elResetValue.addEventListener("click", function() {
   hideEl(elTools);
 });
 
-elResetFilter.addEventListener("click", function() {
-  elFilter.value = "";
-  elFilter.focus();
+elSelectorFilterReset.addEventListener("click", function() {
+  elSelectorFilter.value = "";
+  elSelectorFilter.focus();
   onFilter();
 });
 
-elDismiss.addEventListener("click", function() {
+elDisclaimerDismiss.addEventListener("click", function() {
   hideEl(disclaimer);
 
   browser.storage.local.set({

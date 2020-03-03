@@ -5,8 +5,11 @@
   "decimals":             { "message": "Decimaler" },
   "disclaimer":           { "message": "Unit Converter tillhandahålls ”i befintligt skick”, utan garantier av något slag, varken uttryckliga eller underförstådda." },
   "hideDisclaimer":       { "message": "Göm" },
-  "hiddenConversions":    { "message": "konverteringar dolda." },
   "selectorText":         { "message": "Välj enhet" },
+  "hiddenConversions":    { "message": "Visa $n$ dolda konverteringar", "placeholders": { "n" : { "content" : "$1" } } },
+  "errorTooLarge":        { "message": "För stort" },
+  "errorTooSmall":        { "message": "För litet" },
+  "errorTooFewDecimals":  { "message": "Fler decimaler behövs" },
 
   "sMetric":               {"message": "Metersystemet"},
   "sImperial":             {"message": "Brittiska och amerikanska system"},

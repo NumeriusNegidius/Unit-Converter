@@ -1,28 +1,22 @@
 :root {
-  --font-regular: 15px;
-  --font-small: 13px;
-  --font-smaller: 11px;
-  --border-divider: 1px solid #d7d7db;
+  --border-divider: 1px solid rgba(0, 0, 0, 0.1);
 
-  --color-body-bg: #ffffff;
-  --color-text: #1a1a1a;
-  --color-text-negative: #d70022 !important;
-  --color-text-exponent: #008ea4;
+  --color-body-bg: rgba(255, 255, 255, 1);
+  --color-body-text: #1a1a1a;
 
-  --color-select-bg: #e1e1e2;
-  --color-select-bg-hover: #c9c9ca;
-  --color-select-bg-active: #b1b1b2;
+  --color-select-bg: rgba(0, 0, 0, 0.1);
+  --color-select-bg-hover: rgba(0, 0, 0, 0.15);
+  --color-select-bg-active: rgba(0, 0, 0, 0.2);
 
-  --color-input-bg: #ffffff;
-  --color-input-border: 1px solid #b5b5b5;
-  --color-input-border-focus: 2px solid #0084ff;
-  --color-input-outline-focus: 0 0 0 3px #a8d7ff;
+  --color-input-bg: rgba(255, 255, 255, 1);
+  --color-input-border: 1px solid rgba(0, 0, 0, 0.15);
 
-  --color-tr-bg-hover: #e1e1e2;
-  --color-copy-bg-active: #e1e1e2;
+  --color-conversion-bg-hover: rgba(0, 0, 0, 0.1);
+  --color-conversion-bg-active: rgba(0, 0, 0, 0.2);
 
-  --color-link: #0a84ff;
-  --color-link-hover: #003eaa;
+  --color-popup-background: rgba(255, 255, 255, 1);
+  --color-popup-border: rgba(12, 12, 13, .8);
+  --color-popup-shadow: rgba(0, 0, 0, 0.5);
 
   --icon-logo: url("icons/icon-inline.svg");
   --icon-zoom-in: url("icons/zoom-in.svg");
@@ -32,15 +26,25 @@
   --icon-copy: url("icons/copy.svg");
   --icon-check: url("icons/check.svg");
 
-  --margin-group: 6px;
+
+  --color-input-border-focus: 2px solid rgba(0, 132, 255, 1);
+  --color-input-outline-focus: 0 0 0 3px rgba(0, 132, 255, 0.3);
+
+  --color-body-text-negative: #d70022 !important;
+  --color-link: #0a84ff;
+  --color-link-hover: #003eaa;
+
+  --margin-group: 6px; /*USE OF THIS!!!!*/
+  --font-regular: 15px;
+  --font-small: 13px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --border-divider: 1px solid rgba(255, 255, 255, 0.1);
 
-    --color-body-bg: #4a4a4f;
-    --color-text: #f9f9fa;
+    --color-body-bg: rgba(74, 74, 79, 1);
+    --color-body-text: rgba(249, 249, 250, 1);
 
     --color-select-bg: rgba(255, 255, 255, 0.1);
     --color-select-bg-hover: rgba(255, 255, 255, 0.15);
@@ -48,11 +52,13 @@
 
     --color-input-bg: rgba(0, 0, 0, 0.2);
     --color-input-border: 1px solid rgba(255, 255, 255, 0.15);
-    --color-input-border-focus: 2px solid rgba(0, 132, 255, 1);
-    --color-input-outline-focus: 0 0 0 3px rgba(0, 132, 255, 0.3);
 
-    --color-tr-bg-hover: rgba(255, 255, 255, 0.1);
-    --color-copy-bg-active: rgba(255, 255, 255, 0.1);
+    --color-conversion-bg-hover: rgba(255, 255, 255, 0.1);
+    --color-conversion-bg-active: rgba(255, 255, 255, 0.2);
+
+    --color-popup-background: rgba(74, 74, 79, 1);
+    --color-popup-border: rgba(249, 249, 250, .8);
+    --color-popup-shadow: rgba(0, 0, 0, 0.5);
 
     --icon-logo: url("icons/icon-inline-neg.svg");
     --icon-zoom-in: url("icons/zoom-in-neg.svg");
@@ -69,7 +75,7 @@
 html, body {
   width: 350px;
   background-color: var(--color-body-bg);
-  color: var(--color-text);
+  color: var(--color-body-text);
   font-size: var(--font-small);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   margin: 0;
@@ -115,7 +121,7 @@ button {
 
 input, #selectorSelected {
   font-size: var(--font-regular);
-  color: var(--color-text);
+  color: var(--color-body-text);
   height: 30px;
   border-radius: 2px;
 }
@@ -297,7 +303,11 @@ input:focus {
 }
 
 .conversion:hover {
-  background-color: var(--color-tr-bg-hover);
+  background-color: var(--color-conversion-bg-hover);
+}
+
+.conversion:active {
+  background-color: var(--color-conversion-bg-active);
 }
 
 .conversion:hover .copy {
@@ -326,18 +336,14 @@ input:focus {
 }
 
 .errorInfo {
-  font-size: var(--font-smaller);
   font-weight: normal;
   text-transform: uppercase;
-  border-radius: 2px;
-  border: var(--border-divider);
   opacity: 0.4;
-  padding: 0 5px;
 }
 
 .deemphasize {opacity: 0.4;}
 
-.negative {color: var(--color-text-negative);}
+.negative {color: var(--color-body-text-negative);}
 
 
 /* DISCLAIMER */
@@ -382,16 +388,18 @@ input:focus {
   margin: 0 auto;
   height: 100px;
   width: 100px;
-  top: 170px;
+  top: 120px;
   left: 0;
   right: 0;
   animation: fadeout 1s cubic-bezier(0.680, -0.550, 0.265, 1.550);
-  background-color: var(--color-copy-bg-active);
+  background-color: var(--color-popup-background);
   background-image: var(--icon-copy);
   background-position: center;
   background-repeat: no-repeat;
   background-size: auto 50px;
-  border-radius: 5px;
+  border-radius: 8px;
+  border: 5px solid var(--color-popup-border);
+  box-shadow: 0 0 10px var(--color-popup-shadow);
   opacity: 0;
 }
 

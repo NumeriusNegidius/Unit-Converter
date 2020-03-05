@@ -14,8 +14,8 @@
     "default_title": "Unit Converter",
     "default_popup": "popup.html",
     "theme_icons": [{
-      "light": "icons/icon.svg",
-      "dark": "icons/icon-neg.svg",
+      "light": "icons/icon-light.svg",
+      "dark": "icons/icon-dark.svg",
       "size": 16
     }]
   },

@@ -489,7 +489,7 @@ function closeSelector() {
 
   elSelectorFilter.value = "";
   elInput.classList.remove("whenSelectorOpen");
-
+  elValue.focus();
   populateSelector(elUnit.value);
 }
 

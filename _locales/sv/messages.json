@@ -4,7 +4,6 @@
   "filterPlaceholder":    { "message": "Filtrera enheter" },
   "decimals":             { "message": "Decimaler" },
   "disclaimer":           { "message": "Unit Converter tillhandahålls ”i befintligt skick”, utan garantier av något slag, varken uttryckliga eller underförstådda." },
-  "hideDisclaimer":       { "message": "Göm" },
   "selectorText":         { "message": "Välj enhet" },
   "hiddenConversions":    { "message": "Visa $n$ dolda konverteringar", "placeholders": { "n" : { "content" : "$1" } } },
   "errorTooLarge":        { "message": "För stort" },

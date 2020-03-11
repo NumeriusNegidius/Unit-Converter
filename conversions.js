@@ -71,9 +71,9 @@ var conversions = [
  {"unit" : "kn",     "toSIbase" : 1.852,             "system" : "sOther",    "category" : "cSpeed"},
 
  // TEMPERATURE, SIbase = C.
- {"unit" : "K",      "toSIbase" : 1,   "addToSIbase" : -273.15, "addFromSIbase": 273.15, "system": "sMetric",   "category" : "cTemperature"},
- {"unit" : "C",      "toSIbase" : 1,   "addToSIbase" : 0,       "addFromSIbase": 0,      "system": "sMetric",   "category" : "cTemperature"},
- {"unit" : "F",      "toSIbase" : 5/9, "addToSIbase" : -32,     "addFromSIbase": 32,     "system": "sImperial", "category" : "cTemperature"},
+ {"unit" : "K",      "toSIbase" : 1,   "addToSIbase" : -273.15, "addFromSIbase": 273.15, "allowZero": true, "system": "sMetric",   "category" : "cTemperature"},
+ {"unit" : "C",      "toSIbase" : 1,   "addToSIbase" : 0,       "addFromSIbase": 0,      "allowZero": true, "system": "sMetric",   "category" : "cTemperature"},
+ {"unit" : "F",      "toSIbase" : 5/9, "addToSIbase" : -32,     "addFromSIbase": 32,     "allowZero": true, "system": "sImperial", "category" : "cTemperature"},
 
  // TIME, SIbase = day.
  {"unit" : "ms",     "toSIbase" : 1.157407407e-8,    "system" : "sMetric",   "category" : "cTime"},

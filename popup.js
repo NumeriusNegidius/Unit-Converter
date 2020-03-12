@@ -55,6 +55,7 @@ var elValue = getEl("value");
 var elValueReset = getEl("valueReset");
 var elInput = getEl("input");
 var elOutput = getEl("output");
+var elShowHidden = getEl("showHidden");
 var elTools = getEl("tools");
 var elDecimalsLabel = getEl("decimalsLabel");
 var elDecimalsAdd = getEl("decimalsAdd");
@@ -71,160 +72,159 @@ function executeCalc() {
   let inUnit = elUnit.value;
   let inValue = elValue.value;
 
-  // Calculate inValue if entered as a fraction
-  if (inValue.indexOf("/") > 0) {
-    let numerator = inValue.split("/")[0];
-    let denominator = inValue.split("/")[1];
-    inValue = parseFloat(numerator) / parseFloat(denominator);
-  }
-
-  if (inValue.toString().length > MAX_INTEGER) {
-    inValue = parseFloat(inValue).toExponential().toString();
-  }
-
-  emptyEl(elOutput);
-
-  // Only execute if input value is a number, is safe and is finite
-  if (isNaN(parseFloat(inValue))) {
-    console.log(inValue, "is NaN");
-    hideEl(elTools);
-
-  } else if (parseFloat(inValue) == 0) {
-    hideEl(elTools);
-    console.log("Input number is 0");
-
-  } else if (!Number.isSafeInteger(parseInt(inValue))) {
-    hideEl(elTools);
-    console.log("Input number is not safe (too big)");
-
-  } else if (!Number.isFinite(parseFloat(inValue))) {
-    hideEl(elTools);
-    console.log("Input number is not finite");
-
-  } else {
-    showEl(elOutput);
-    showEl(elTools);
-    setStorage();
-
-    let inUnitIndex = conversions.findIndex(function(item){
-      return item.unit === inUnit;
-    });
-
-    let category = conversions[inUnitIndex].category;
-    if (conversions[inUnitIndex].addToSIbase) {
-      inValue = parseFloat(inValue) + parseFloat(conversions[inUnitIndex].addToSIbase);
+  if (inUnit && inValue) {
+    // Calculate inValue if entered as a fraction
+    if (inValue.indexOf("/") > 0) {
+      let numerator = inValue.split("/")[0];
+      let denominator = inValue.split("/")[1];
+      inValue = parseFloat(numerator) / parseFloat(denominator);
     }
-    let inValueInSIbase = inValue * conversions[inUnitIndex].toSIbase;
 
-    let previousOutSystem;
-    let countUnitsHidden = 0;
-    // Create conversion list
-    for (let i = 0; i < conversions.length; i++) {
-      if (conversions[i].category.includes(category)) {
+    if (inValue.toString().length > MAX_INTEGER) {
+      inValue = parseFloat(inValue).toExponential().toString();
+    }
 
-        // Get conversion data and do the math
-        let outUnit = conversions[i].unit;
-        let outSystem = conversions[i].system;
-        let addFromSIbase = conversions[i].addFromSIbase;
-        let unroundedProduct = (1 / conversions[i].toSIbase) * inValueInSIbase;
-        if (conversions[i].addFromSIbase) {
-          unroundedProduct = unroundedProduct + conversions[i].addFromSIbase;
-        }
-        let product = round(unroundedProduct, decimals);
+    emptyEl(elOutput);
+    hideEl(elTools);
 
-        // Don't show input unit among output conversions
-        if (elUnit.value != outUnit) {
-          let outInteger, outDecimals;
+    // Only execute if input value is a number, is safe and is finite
+    if (isNaN(parseFloat(inValue))) {
+      console.log("[UNIT CONVERTER] No result: " + inValue + " is NaN");
 
-          let productSign = Math.sign(product);     // Whether positive or negative. Returns 1 or -1
-          let productArray = product.split(".");    // Split at decimal point
+    } else if (!Number.isSafeInteger(parseInt(inValue))) {
+      console.log("[UNIT CONVERTER] No result: Input number is not safe (too big)");
 
-          //Convert to Esperanto, since it uses " " as thousands separator
-          outInteger = parseInt(productArray[0]).toLocaleString("eo").replace(/-/g, "");
+    } else if (!Number.isFinite(parseFloat(inValue))) {
+      console.log("[UNIT CONVERTER] No result: Input number is not finite");
 
-          if (productArray.length > 0) {
-            outDecimals = productArray[1];
-          }
+    } else {
+      let inUnitIndex = conversions.findIndex(function(item){
+        return item.unit === inUnit;
+      });
 
-          // Make category heading row + spacer row above
-          // Also count potential units in system
-          var countUnitsInSystem;
-          if (outSystem != previousOutSystem) {
-            let elSystem = createEl("DIV", elOutput, l10n(outSystem), "system");
-            elSystem.id = outSystem;
+      let category = conversions[inUnitIndex].category;
+      if (conversions[inUnitIndex].addToSIbase) {
+        inValue = parseFloat(inValue) + parseFloat(conversions[inUnitIndex].addToSIbase);
+      }
+      let inValueInSIbase = inValue * conversions[inUnitIndex].toSIbase;
 
-            let getUnitsInSystem = conversions.filter(function(data) {
-              return data.category === category && data.system === outSystem && data.unit != inUnit;
-            });
-            countUnitsInSystem = getUnitsInSystem.length;
-          }
+      if (parseFloat(inValue) == 0 && !conversions[inUnitIndex].allowZero) {
+        console.log("[UNIT CONVERTER] No result: Input number is 0");
+      } else {
+        showEl(elOutput);
+        showEl(elTools);
+        setStorage();
 
-          // Make conversion row
-          let elConversionRow = createEl("DIV", elOutput, null, "conversion");
-          let elConversionUnit = createEl("DIV", elConversionRow, l10n(outUnit));
-          let elConversionProduct = createEl("DIV", elConversionRow);
+        let previousOutSystem;
+        let countUnitsHidden = 0;
+        // Create conversion list
+        for (let i = 0; i < conversions.length; i++) {
+          if (conversions[i].category.includes(category)) {
 
-          // Conversions that are unsafe or 0 with current decimal settings are hidden by default
-          // To be able to hide elSystem,
-          if (!Number.isSafeInteger(Math.round(product))) {
-            countUnitsInSystem--;
-            countUnitsHidden++;
-
-            let elError = createEl("SPAN", elConversionProduct, l10n("errorTooLarge"), "errorInfo");
-            elConversionRow.classList.add("hidable");
-            if (elKeepHidableShown.value == "1") {
-              elConversionRow.classList.add("shown");
+            // Get conversion data and do the math
+            let outUnit = conversions[i].unit;
+            let outSystem = conversions[i].system;
+            let addFromSIbase = conversions[i].addFromSIbase;
+            let unroundedProduct = (1 / conversions[i].toSIbase) * inValueInSIbase;
+            if (conversions[i].addFromSIbase) {
+              unroundedProduct = unroundedProduct + conversions[i].addFromSIbase;
             }
+            let product = round(unroundedProduct, decimals);
 
-          } else if (round(unroundedProduct, MAX_DECIMALS) == 0) {
-            countUnitsInSystem--;
-            countUnitsHidden++;
+            // Don't show input unit among output conversions
+            if (elUnit.value != outUnit) {
+              let outInteger, outDecimals;
 
-            let elError = createEl("SPAN", elConversionProduct, l10n("errorTooSmall"), "errorInfo");
-            elConversionRow.classList.add("hidable");
-            if (elKeepHidableShown.value == "1") {
-              elConversionRow.classList.add("shown");
-            }
+              let productSign = Math.sign(product);     // Whether positive or negative. Returns 1 or -1
+              let productArray = product.split(".");    // Split at decimal point
 
-          } else if (product == 0) {
-            countUnitsInSystem--;
-            countUnitsHidden++;
+              //Convert to Esperanto, since it uses " " as thousands separator
+              outInteger = parseInt(productArray[0]).toLocaleString("eo").replace(/-/g, "");
 
-            let elError = createEl("SPAN", elConversionProduct, l10n("errorTooFewDecimals"), "errorInfo");
-            elConversionRow.classList.add("hidable");
-            if (elKeepHidableShown.value == "1") {
-              elConversionRow.classList.add("shown");
-            }
-
-          } else {
-            // Add copy style and copy data
-            elConversionProduct.classList.add("copy");
-            elConversionRow.dataset.copyText = product;
-
-            if (productSign == -1) {
-              let elNegativeSign = createEl("SPAN", elConversionProduct, "−", "negative");
-            }
-
-            let elInteger = createEl("SPAN", elConversionProduct, outInteger);
-            if (outInteger == 0) {
-              elInteger.classList.add("deemphasize");
-            }
-
-            if (decimals > 0) {
-              let elDecimals = createEl("SPAN", elConversionProduct, "." + outDecimals);
-              if (outDecimals == 0) {
-                elDecimals.classList.add("deemphasize");
+              if (productArray.length > 0) {
+                outDecimals = productArray[1];
               }
+
+              // Make category heading row + spacer row above
+              // Also count potential units in system
+              var countUnitsInSystem;
+              if (outSystem != previousOutSystem) {
+                let elSystem = createEl("DIV", elOutput, l10n(outSystem), "system");
+                elSystem.id = outSystem;
+
+                let getUnitsInSystem = conversions.filter(function(data) {
+                  return data.category === category && data.system === outSystem && data.unit != inUnit;
+                });
+                countUnitsInSystem = getUnitsInSystem.length;
+              }
+
+              // Make conversion row
+              let elConversionRow = createEl("DIV", elOutput, null, "conversion");
+              let elConversionUnit = createEl("DIV", elConversionRow, l10n(outUnit), "conversionUnit");
+              let elConversionProduct = createEl("DIV", elConversionRow, null, "conversionProduct");
+
+              // Conversions that are unsafe or 0 with current decimal settings are hidden by default
+              if (!Number.isSafeInteger(Math.round(product))) {
+                countUnitsInSystem--;
+                countUnitsHidden++;
+
+                let elError = createEl("SPAN", elConversionProduct, l10n("errorTooLarge"), "errorInfo");
+                elConversionRow.classList.add("hidable");
+                if (elKeepHidableShown.value == "1") {
+                  elConversionRow.classList.add("shown");
+                }
+
+              } else if (round(unroundedProduct, MAX_DECIMALS) == 0) {
+                countUnitsInSystem--;
+                countUnitsHidden++;
+
+                let elError = createEl("SPAN", elConversionProduct, l10n("errorTooSmall"), "errorInfo");
+                elConversionRow.classList.add("hidable");
+                if (elKeepHidableShown.value == "1") {
+                  elConversionRow.classList.add("shown");
+                }
+
+              } else if (product == 0) {
+                countUnitsInSystem--;
+                countUnitsHidden++;
+
+                let elError = createEl("SPAN", elConversionProduct, l10n("errorTooFewDecimals"), "errorInfo");
+                elConversionRow.classList.add("hidable");
+                if (elKeepHidableShown.value == "1") {
+                  elConversionRow.classList.add("shown");
+                }
+
+              } else {
+                // Add copy style and copy data
+                elConversionRow.classList.add("copyable");
+                elConversionRow.dataset.copyText = product;
+
+                if (productSign == -1) {
+                  let elNegativeSign = createEl("SPAN", elConversionProduct, "−", "negative");
+                }
+
+                let elInteger = createEl("SPAN", elConversionProduct, outInteger);
+                if (outInteger == 0) {
+                  elInteger.classList.add("deemphasize");
+                }
+
+                if (decimals > 0) {
+                  let elDecimals = createEl("SPAN", elConversionProduct, "." + outDecimals);
+                  if (outDecimals == 0) {
+                    elDecimals.classList.add("deemphasize");
+                  }
+                }
+              }
+              handleHiddenSystems(outSystem, countUnitsInSystem);
+              previousOutSystem = outSystem;
             }
           }
-          handleHiddenSystems(outSystem, countUnitsInSystem);
-          previousOutSystem = outSystem;
         }
+
+        handleHiddenUnits(countUnitsHidden);
+        handleCopyButtons();
       }
     }
-
-    handleHiddenUnits(countUnitsHidden);
-    handleCopyButtons();
   }
 }
 
@@ -237,12 +237,11 @@ function handleHiddenSystems(outSystem, countUnitsInSystem) {
 
 function handleHiddenUnits(countUnitsHidden) {
   if (countUnitsHidden > 0 && keepHidableShown.value == "0") {
-    let elFootnoteText = l10n("hiddenConversions", countUnitsHidden);
-    let elFootnote = createEl("DIV", elOutput, elFootnoteText, "footnote");
-    elFootnote.id = "showHidden";
+    showEl(elShowHidden)
+    elShowHidden.textContent = l10n("hiddenConversions", countUnitsHidden);
 
-    elFootnote.addEventListener("click", function() {
-      hideEl(elFootnote);
+    elShowHidden.addEventListener("click", function() {
+      hideEl(elShowHidden);
       if (elKeepHidableShown.value == "0") {
         elKeepHidableShown.value = 1;
       } else {
@@ -306,8 +305,6 @@ function onFilter() {
 }
 
 function populateSelector(select, filterText) {
-  elValue.disabled = false;
-
   if (select) {
     setSelectorSelectedText(select);
   }
@@ -475,7 +472,7 @@ function openSelector() {
   hideEl(elSelectorSelected);
   hideEl(elTools);
   hideEl(elOutput);
-
+  hideEl(elShowHidden);
   keepHidableShown.value = 0;
 
   elInput.classList.add("whenSelectorOpen");
@@ -486,6 +483,7 @@ function closeSelector() {
   hideEl(elSelector);
   hideEl(elSelectorVeil);
   showEl(elOutput);
+  executeCalc();
 
   elSelectorFilter.value = "";
   elInput.classList.remove("whenSelectorOpen");
@@ -500,7 +498,6 @@ function initialize() {
   elSelectorFilter.placeholder = l10n("filterPlaceholder");
   elDecimalsLabel.textContent = l10n("decimals");
   elDisclaimerText.textContent = l10n("disclaimer");
-  elDisclaimerDismiss.textContent = l10n("hideDisclaimer");
 
   // Get values from last selected
   let getStorage = browser.storage.local.get();
@@ -518,7 +515,6 @@ function initialize() {
       populateSelector(response.unit);
     } else {
       populateSelector();
-      elValue.disabled = true;
     }
 
     if (response.value) {
@@ -573,7 +569,9 @@ elValueReset.addEventListener("click", function() {
   setStorage();
   emptyEl(elOutput);
   hideEl(elOutput);
+  hideEl(elValueReset);
   hideEl(elTools);
+  hideEl(elShowHidden);
 });
 
 elSelectorFilterReset.addEventListener("click", function() {

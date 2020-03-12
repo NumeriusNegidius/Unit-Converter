@@ -7,26 +7,23 @@
   </head>
 
 <body>
+  <h1>Unit Converter</h1>
   <header id="input">
-    <h1>Unit Converter</h1>
-    <form>
-      <input type="hidden" id="unit">
-      <input type="hidden" id="keepHidableShown" value="0">
-      <div id="selectorSelected"></div>
+    <input type="hidden" id="unit">
+    <input type="hidden" id="keepHidableShown" value="0">
+    <div id="selectorSelected"></div>
 
-      <div class="inputGroup">
-        <input id="value" type="text" maxlength="15" autocomplete="off">
-        <button id="valueReset" class="reset">&times;</button>
-      </div>
-    </form>
-
-    <div id="tools">
-      <span id="decimalsLabel"></span>
-      <button id="decimalsAdd" class="iconic">+</button><button id="decimalsSubtract" class="iconic">-</button>
+    <div class="inputGroup">
+      <input id="value" type="text" maxlength="15" autocomplete="off">
+      <button id="valueReset" class="reset">&times;</button>
     </div>
   </header>
 
-  <div id="selectorVeil"></div>
+  <div id="tools">
+    <span id="decimalsLabel"></span>
+    <button id="decimalsAdd" class="iconic">+</button><button id="decimalsSubtract" class="iconic">-</button>
+  </div>
+
   <div id="selector">
     <div class="inputGroup">
       <input id="selectorFilter" type="text" maxlength="50" autocomplete="off">
@@ -37,16 +34,18 @@
   </div>
 
   <main id="output"></main>
+  <div id="showHidden"></div>
 
   <footer id="disclaimer">
+    <button id="disclaimerDismiss">&times;</button>
     <span id="disclaimerText"></span>
-    <button id="disclaimerDismiss" class="link"></button>
   </footer>
 
   <div id="popup"></div>
+  <div id="selectorVeil"></div>
 
- <script src="conversions.js"></script>
- <script src="popup.js"></script>
+  <script src="conversions.js"></script>
+  <script src="popup.js"></script>
 </body>
 
 </html>

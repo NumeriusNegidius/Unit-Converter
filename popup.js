@@ -355,7 +355,6 @@ function populateSelector(select, filterText) {
 
       setSelectorSelectedText(elUnit.value);
       markSelector(elUnit.value);
-      console.log("this seems like we're running a loop inside a loop?");
       closeSelector();
       executeCalc();
     });
@@ -477,6 +476,7 @@ function openSelector() {
 
   elInput.classList.add("whenSelectorOpen");
 
+  // Scroll elSelectorList so that selected unit is visible
   let topPos = getEl("checked").offsetTop - 150;
   elSelectorList.scrollTop = topPos;
 }

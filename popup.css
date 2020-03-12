@@ -200,7 +200,7 @@ input:focus {
   margin: 0;
 }
 #selector dd:hover {background-color: var(--color-select-bg-active);}
-#selector dd.checked {
+#selector #checked {
   background-image: var(--icon-check);
   background-position: left 10px center;
   background-repeat: no-repeat;

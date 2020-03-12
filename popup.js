@@ -147,7 +147,7 @@ function executeCalc() {
 
               // Make category heading row + spacer row above
               // Also count potential units in system
-              var countUnitsInSystem;
+              let countUnitsInSystem;
               if (outSystem != previousOutSystem) {
                 let elSystem = createEl("DIV", elOutput, l10n(outSystem), "system");
                 elSystem.id = outSystem;
@@ -258,9 +258,9 @@ function handleHiddenUnits(countUnitsHidden) {
 }
 
 function handleCopyButtons() {
-  var elCopySpans = document.getElementsByClassName("conversion");
+  let elCopySpans = document.getElementsByClassName("conversion");
 
-  for (var i = 0; i < elCopySpans.length; i++) {
+  for (let i = 0; i < elCopySpans.length; i++) {
     elCopySpans[i].addEventListener("click", function() {
       if (this.dataset.copyText) {
         let copyBuffer = createEl("TEXTAREA", elOutput, this.dataset.copyText, "copyBuffer");
@@ -323,7 +323,6 @@ function populateSelector(select, filterText) {
     let elSelectorUnit;
     if (filterText) {
       let unitDict = ""
-      // unitDict += conversions[i].unit + " ";
       unitDict += l10n(conversions[i].unit) + " ";
       unitDict += l10n(conversions[i].category) + " ";
       unitDict += l10n(conversions[i].unit.toString() + "Dict");
@@ -342,20 +341,21 @@ function populateSelector(select, filterText) {
         let elSelectorCategory = createEl("DT", elSelectorList, l10n(conversions[i].category));
       }
       elSelectorUnit = createEl("DD", elSelectorList, l10n(conversions[i].unit));
-      markSelector(select);
       elSelectorUnit.dataset.unit = conversions[i].unit;
+      markSelector(select);
       previousCategory = conversions[i].category;
     }
   }
 
   // Create Event Listeners for each option
-  var elSelectorValues = document.getElementsByTagName("DD");
+  let elSelectorValues = document.getElementsByTagName("DD");
   for (let i = 0; i < elSelectorValues.length; i++) {
     elSelectorValues[i].addEventListener("click", function() {
       elUnit.value = elSelectorValues[i].dataset.unit;
 
       setSelectorSelectedText(elUnit.value);
       markSelector(elUnit.value);
+      console.log("this seems like we're running a loop inside a loop?");
       closeSelector();
       executeCalc();
     });
@@ -363,12 +363,12 @@ function populateSelector(select, filterText) {
 }
 
 function markSelector(select) {
-  var elSelectorValues = document.getElementsByTagName("DD");
+  let elSelectorValues = document.getElementsByTagName("DD");
   for (let i = 0; i < elSelectorValues.length; i++) {
     if (elSelectorValues[i].dataset.unit != select) {
-      elSelectorValues[i].classList.remove("checked");
+      elSelectorValues[i].removeAttribute("id");
     } else {
-      elSelectorValues[i].classList.add("checked");
+      elSelectorValues[i].id = "checked";
     }
   }
 }
@@ -476,6 +476,9 @@ function openSelector() {
   keepHidableShown.value = 0;
 
   elInput.classList.add("whenSelectorOpen");
+
+  let topPos = getEl("checked").offsetTop - 150;
+  elSelectorList.scrollTop = topPos;
 }
 
 function closeSelector() {

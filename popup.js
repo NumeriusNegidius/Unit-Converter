@@ -125,6 +125,7 @@ function executeCalc() {
             let outUnit = conversions[i].unit;
             let outSystem = conversions[i].system;
             let addFromSIbase = conversions[i].addFromSIbase;
+            let allowZero = conversions[i].allowZero;
             let unroundedProduct = (1 / conversions[i].toSIbase) * inValueInSIbase;
             if (conversions[i].addFromSIbase) {
               unroundedProduct = unroundedProduct + conversions[i].addFromSIbase;
@@ -147,7 +148,7 @@ function executeCalc() {
 
               // Make category heading row + spacer row above
               // Also count potential units in system
-              let countUnitsInSystem;
+              var countUnitsInSystem;
               if (outSystem != previousOutSystem) {
                 let elSystem = createEl("DIV", elOutput, l10n(outSystem), "system");
                 elSystem.id = outSystem;
@@ -174,7 +175,7 @@ function executeCalc() {
                   elConversionRow.classList.add("shown");
                 }
 
-              } else if (round(unroundedProduct, MAX_DECIMALS) == 0) {
+              } else if (round(unroundedProduct, MAX_DECIMALS) == 0 && !allowZero) {
                 countUnitsInSystem--;
                 countUnitsHidden++;
 
@@ -184,7 +185,8 @@ function executeCalc() {
                   elConversionRow.classList.add("shown");
                 }
 
-              } else if (product == 0) {
+              } else if (product == 0 && !allowZero) {
+      // console.log("WHADDABOUT DEGREES?");
                 countUnitsInSystem--;
                 countUnitsHidden++;
 
@@ -231,7 +233,7 @@ function executeCalc() {
 function handleHiddenSystems(outSystem, countUnitsInSystem) {
   if (countUnitsInSystem == 0 && keepHidableShown.value == "0") {
     let elSystem = getEl(outSystem);
-    elSystem.classList.add("hidable");
+    getEl(outSystem).classList.add("hidable");
   }
 }
 
@@ -252,7 +254,6 @@ function handleHiddenUnits(countUnitsHidden) {
       for (let i = 0; i < elResults.length; i++) {
         elResults[i].classList.add("shown");
       }
-
     });
   }
 }

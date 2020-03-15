@@ -186,7 +186,6 @@ function executeCalc() {
                 }
 
               } else if (product == 0 && !allowZero) {
-      // console.log("WHADDABOUT DEGREES?");
                 countUnitsInSystem--;
                 countUnitsHidden++;
 

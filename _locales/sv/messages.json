@@ -7,12 +7,12 @@
   "selectorText":         { "message": "Välj enhet" },
   "hiddenConversions":    { "message": "Visa $n$ dolda konverteringar", "placeholders": { "n" : { "content" : "$1" } } },
   "errorTooLarge":        { "message": "För stort" },
-  "errorTooSmall":        { "message": "För litet" },
+  "errorTooSmall":        { "message": "Nära noll" },
   "errorTooFewDecimals":  { "message": "Fler decimaler behövs" },
 
-  "sMetric":               {"message": "Metersystemet"},
-  "sImperial":             {"message": "Brittiska och amerikanska system"},
-  "sOther":                {"message": "Andra system"},
+  "sMetric":              {"message": "Metersystemet"},
+  "sImperial":            {"message": "Brittiska och amerikanska system"},
+  "sOther":               {"message": "Andra system"},
 
   "cArea":           {"message": "Area"},
   "cEnergy":         {"message": "Energi"},

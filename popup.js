@@ -115,8 +115,8 @@ function executeCalc() {
         showEl(elTools);
         setStorage();
 
-        let previousOutSystem;
-        let countUnitsHidden = 0;
+        var previousOutSystem;
+        var countUnitsHidden = 0;
         // Create conversion list
         for (let i = 0; i < conversions.length; i++) {
           if (conversions[i].category.includes(category)) {
@@ -146,25 +146,28 @@ function executeCalc() {
                 outDecimals = productArray[1];
               }
 
-              // Make category heading row + spacer row above
-              // Also count potential units in system
+              // Make wrapper + heading for each system
               var countUnitsInSystem;
+              var elSystemGroup;
               if (outSystem != previousOutSystem) {
-                let elSystem = createEl("DIV", elOutput, l10n(outSystem), "system");
-                elSystem.id = outSystem;
+                elSystemGroup = createEl("DIV", elOutput, null, "systemGroup"); // Wrapper div for system
+                elSystemGroup.id = outSystem;
 
+                let elSystem = createEl("DIV", elSystemGroup, l10n(outSystem), "system"); // System heading
+
+                // Count potential units in system, regardless of visibility
                 let getUnitsInSystem = conversions.filter(function(data) {
                   return data.category === category && data.system === outSystem && data.unit != inUnit;
                 });
                 countUnitsInSystem = getUnitsInSystem.length;
               }
 
-              // Make conversion row
-              let elConversionRow = createEl("DIV", elOutput, null, "conversion");
+              // Make wrapper + unit descriptor + conversion product divs for each conversion
+              let elConversionRow = createEl("DIV", elSystemGroup, null, "conversion");
               let elConversionUnit = createEl("DIV", elConversionRow, l10n(outUnit), "conversionUnit");
               let elConversionProduct = createEl("DIV", elConversionRow, null, "conversionProduct");
 
-              // Conversions that are unsafe or 0 with current decimal settings are hidden by default
+              // Hide conversions that are unsafe that are unsafe ...or 0 with current decimal settings are hidden by default
               if (!Number.isSafeInteger(Math.round(product))) {
                 countUnitsInSystem--;
                 countUnitsHidden++;
@@ -175,6 +178,7 @@ function executeCalc() {
                   elConversionRow.classList.add("shown");
                 }
 
+              // Hide conversions that equals 0 with max decimals shown, unless 0 if acceptable (e.g. degrees)
               } else if (round(unroundedProduct, MAX_DECIMALS) == 0 && !allowZero) {
                 countUnitsInSystem--;
                 countUnitsHidden++;
@@ -185,6 +189,7 @@ function executeCalc() {
                   elConversionRow.classList.add("shown");
                 }
 
+              // Hide conversions that equals 0 with current decimal settings, unless 0 if acceptable (e.g. degrees)
               } else if (product == 0 && !allowZero) {
                 countUnitsInSystem--;
                 countUnitsHidden++;
@@ -195,10 +200,10 @@ function executeCalc() {
                   elConversionRow.classList.add("shown");
                 }
 
+              // Show conversions
               } else {
-                // Add copy style and copy data
-                elConversionRow.classList.add("copyable");
-                elConversionRow.dataset.copyText = product;
+                elConversionRow.classList.add("copyable");  // Add copy style
+                elConversionRow.dataset.copyText = product; // Add copy data
 
                 if (productSign == -1) {
                   let elNegativeSign = createEl("SPAN", elConversionProduct, "−", "negative");
@@ -216,8 +221,13 @@ function executeCalc() {
                   }
                 }
               }
-              handleHiddenSystems(outSystem, countUnitsInSystem);
+
               previousOutSystem = outSystem;
+
+              // Hide system group if it has no visible conversions, unless "Show hidden" button is clicked
+              if (countUnitsInSystem == 0 && keepHidableShown.value == "0") {
+                getEl(outSystem).classList.add("hidable");
+              }
             }
           }
         }
@@ -229,13 +239,8 @@ function executeCalc() {
   }
 }
 
-function handleHiddenSystems(outSystem, countUnitsInSystem) {
-  if (countUnitsInSystem == 0 && keepHidableShown.value == "0") {
-    let elSystem = getEl(outSystem);
-    getEl(outSystem).classList.add("hidable");
-  }
-}
-
+// If result includes hidden conversions, add a button to show them
+// and set a hidden value to remember until popup is closed or another unit is selected
 function handleHiddenUnits(countUnitsHidden) {
   if (countUnitsHidden > 0 && keepHidableShown.value == "0") {
     showEl(elShowHidden)
@@ -257,6 +262,7 @@ function handleHiddenUnits(countUnitsHidden) {
   }
 }
 
+// Create notification + event listeners for each valid result so that the value can be copied
 function handleCopyButtons() {
   let elCopySpans = document.getElementsByClassName("conversion");
 
@@ -276,37 +282,21 @@ function handleCopyButtons() {
   }
 }
 
-// THIS IS THE FAUX SELECT DROPDOWN IN CLOSED STATE
-function setSelectorSelectedText(select) {
+// Show closed selector and set hidden value
+function setSelectorSelectedText(selectedUnit) {
   let unitIndex = conversions.findIndex(function(item){
-    return item.unit === select;
+    return item.unit === selectedUnit;
   });
-  let selectorUnit = select;
   let selectorCategory = conversions[unitIndex].category;
 
-  elUnit.value = selectorUnit;
-  elSelectorSelected.textContent = l10n(selectorUnit) + " (" + l10n(selectorCategory) + ")";
+  elUnit.value = selectedUnit;
+  elSelectorSelected.textContent = l10n(selectedUnit) + " (" + l10n(selectorCategory) + ")";
 }
 
-function onFilter() {
-  let selectedUnit = ""
-  if (elUnit.value) {
-    selectedUnit = elUnit.value;
-  }
-
-  if (elSelectorFilter.value.length > 0) {
-    showEl(elSelectorFilterReset);
-  }
-  else {
-    hideEl(elSelectorFilterReset);
-  }
-
-  populateSelector(selectedUnit, elSelectorFilter.value);
-}
-
-function populateSelector(select, filterText) {
-  if (select) {
-    setSelectorSelectedText(select);
+// Populate selector list
+function populateSelector(selectedUnit, filterText) {
+  if (selectedUnit) {
+    setSelectorSelectedText(selectedUnit);
   }
 
   // Empty list first...
@@ -321,50 +311,56 @@ function populateSelector(select, filterText) {
   for (let i = 0; i < conversions.length; i++) {
 
     let elSelectorUnit;
+
+    // If text is inputted in selector filter, limit list to matching units
     if (filterText) {
+      // Create dictionary from where we can search for units
       let unitDict = ""
-      unitDict += l10n(conversions[i].unit) + " ";
-      unitDict += l10n(conversions[i].category) + " ";
-      unitDict += l10n(conversions[i].unit.toString() + "Dict");
+      unitDict += l10n(conversions[i].unit) + " ";  // Localized unit name
+      unitDict += l10n(conversions[i].category) + " "; // Localized category name
+      unitDict += l10n(conversions[i].unit.toString() + "Dict"); // Localized unit dictionary
 
       if (unitDict.toLowerCase().search(filterText.toLowerCase()) > -1) {
         if (previousCategory != conversions[i].category) {
           let elSelectorCategory = createEl("DT", elSelectorList, l10n(conversions[i].category));
         }
         elSelectorUnit = createEl("DD", elSelectorList, l10n(conversions[i].unit));
-        markSelector(select);
         elSelectorUnit.dataset.unit = conversions[i].unit;
+
+        setSelectorCheckmark(selectedUnit);
         previousCategory = conversions[i].category;
       }
+
+    // If no text is inputted in selector filter, show all units
     } else {
       if (previousCategory != conversions[i].category) {
         let elSelectorCategory = createEl("DT", elSelectorList, l10n(conversions[i].category));
       }
       elSelectorUnit = createEl("DD", elSelectorList, l10n(conversions[i].unit));
       elSelectorUnit.dataset.unit = conversions[i].unit;
-      markSelector(select);
+
+      setSelectorCheckmark(selectedUnit);
       previousCategory = conversions[i].category;
     }
   }
 
-  // Create Event Listeners for each option
+  // Create Event Listeners for each unit in the selector
   let elSelectorValues = document.getElementsByTagName("DD");
   for (let i = 0; i < elSelectorValues.length; i++) {
     elSelectorValues[i].addEventListener("click", function() {
       elUnit.value = elSelectorValues[i].dataset.unit;
 
       setSelectorSelectedText(elUnit.value);
-      markSelector(elUnit.value);
       closeSelector();
       executeCalc();
     });
   }
 }
 
-function markSelector(select) {
+function setSelectorCheckmark(selectedUnit) {
   let elSelectorValues = document.getElementsByTagName("DD");
   for (let i = 0; i < elSelectorValues.length; i++) {
-    if (elSelectorValues[i].dataset.unit != select) {
+    if (elSelectorValues[i].dataset.unit != selectedUnit) {
       elSelectorValues[i].removeAttribute("id");
     } else {
       elSelectorValues[i].id = "checked";
@@ -391,6 +387,22 @@ function changeDecimals(step) {
     }
     executeCalc();
   }
+}
+
+function onFilter() {
+  let selectedUnit = ""
+  if (elUnit.value) {
+    selectedUnit = elUnit.value;
+  }
+
+  if (elSelectorFilter.value.length > 0) {
+    showEl(elSelectorFilterReset);
+  }
+  else {
+    hideEl(elSelectorFilterReset);
+  }
+
+  populateSelector(selectedUnit, elSelectorFilter.value);
 }
 
 // Sanitize value input
@@ -477,8 +489,10 @@ function openSelector() {
   elInput.classList.add("whenSelectorOpen");
 
   // Scroll elSelectorList so that selected unit is visible
-  let topPos = getEl("checked").offsetTop - 150;
-  elSelectorList.scrollTop = topPos;
+  let elChecked = getEl("checked");
+  if (elChecked) {
+    elSelectorList.scrollTop = elChecked.offsetTop - 150;
+  }
 }
 
 function closeSelector() {

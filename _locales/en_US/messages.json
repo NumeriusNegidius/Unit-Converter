@@ -7,7 +7,7 @@
   "selectorText":         { "message": "Choose input unit" },
   "hiddenConversions":    { "message": "Show $n$ hidden conversions", "placeholders": { "n" : { "content" : "$1" } } },
   "errorTooLarge":        { "message": "Too large" },
-  "errorTooSmall":        { "message": "Too small" },
+  "errorTooSmall":        { "message": "Close to zero" },
   "errorTooFewDecimals":  { "message": "More decimals needed" },
 
   "sMetric":              {"message": "Metric"},

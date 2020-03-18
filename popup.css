@@ -277,16 +277,16 @@ input:focus {
   overflow-y: auto;
 }
 
+.systemGroup {
+  margin-bottom: 6px;
+}
+
 .system {
-  margin-top: 6px;
+  margin-top: -1px;
   padding: 12px 15px 5px 15px;
   font-weight: bold;
   text-align: center;
   border-top: var(--border-divider);
-}
-
-.system:first-of-type {
-  margin-top: -1px;
 }
 
 .conversion {padding: 5px 15px;}

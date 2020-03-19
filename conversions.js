@@ -5,7 +5,7 @@ var conversions = [
   {"unit" : "mm2",    "toSIbase" : 0.000001,          "system" : "sMetric",   "tag" : ["SI"],               "category" : "cArea"},
   {"unit" : "cm2",    "toSIbase" : 0.0001,            "system" : "sMetric",   "tag" : ["SI"],               "category" : "cArea"},
   {"unit" : "m2",     "toSIbase" : 1,                 "system" : "sMetric",   "tag" : ["SI"],               "category" : "cArea"},
-  {"unit" : "ha",     "toSIbase" : 10000,             "system" : "sMetric",   "tag" : ["SI"],               "category" : "cArea"},
+  {"unit" : "ha",     "toSIbase" : 10000,             "system" : "sMetric",   "tag" : ["SI Derived"],       "category" : "cArea"},
   {"unit" : "km2",    "toSIbase" : 1000000,           "system" : "sMetric",   "tag" : ["SI"],               "category" : "cArea"},
   {"unit" : "in2",    "toSIbase" : 0.00064516,        "system" : "sImperial", "tag" : ["Imperial", "USCS"], "category" : "cArea"},
   {"unit" : "ft2",    "toSIbase" : 0.092903,          "system" : "sImperial", "tag" : ["Imperial", "USCS"], "category" : "cArea"},
@@ -34,17 +34,17 @@ var conversions = [
   {"unit" : "ft",     "toSIbase" : 0.3048,            "system" : "sImperial", "tag" : ["Imperial", "USCS"], "category" : "cLength"},
   {"unit" : "yd",     "toSIbase" : 0.9144,            "system" : "sImperial", "tag" : ["Imperial", "USCS"], "category" : "cLength"},
   {"unit" : "mi",     "toSIbase" : 1609.34,           "system" : "sImperial", "tag" : ["Imperial", "USCS"], "category" : "cLength"},
-  {"unit" : "nmi",    "toSIbase" : 1852,              "system" : "sOther",    "tag" : ["Imperial", "USCS"], "category" : "cLength"},
-  {"unit" : "ly",     "toSIbase" : 9460730472580800,  "system" : "sOther",    "tag" : ["Imperial", "USCS"], "category" : "cLength"},
-  {"unit" : "pc",     "toSIbase" : 30856775812799588, "system" : "sOther",    "tag" : ["Imperial", "USCS"], "category" : "cLength"},
+  {"unit" : "nmi",    "toSIbase" : 1852,              "system" : "sOther",    "tag" : ["Other"],            "category" : "cLength"},
+  {"unit" : "ly",     "toSIbase" : 9460730472580800,  "system" : "sOther",    "tag" : ["Astronomical"],     "category" : "cLength"},
+  {"unit" : "pc",     "toSIbase" : 30856775812799588, "system" : "sOther",    "tag" : ["Astronomical"],     "category" : "cLength"},
 
   // MASS, SIbase = kg.
   {"unit" : "mg",     "toSIbase" : 0.000001,          "system" : "sMetric",   "tag" : ["SI"],               "category" : "cMass"},
-  {"unit" : "ct",     "toSIbase" : 0.0002,            "system" : "sMetric",   "tag" : ["SI"],               "category" : "cMass"},
+  {"unit" : "ct",     "toSIbase" : 0.0002,            "system" : "sMetric",   "tag" : ["SI Derived"],            "category" : "cMass"},
   {"unit" : "g",      "toSIbase" : 0.001,             "system" : "sMetric",   "tag" : ["SI"],               "category" : "cMass"},
   {"unit" : "hg",     "toSIbase" : 0.01,              "system" : "sMetric",   "tag" : ["SI"],               "category" : "cMass"},
   {"unit" : "kg",     "toSIbase" : 1,                 "system" : "sMetric",   "tag" : ["SI"],               "category" : "cMass"},
-  {"unit" : "t",      "toSIbase" : 1000,              "system" : "sMetric",   "tag" : ["SI"],               "category" : "cMass"},
+  {"unit" : "t",      "toSIbase" : 1000,              "system" : "sMetric",   "tag" : ["SI Derived"],       "category" : "cMass"},
   {"unit" : "oz",     "toSIbase" : 0.0283495,         "system" : "sImperial", "tag" : ["Imperial", "USCS"], "category" : "cMass"},
   {"unit" : "lb",     "toSIbase" : 0.453592,          "system" : "sImperial", "tag" : ["Imperial", "USCS"], "category" : "cMass"},
   {"unit" : "st",     "toSIbase" : 6.35029,           "system" : "sImperial", "tag" : ["Imperial", "USCS"], "category" : "cMass"},
@@ -72,7 +72,7 @@ var conversions = [
 
   // TEMPERATURE, SIbase = C.
   {"unit" : "K",      "toSIbase" : 1,   "addToSIbase": 273.15, "allowZero": true, "system": "sMetric",   "tag" : ["SI"],               "category" : "cTemperature"},
-  {"unit" : "C",      "toSIbase" : 1,   "addToSIbase": 0,      "allowZero": true, "system": "sMetric",   "tag" : ["SI"],               "category" : "cTemperature"},
+  {"unit" : "C",      "toSIbase" : 1,   "addToSIbase": 0,      "allowZero": true, "system": "sMetric",   "tag" : ["SI Derived"],       "category" : "cTemperature"},
   {"unit" : "F",      "toSIbase" : 5/9, "addToSIbase": 32,     "allowZero": true, "system": "sImperial", "tag" : ["Imperial", "USCS"], "category" : "cTemperature"},
 
   // TIME, SIbase = day.
@@ -89,9 +89,9 @@ var conversions = [
 
   // VOLUME, SIbase = l.
   {"unit" : "ml",     "toSIbase" : 0.001,             "system" : "sMetric",   "tag" : ["SI"],               "category" : "cVolume"},
-  {"unit" : "tsp",    "toSIbase" : 0.005,             "system" : "sMetric",   "tag" : ["SI"],               "category" : "cVolume"},
+  {"unit" : "tsp",    "toSIbase" : 0.005,             "system" : "sMetric",   "tag" : ["SI Derived"],       "category" : "cVolume"},
   {"unit" : "cl",     "toSIbase" : 0.01,              "system" : "sMetric",   "tag" : ["SI"],               "category" : "cVolume"},
-  {"unit" : "tbsp",   "toSIbase" : 0.015,             "system" : "sMetric",   "tag" : ["SI"],               "category" : "cVolume"},
+  {"unit" : "tbsp",   "toSIbase" : 0.015,             "system" : "sMetric",   "tag" : ["SI Derived"],       "category" : "cVolume"},
   {"unit" : "l",      "toSIbase" : 1,                 "system" : "sMetric",   "tag" : ["SI"],               "category" : "cVolume"},
   {"unit" : "m3",     "toSIbase" : 1000,              "system" : "sMetric",   "tag" : ["SI"],               "category" : "cVolume"},
   {"unit" : "tspUS",  "toSIbase" : 0.00492892,        "system" : "sImperial", "tag" : ["USCS"],             "category" : "cVolume"},

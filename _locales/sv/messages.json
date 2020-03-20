@@ -60,8 +60,6 @@
   "kWh":             {"message": "Kilowattimme"},
   "kWhDict":         {"message": "kWh"},
 
-  "th":              {"message": "Tusendels tum"},
-  "thDict":          {"message": "thou, mil"},
   "nm":              {"message": "Nanometer"},
   "nmDict":          {"message": "nm"},
   "mcm":             {"message": "Mikrometer"},
@@ -76,6 +74,8 @@
   "mDict":           {"message": "avstånd"},
   "km":              {"message": "Kilometer"},
   "kmDict":          {"message": "km"},
+  "th":              {"message": "Tusendels tum"},
+  "thDict":          {"message": "thou, mil"},
   "in":              {"message": "Tum"},
   "inDict":          {"message": "in"},
   "ft":              {"message": "Fot"},

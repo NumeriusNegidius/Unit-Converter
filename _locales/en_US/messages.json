@@ -60,9 +60,6 @@
   "kWh":             {"message": "Kilowatt hours"},
   "kWhDict":         {"message": "kWh"},
 
-
-  "th":              {"message": "Thousandths of an inch"},
-  "thDict":          {"message": "thou, mil"},
   "nm":              {"message": "Nanometers"},
   "nmDict":          {"message": "nm, nanometres"},
   "mcm":             {"message": "Micrometers"},
@@ -77,6 +74,8 @@
   "mDict":           {"message": "metres"},
   "km":              {"message": "Kilometers"},
   "kmDict":          {"message": "km, kilometres"},
+  "th":              {"message": "Thousandths of an inch"},
+  "thDict":          {"message": "thou, mil"},
   "in":              {"message": "Inches"},
   "inDict":          {"message": "in"},
   "ft":              {"message": "Feet"},

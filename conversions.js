@@ -23,6 +23,7 @@ var conversions = [
   {"unit" : "kcal",   "toSIbase" : 4184,              "system" : "sOther",    "tag" : ["Other"],            "category" : "cEnergy"},
 
   // LENGTH, SIbase = m.
+  {"unit" : "nm",     "toSIbase" : 0.000000001,       "system" : "sMetric",   "tag" : ["SI"],               "category" : "cLength"},
   {"unit" : "mcm",    "toSIbase" : 0.000001,          "system" : "sMetric",   "tag" : ["SI"],               "category" : "cLength"},
   {"unit" : "mm",     "toSIbase" : 0.001,             "system" : "sMetric",   "tag" : ["SI"],               "category" : "cLength"},
   {"unit" : "cm",     "toSIbase" : 0.01,              "system" : "sMetric",   "tag" : ["SI"],               "category" : "cLength"},

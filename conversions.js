@@ -35,6 +35,7 @@ var conversions = [
   {"unit" : "yd",     "toSIbase" : 0.9144,            "system" : "sImperial", "tag" : ["Imperial", "USCS"], "category" : "cLength"},
   {"unit" : "mi",     "toSIbase" : 1609.34,           "system" : "sImperial", "tag" : ["Imperial", "USCS"], "category" : "cLength"},
   {"unit" : "nmi",    "toSIbase" : 1852,              "system" : "sOther",    "tag" : ["Other"],            "category" : "cLength"},
+  {"unit" : "au",     "toSIbase" : 149597870700,      "system" : "sOther",    "tag" : ["Astronomical"],     "category" : "cLength"},
   {"unit" : "ly",     "toSIbase" : 9460730472580800,  "system" : "sOther",    "tag" : ["Astronomical"],     "category" : "cLength"},
   {"unit" : "pc",     "toSIbase" : 30856775812799588, "system" : "sOther",    "tag" : ["Astronomical"],     "category" : "cLength"},
 
@@ -69,13 +70,14 @@ var conversions = [
   {"unit" : "fps",    "toSIbase" : 1.09728,           "system" : "sImperial", "tag" : ["Imperial", "USCS"], "category" : "cSpeed"},
   {"unit" : "mph",    "toSIbase" : 1.60934,           "system" : "sImperial", "tag" : ["Imperial", "USCS"], "category" : "cSpeed"},
   {"unit" : "kn",     "toSIbase" : 1.852,             "system" : "sOther",    "tag" : ["Other"],            "category" : "cSpeed"},
+  {"unit" : "sol",    "toSIbase" : 1079252848.8,      "system" : "sOther",    "tag" : ["Other"],            "category" : "cSpeed"},
 
   // TEMPERATURE, SIbase = C.
   {"unit" : "K",      "toSIbase" : 1,   "addToSIbase": 273.15, "allowZero": true, "system": "sMetric",   "tag" : ["SI"],               "category" : "cTemperature"},
   {"unit" : "C",      "toSIbase" : 1,   "addToSIbase": 0,      "allowZero": true, "system": "sMetric",   "tag" : ["SI Derived"],       "category" : "cTemperature"},
   {"unit" : "F",      "toSIbase" : 5/9, "addToSIbase": 32,     "allowZero": true, "system": "sImperial", "tag" : ["Imperial", "USCS"], "category" : "cTemperature"},
 
-  // TIME, SIbase = day.
+  // TIME, SIbase = sec.
   {"unit" : "ms",     "toSIbase" : 0.001,             "system" : "sMetric",   "tag" : ["SI"], "category" : "cTime"},
   {"unit" : "sec",    "toSIbase" : 1,                 "system" : "sMetric",   "tag" : ["SI"], "category" : "cTime"},
   {"unit" : "min",    "toSIbase" : 60,                "system" : "sMetric",   "tag" : ["SI"], "category" : "cTime"},
@@ -86,6 +88,7 @@ var conversions = [
   {"unit" : "year",   "toSIbase" : 31557600,          "system" : "sMetric",   "tag" : ["SI"], "category" : "cTime"},
   {"unit" : "decad",  "toSIbase" : 315576000,         "system" : "sMetric",   "tag" : ["SI"], "category" : "cTime"},
   {"unit" : "centu",  "toSIbase" : 3155760000,        "system" : "sMetric",   "tag" : ["SI"], "category" : "cTime"},
+  {"unit" : "mille",  "toSIbase" : 31557600000,       "system" : "sMetric",   "tag" : ["SI"], "category" : "cTime"},
 
   // VOLUME, SIbase = l.
   {"unit" : "ml",     "toSIbase" : 0.001,             "system" : "sMetric",   "tag" : ["SI"],               "category" : "cVolume"},

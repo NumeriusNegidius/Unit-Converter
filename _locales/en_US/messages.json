@@ -87,6 +87,8 @@
   "miDict":          {"message": "mi"},
   "nmi":             {"message": "Nautical miles"},
   "nmiDict":         {"message": "nmi"},
+  "au":              {"message": "Astronomical unit"},
+  "auDict":          {"message": "au, ua"},
   "ly":              {"message": "Light-years"},
   "lyDict":          {"message": "ly, lightyears, light years"},
   "pc":              {"message": "Parsecs"},
@@ -146,6 +148,8 @@
   "mphDict":         {"message": "mph, mi/h, mile per hour"},
   "kn":              {"message": "Knots"},
   "knDict":          {"message": "kn, kt, knot"},
+  "sol":             {"message": "Speed of light"},
+  "solDict":         {"message": "Lightspeed"},
 
   "K":               {"message": "Kelvin"},
   "KDict":           {"message": "degrees"},
@@ -174,6 +178,8 @@
   "decadDict":       {"message": ""},
   "centu":           {"message": "Centuries"},
   "centuDict":       {"message": ""},
+  "mille":           {"message": "Millennia"},
+  "milleDict":       {"message": "millennium"},
 
   "ml":              {"message": "Milliliters"},
   "mlDict":          {"message": "ml, millilitres"},
@@ -218,6 +224,6 @@
   "galUK":           {"message": "Imperial gallons"},
   "galUKDict":       {"message": ""},
   "ft3":             {"message": "Cubic feet"},
-  "ft3Dict":         {"message": "ft3, cu ft, cuft"}
+  "ft3Dict":         {"message": "ft3, cu ft, cuft, cubic foot"}
 
 }

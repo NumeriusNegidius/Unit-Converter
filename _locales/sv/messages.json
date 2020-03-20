@@ -86,6 +86,8 @@
   "miDict":          {"message": "mi"},
   "nmi":             {"message": "Nautisk mil"},
   "nmiDict":         {"message": "nmi, sjömil"},
+  "au":              {"message": "Astronomisk enhet"},
+  "auDict":          {"message": "au, ua, ae"},
   "ly":              {"message": "Ljusår"},
   "lyDict":          {"message": "ly"},
   "pc":              {"message": "Parsec"},
@@ -145,6 +147,8 @@
   "mphDict":         {"message": "mph, mi/h, mi/tim"},
   "kn":              {"message": "Knop"},
   "knDict":          {"message": "kn, kt"},
+  "sol":             {"message": "Ljusets hastighet"},
+  "solDict":         {"message": ""},
 
   "K":               {"message": "Kelvin"},
   "KDict":           {"message": "grader"},
@@ -173,6 +177,8 @@
   "decadDict":       {"message": ""},
   "centu":           {"message": "Sekel"},
   "centuDict":       {"message": ""},
+  "mille":           {"message": "Millennium"},
+  "milleDict":       {"message": ""},
 
   "ml":              {"message": "Milliliter"},
   "mlDict":          {"message": "ml"},

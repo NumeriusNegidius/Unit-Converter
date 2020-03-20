@@ -104,7 +104,7 @@ function executeCalc() {
 
       let category = conversions[inUnitIndex].category;
       if (conversions[inUnitIndex].addToSIbase) {
-        inValue = parseFloat(inValue) + parseFloat(conversions[inUnitIndex].addToSIbase);
+        inValue = parseFloat(inValue) - parseFloat(conversions[inUnitIndex].addToSIbase);
       }
       let inValueInSIbase = inValue * conversions[inUnitIndex].toSIbase;
 
@@ -124,11 +124,11 @@ function executeCalc() {
             // Get conversion data and do the math
             let outUnit = conversions[i].unit;
             let outSystem = conversions[i].system;
-            let addFromSIbase = conversions[i].addFromSIbase;
+            let addToSIbase = conversions[i].addToSIbase;
             let allowZero = conversions[i].allowZero;
             let unroundedProduct = (1 / conversions[i].toSIbase) * inValueInSIbase;
-            if (conversions[i].addFromSIbase) {
-              unroundedProduct = unroundedProduct + conversions[i].addFromSIbase;
+            if (conversions[i].addToSIbase) {
+              unroundedProduct = unroundedProduct + conversions[i].addToSIbase;
             }
             let product = round(unroundedProduct, decimals);
 
@@ -309,35 +309,20 @@ function populateSelector(selectedUnit, filterText) {
   // ...then populate list
   let previousCategory = "";
   for (let i = 0; i < conversions.length; i++) {
-
-    let elSelectorUnit;
-
-    // If text is inputted in selector filter, limit list to matching units
-    if (filterText) {
-      // Create dictionary from where we can search for units
-      let unitDict = ""
-      unitDict += l10n(conversions[i].unit) + " ";  // Localized unit name
-      unitDict += l10n(conversions[i].category) + " "; // Localized category name
-      unitDict += l10n(conversions[i].unit.toString() + "Dict"); // Localized unit dictionary
-
-      if (unitDict.toLowerCase().search(filterText.toLowerCase()) > -1) {
-        if (previousCategory != conversions[i].category) {
-          let elSelectorCategory = createEl("DT", elSelectorList, l10n(conversions[i].category));
-        }
-        elSelectorUnit = createEl("DD", elSelectorList, l10n(conversions[i].unit));
-        elSelectorUnit.dataset.unit = conversions[i].unit;
-
-        setSelectorCheckmark(selectedUnit);
-        previousCategory = conversions[i].category;
-      }
-
-    // If no text is inputted in selector filter, show all units
-    } else {
+    let unitDict = l10n(conversions[i].unit) + " "  // Localized unit name
+                 + l10n(conversions[i].category) + " " // Localized category name
+                 + l10n(conversions[i].unit.toString() + "Dict"); // Localized unit dictionary
+    if (!filterText ||unitDict.toLowerCase().search(filterText.toLowerCase()) > -1) {
       if (previousCategory != conversions[i].category) {
         let elSelectorCategory = createEl("DT", elSelectorList, l10n(conversions[i].category));
       }
-      elSelectorUnit = createEl("DD", elSelectorList, l10n(conversions[i].unit));
+      let elSelectorUnit = createEl("DD", elSelectorList, l10n(conversions[i].unit));
       elSelectorUnit.dataset.unit = conversions[i].unit;
+
+      let tags = conversions[i].tag;
+      for (let n = 0; n < tags.length; n++) {
+        let elSelectorUnitTag = createEl("SPAN", elSelectorUnit, tags[n], "systemTag");
+      }
 
       setSelectorCheckmark(selectedUnit);
       previousCategory = conversions[i].category;

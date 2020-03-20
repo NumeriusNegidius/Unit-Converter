@@ -36,6 +36,7 @@
 
   --font-regular: 15px;
   --font-small: 13px;
+  --font-smaller: 9px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -103,7 +104,7 @@ h1 {
   padding: 10px 15px;
 }
 #input.whenSelectorOpen {
-  height: 355px;
+  height: 455px;
   visibility: hidden;
 }
 
@@ -184,7 +185,7 @@ input:focus {
 
 #selector dl {
   margin: -5px -10px;
-  height: 300px;
+  height: 400px;
   overflow-y: scroll;
 }
 
@@ -199,7 +200,25 @@ input:focus {
   padding: 3px 30px;
   margin: 0;
 }
-#selector dd:hover {background-color: var(--color-select-bg-active);}
+#selector dd:hover {background-color: var(--color-select-bg-hover);}
+#selector dd:active {background-color: var(--color-select-bg-active);}
+
+#selector .systemTag {
+  display: inline-block;
+  border-radius: 2px;
+  background-color: var(--color-body-text);
+  color: var(--color-body-bg);
+  opacity: 0.5;
+  padding: 0 2px;
+  margin-right: 2px;
+  text-align: center;
+  font-size: var(--font-smaller);
+  vertical-align: 1px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+#selector .systemTag:first-of-type {margin-left: 6px}
+
 #selector #checked {
   background-image: var(--icon-check);
   background-position: left 10px center;

@@ -473,6 +473,8 @@ function openSelector() {
 
   elInput.classList.add("whenSelectorOpen");
 
+  elSelectorFilter.focus();
+
   // Scroll elSelectorList so that selected unit is visible
   let elChecked = getEl("checked");
   if (elChecked) {

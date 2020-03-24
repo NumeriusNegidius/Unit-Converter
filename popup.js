@@ -75,6 +75,10 @@ function executeCalc() {
   let inUnit = elUnit.value;
   let inValue = elValue.value;
 
+  emptyEl(elOutput);
+  hideEl(elTools);
+  hideEl(elShowHidden);
+
   if (inUnit && inValue) {
     // Calculate inValue if entered as a fraction
     if (inValue.indexOf("/") > 0) {
@@ -86,9 +90,6 @@ function executeCalc() {
     if (inValue.toString().length > MAX_INTEGER) {
       inValue = parseFloat(inValue).toExponential().toString();
     }
-
-    emptyEl(elOutput);
-    hideEl(elTools);
 
     // Only execute if input value is a number, is safe and is finite
     if (isNaN(parseFloat(inValue))) {

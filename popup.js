@@ -251,11 +251,14 @@ function executeCalc() {
 // and set a hidden value to remember until popup is closed or another unit is selected
 function handleHiddenUnits(countUnitsHidden) {
   if (countUnitsHidden > 0 && keepHidableShown.value == "0") {
-    showEl(elShowHidden)
+    showEl(elShowHidden);
+    elOutput.classList.add("whenHiddenButton");
+
     elShowHidden.textContent = l10n("hiddenConversions", countUnitsHidden);
 
     elShowHidden.addEventListener("click", function() {
       hideEl(elShowHidden);
+      elOutput.classList.remove("whenHiddenButton");
       if (elKeepHidableShown.value == "0") {
         elKeepHidableShown.value = 1;
       } else {

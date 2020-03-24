@@ -106,7 +106,7 @@ h1 {
   padding: 10px 15px;
 }
 #input.whenSelectorOpen {
-  height: 555px;
+  height: 520px;
   visibility: hidden;
 }
 
@@ -187,7 +187,7 @@ input:focus {
 
 #selector dl {
   margin: -5px -10px;
-  height: 400px;
+  height: 435px;
   overflow-y: scroll;
 }
 
@@ -321,8 +321,11 @@ input:focus {
   z-index: 0;
   position: relative;
   display: none;
-  max-height: 350px;
+  max-height: 400px;
   overflow-y: auto;
+}
+#output.whenHiddenButton {
+  max-height: 363px;
 }
 
 .systemGroup {
@@ -374,8 +377,8 @@ input:focus {
   display: none;
   text-align: center;
   background-color: var(--color-select-bg);
-  margin-top: 6px;
   padding: 10px 15px;
+  height: 37px;
   border-top: 1px solid var(--color-select-bg-hover);
 }
 #showHidden:hover {

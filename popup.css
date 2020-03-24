@@ -238,12 +238,12 @@ input:focus {
 #selectorSort {
   font-size: var(--font-small);
   margin: 0 -10px 5px -10px;
-  height: 26px;
+  height: 30px;
   padding: 4px 15px 0 40px;
   /* background-color: rgba(255, 0, 0, 0.1); */
   border-bottom: var(--border-divider);
   background-image: var(--icon-sort);
-  background-position: left 15px center;
+  background-position: left 15px top 5px;
   background-repeat: no-repeat;
   background-size: auto 16px;
 }
@@ -261,6 +261,13 @@ input:focus {
 #selectorSort .sort:hover {background-color: var(--color-select-bg-hover);}
 #selectorSort .sort:active {background-color: var(--color-select-bg-active);}
 #selectorSort .sort:disabled {opacity: 0.2;}
+#selectorSort .selected {
+  background-image: var(--icon-check);
+  background-position: left 4px center;
+  background-repeat: no-repeat;
+  background-size: auto 14px;
+  padding-left: 25px;
+}
 
 #selectorClose {
   position: absolute;

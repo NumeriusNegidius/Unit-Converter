@@ -4,6 +4,7 @@ const MAX_INTEGER = 15;
 const MAX_DECIMALS = 10;
 const MIN_DECIMALS = 0;
 var decimals = 2;
+var sortOrder = 0;
 
 // ELEMENT MANIPULATION FUNCTIONS/SHORTHANDS
 function l10n(text, arg) {
@@ -49,6 +50,8 @@ var elSelectorList = getEl("selectorList");
 var elSelectorClose = getEl("selectorClose");
 var elSelectorFilter = getEl("selectorFilter");
 var elSelectorFilterReset = getEl("selectorFilterReset");
+var elSort0 = getEl("sort0");
+var elSort1 = getEl("sort1");
 var elUnit = getEl("unit");
 var elKeepHidableShown = getEl("keepHidableShown");
 var elValue = getEl("value");
@@ -293,6 +296,35 @@ function setSelectorSelectedText(selectedUnit) {
   elSelectorSelected.textContent = l10n(selectedUnit) + " (" + l10n(selectorCategory) + ")";
 }
 
+// Sort {conversions} by category and localized unit name
+function sortConversions() {
+  var tempArray = [];
+  var sortedArray = [];
+
+  for (let i = 0; i < conversions.length; i++) {
+    let data = l10n(conversions[i].unit) + "|" + i
+    tempArray.push(data);
+
+    if (i < conversions.length -1) {
+      if (conversions[i].category != conversions[i+1].category) {
+        tempArray.sort();
+        sortedArray = sortedArray.concat(tempArray);
+        tempArray = [];
+      }
+    } else if (i = conversions.length) {
+      tempArray.sort();
+      sortedArray = sortedArray.concat(tempArray);
+      tempArray = [];
+    }
+  }
+
+  var finalArray = [];
+  for (let i = 0; i < sortedArray.length; i++) {
+    finalArray.push(parseInt(sortedArray[i].split("|")[1]));
+  }
+  return finalArray;
+}
+
 // Populate selector list
 function populateSelector(selectedUnit, filterText) {
   if (selectedUnit) {
@@ -306,26 +338,35 @@ function populateSelector(selectedUnit, filterText) {
     elSelectorChild = elSelectorList.lastElementChild;
   }
 
+  let sortedConversions = sortConversions();
+
   // ...then populate list
   let previousCategory = "";
   for (let i = 0; i < conversions.length; i++) {
-    let unitDict = l10n(conversions[i].unit) + " "  // Localized unit name
-                 + l10n(conversions[i].category) + " " // Localized category name
-                 + l10n(conversions[i].unit.toString() + "Dict"); // Localized unit dictionary
-    if (!filterText ||unitDict.toLowerCase().search(filterText.toLowerCase()) > -1) {
-      if (previousCategory != conversions[i].category) {
-        let elSelectorCategory = createEl("DT", elSelectorList, l10n(conversions[i].category));
-      }
-      let elSelectorUnit = createEl("DD", elSelectorList, l10n(conversions[i].unit));
-      elSelectorUnit.dataset.unit = conversions[i].unit;
+    let sortedI;
+    if (sortOrder == 0) {
+      sortedI = i;
+    } else if (sortOrder == 1) {
+      sortedI = sortedConversions[i];
+    }
 
-      let tags = conversions[i].tag;
+    let unitDict = l10n(conversions[sortedI].unit) + " "  // Localized unit name
+                 + l10n(conversions[sortedI].category) + " " // Localized category name
+                 + l10n(conversions[sortedI].unit.toString() + "Dict"); // Localized unit dictionary
+    if (!filterText ||unitDict.toLowerCase().search(filterText.toLowerCase()) > -1) {
+      if (previousCategory != conversions[sortedI].category) {
+        let elSelectorCategory = createEl("DT", elSelectorList, l10n(conversions[sortedI].category));
+      }
+      let elSelectorUnit = createEl("DD", elSelectorList, l10n(conversions[sortedI].unit));
+      elSelectorUnit.dataset.unit = conversions[sortedI].unit;
+
+      let tags = conversions[sortedI].tag;
       for (let n = 0; n < tags.length; n++) {
         let elSelectorUnitTag = createEl("SPAN", elSelectorUnit, tags[n], "systemTag");
       }
 
       setSelectorCheckmark(selectedUnit);
-      previousCategory = conversions[i].category;
+      previousCategory = conversions[sortedI].category;
     }
   }
 
@@ -453,6 +494,22 @@ function onInput() {
   }
 }
 
+function setSortOrder(sortId) {
+  if (sortId == 0) {
+    sortOrder = 0;
+    console.log("sort0");
+  } else if (sortId == 1) {
+    sortOrder = 1;
+    console.log("sort1");
+  }
+
+  let selectedUnit = ""
+  if (elUnit.value) {
+    selectedUnit = elUnit.value;
+  }
+  populateSelector(selectedUnit);
+}
+
 function setStorage() {
   browser.storage.local.set({
     value: elValue.value,
@@ -565,6 +622,14 @@ elDecimalsAdd.addEventListener("click", function() {
 
 elDecimalsSubtract.addEventListener("click", function() {
   changeDecimals(-1);
+});
+
+elSort0.addEventListener("click", function() {
+  setSortOrder(0);
+});
+
+elSort1.addEventListener("click", function() {
+  setSortOrder(1);
 });
 
 elValueReset.addEventListener("click", function() {

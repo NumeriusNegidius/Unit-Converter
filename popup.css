@@ -26,6 +26,7 @@
   --icon-copy: url("icons/copy.svg");
   --icon-check: url("icons/check.svg");
   --icon-close: url("icons/close.svg");
+  --icon-sort: url("icons/sort.svg");
 
   --color-input-border-focus: 2px solid rgba(0, 132, 255, 1);
   --color-input-outline-focus: 0 0 0 3px rgba(0, 132, 255, 0.3);
@@ -68,6 +69,7 @@
     --icon-copy: url("icons/copy-neg.svg");
     --icon-check: url("icons/check-neg.svg");
     --icon-close: url("icons/close-neg.svg");
+    --icon-sort: url("icons/sort-neg.svg");
   }
 }
 
@@ -232,6 +234,33 @@ input:focus {
   margin-bottom: 10px;
   height: 26px;
 }
+
+#selectorSort {
+  font-size: var(--font-small);
+  margin: 0 -10px 5px -10px;
+  height: 26px;
+  padding: 4px 15px 0 40px;
+  /* background-color: rgba(255, 0, 0, 0.1); */
+  border-bottom: var(--border-divider);
+  background-image: var(--icon-sort);
+  background-position: left 15px center;
+  background-repeat: no-repeat;
+  background-size: auto 16px;
+}
+
+#selectorSort .sort {
+  border-radius: 2px;
+  background-color: var(--color-select-bg);
+  text-align: center;
+  margin: 0;
+  padding: 2px 6px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto 12px;
+}
+#selectorSort .sort:hover {background-color: var(--color-select-bg-hover);}
+#selectorSort .sort:active {background-color: var(--color-select-bg-active);}
+#selectorSort .sort:disabled {opacity: 0.2;}
 
 #selectorClose {
   position: absolute;

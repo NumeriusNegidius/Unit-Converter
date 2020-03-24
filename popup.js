@@ -126,6 +126,7 @@ function executeCalc() {
 
             // Get conversion data and do the math
             let outUnit = conversions[i].unit;
+            let outUnitTag = conversions[i].tag;
             let outSystem = conversions[i].system;
             let addToSIbase = conversions[i].addToSIbase;
             let allowZero = conversions[i].allowZero;
@@ -169,6 +170,10 @@ function executeCalc() {
               let elConversionRow = createEl("DIV", elSystemGroup, null, "conversion");
               let elConversionUnit = createEl("DIV", elConversionRow, l10n(outUnit), "conversionUnit");
               let elConversionProduct = createEl("DIV", elConversionRow, null, "conversionProduct");
+
+              for (let n = 0; n < outUnitTag.length; n++) {
+                let elConversionUnitTag = createEl("SPAN", elConversionUnit, outUnitTag[n], "systemTag");
+              }
 
               // Hide conversions that are unsafe that are unsafe ...or 0 with current decimal settings are hidden by default
               if (!Number.isSafeInteger(Math.round(product))) {

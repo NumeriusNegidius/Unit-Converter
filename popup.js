@@ -306,21 +306,22 @@ function setSelectorSelectedText(selectedUnit) {
 }
 
 // Sort {conversions} by category and localized unit name
+// By creating an array with conversion positions in order
 function sortConversions() {
-  var tempArray = [];
-  var sortedArray = [];
+  var tempArray = [];     // Array used for each category
+  var sortedArray = [];   // Concatenated array used for all, sorted by category, name
 
-  for (let i = 0; i < conversions.length; i++) {
-    let data = l10n(conversions[i].unit) + "|" + i
+  for (let i = 0; i < conversions.length; i++) {       // Iterate through all conversions
+    let data = l10n(conversions[i].unit) + "|" + i     // Create a localized entry + position separated by |
     tempArray.push(data);
 
     if (i < conversions.length -1) {
-      if (conversions[i].category != conversions[i+1].category) {
-        tempArray.sort();
-        sortedArray = sortedArray.concat(tempArray);
-        tempArray = [];
+      if (conversions[i].category != conversions[i+1].category) {  // If next category is not same as current...
+        tempArray.sort();                                          // ...Sort all entries in category
+        sortedArray = sortedArray.concat(tempArray);               // ...Add them to the bigger array
+        tempArray = [];                                            // ...Empty the array
       }
-    } else if (i = conversions.length) {
+    } else if (i = conversions.length) {                           // The above applies for the last conversion in category
       tempArray.sort();
       sortedArray = sortedArray.concat(tempArray);
       tempArray = [];
@@ -328,10 +329,20 @@ function sortConversions() {
   }
 
   var finalArray = [];
-  for (let i = 0; i < sortedArray.length; i++) {
-    finalArray.push(parseInt(sortedArray[i].split("|")[1]));
+  for (let i = 0; i < sortedArray.length; i++) {              // Iterate through the sorted array
+    finalArray.push(parseInt(sortedArray[i].split("|")[1]));  // Create a new array with only positions
   }
   return finalArray;
+}
+
+function setSortOrderCheckmark() {
+  if (sortOrder == 0) {
+    elSort0.classList.add("selected");
+    elSort1.classList.remove("selected");
+  } else if (sortOrder == 1) {
+    elSort0.classList.remove("selected");
+    elSort1.classList.add("selected");
+  }
 }
 
 // Populate selector list
@@ -348,6 +359,7 @@ function populateSelector(selectedUnit, filterText) {
   }
 
   let sortedConversions = sortConversions();
+  setSortOrderCheckmark();
 
   // ...then populate list
   let previousCategory = "";
@@ -504,13 +516,8 @@ function onInput() {
 }
 
 function setSortOrder(sortId) {
-  if (sortId == 0) {
-    sortOrder = 0;
-    console.log("sort0");
-  } else if (sortId == 1) {
-    sortOrder = 1;
-    console.log("sort1");
-  }
+  sortOrder = sortId;
+  setStorage();
 
   let selectedUnit = ""
   if (elUnit.value) {
@@ -524,6 +531,7 @@ function setStorage() {
     value: elValue.value,
     unit: elUnit.value,
     decimals: decimals,
+    sortOrder: sortOrder,
     timestamp: Date.now()
   });
 }
@@ -575,6 +583,10 @@ function initialize() {
   getStorage.then((response) => {
     if (response.decimals > -1) {
       decimals = response.decimals;
+    }
+
+    if (response.sortOrder > -1) {
+      sortOrder = response.sortOrder;
     }
 
     if (response.hideDisclaimer) {

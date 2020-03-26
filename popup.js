@@ -173,7 +173,7 @@ function executeCalc() {
               let elConversionProduct = createEl("DIV", elConversionRow, null, "conversionProduct");
 
               for (let n = 0; n < outUnitTag.length; n++) {
-                let elConversionUnitTag = createEl("SPAN", elConversionUnit, outUnitTag[n], "systemTag");
+                let elConversionUnitTag = createEl("SPAN", elConversionUnit, l10n(outUnitTag[n]), "systemTag");
               }
 
               // Hide conversions that are unsafe that are unsafe ...or 0 with current decimal settings are hidden by default
@@ -299,10 +299,16 @@ function setSelectorSelectedText(selectedUnit) {
   let unitIndex = conversions.findIndex(function(item){
     return item.unit === selectedUnit;
   });
-  let selectorCategory = conversions[unitIndex].category;
+  let category = conversions[unitIndex].category;
+  let tags = conversions[unitIndex].tag;
 
   elUnit.value = selectedUnit;
-  elSelectorSelected.textContent = l10n(selectedUnit) + " (" + l10n(selectorCategory) + ")";
+
+  elSelectorSelected.textContent = l10n(selectedUnit);
+  for (let n = 0; n < tags.length; n++) {
+    let elSelectorUnitTag = createEl("SPAN", elSelectorSelected, l10n(tags[n]), "systemTag");
+  }
+  let elUnitName = createEl("SPAN", elSelectorSelected, " | " + l10n(category) + "");
 }
 
 // Sort {conversions} by category and localized unit name
@@ -383,7 +389,7 @@ function populateSelector(selectedUnit, filterText) {
 
       let tags = conversions[sortedI].tag;
       for (let n = 0; n < tags.length; n++) {
-        let elSelectorUnitTag = createEl("SPAN", elSelectorUnit, tags[n], "systemTag");
+        let elSelectorUnitTag = createEl("SPAN", elSelectorUnit, l10n(tags[n]), "systemTag");
       }
 
       setSelectorCheckmark(selectedUnit);

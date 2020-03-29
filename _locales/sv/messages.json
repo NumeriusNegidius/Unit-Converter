@@ -15,8 +15,8 @@
   "sOther":               {"message": "Andra system"},
 
   "tMetric":              {"message": "Metrisk"},
-  "tImperial":            {"message": "Imperial"},
-  "tUS":                  {"message": "US"},
+  "tImperial":            {"message": "Brittisk"},
+  "tUS":                  {"message": "Amerikansk"},
 
   "cArea":           {"message": "Area"},
   "cEnergy":         {"message": "Energi"},

@@ -103,7 +103,7 @@ h1 {
 #input {
   z-index: 0;
   position: relative;
-  padding: 10px 15px;
+  padding: 10px 15px 6px 15px;
 }
 #input.whenSelectorOpen {
   height: 520px;

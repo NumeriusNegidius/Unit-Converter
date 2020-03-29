@@ -186,20 +186,24 @@ input:focus {
 }
 
 #selector dl {
-  margin: -5px -10px;
+  margin: 0 -10px -5px -10px;
   height: 435px;
   overflow-y: scroll;
 }
 
 #selector dt {
   font-weight: bold;
-  padding: 9px 15px 3px 15px;
+  padding: 9px 12px 3px 12px;
   margin: 6px 0 0 0;
   border-top: var(--border-divider);
 }
-#selector dt:first-of-type {border: none;}
+#selector dt:first-of-type {
+  border: none;
+  margin-top: 0px;
+}
+
 #selector dd {
-  padding: 3px 30px;
+  padding: 3px 32px;
   margin: 0;
 }
 #selector dd:hover {background-color: var(--color-select-bg-hover);}
@@ -223,7 +227,7 @@ input:focus {
 
 #selector #checked {
   background-image: var(--icon-check);
-  background-position: left 10px center;
+  background-position: left 12px center;
   background-repeat: no-repeat;
   background-size: auto 14px;
 }
@@ -237,13 +241,11 @@ input:focus {
 
 #selectorSort {
   font-size: var(--font-small);
-  margin: 0 -10px 5px -10px;
-  height: 30px;
-  padding: 4px 15px 0 40px;
-  /* background-color: rgba(255, 0, 0, 0.1); */
+  margin: 0 -10px 0 -10px;
+  padding: 0 15px 10px 38px;
   border-bottom: var(--border-divider);
   background-image: var(--icon-sort);
-  background-position: left 15px top 5px;
+  background-position: left 11px top 0px;
   background-repeat: no-repeat;
   background-size: auto 16px;
 }
@@ -266,7 +268,7 @@ input:focus {
   background-position: left 4px center;
   background-repeat: no-repeat;
   background-size: auto 14px;
-  padding-left: 25px;
+  padding-left: 22px;
 }
 
 #selectorClose {

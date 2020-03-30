@@ -38,6 +38,8 @@
   --font-regular: 15px;
   --font-small: 13px;
   --font-smaller: 9px;
+
+  --window-max-height: 555px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -106,7 +108,7 @@ h1 {
   padding: 10px 15px 6px 15px;
 }
 #input.whenSelectorOpen {
-  height: 520px;
+  height: calc(var(--window-max-height) - 40px);
   visibility: hidden;
 }
 
@@ -187,7 +189,7 @@ input:focus {
 
 #selector dl {
   margin: 0 -10px -5px -10px;
-  height: 435px;
+  height: calc(var(--window-max-height) - 125px);
   overflow-y: scroll;
 }
 
@@ -293,7 +295,7 @@ input:focus {
   left: 0;
   z-index: 2;
   width: 100%;
-  height: 390px;
+  height: var(--window-max-height);
 }
 
 /* TOOLS */
@@ -330,11 +332,11 @@ input:focus {
   z-index: 0;
   position: relative;
   display: none;
-  max-height: 400px;
+  max-height: calc(var(--window-max-height) - 155px);
   overflow-y: auto;
 }
 #output.whenHiddenButton {
-  max-height: 363px;
+  max-height: calc(var(--window-max-height) - 192px);
 }
 
 .systemGroup {

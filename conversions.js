@@ -16,8 +16,8 @@ var conversions = [
   // ENERGY, SIbase = J.
   {"unit" : "J",      "toSIbase" : 1,                 "system" : "sMetric",   "tag" : [], "category" : "cEnergy"},
   {"unit" : "kJ",     "toSIbase" : 1000,              "system" : "sMetric",   "tag" : [], "category" : "cEnergy"},
-  {"unit" : "Wh",     "toSIbase" : 3600,              "system" : "sOther",    "tag" : [], "category" : "cEnergy"},
-  {"unit" : "kWh",    "toSIbase" : 3600000,           "system" : "sOther",    "tag" : [], "category" : "cEnergy"},
+  {"unit" : "Wh",     "toSIbase" : 3600,              "system" : "sMetric",   "tag" : [], "category" : "cEnergy"},
+  {"unit" : "kWh",    "toSIbase" : 3600000,           "system" : "sMetric",   "tag" : [], "category" : "cEnergy"},
   {"unit" : "ftlb",   "toSIbase" : 1.3558179483,      "system" : "sImperial", "tag" : [], "category" : "cEnergy"},
   {"unit" : "gcal",   "toSIbase" : 4.184,             "system" : "sOther",    "tag" : [], "category" : "cEnergy"},
   {"unit" : "kcal",   "toSIbase" : 4184,              "system" : "sOther",    "tag" : [], "category" : "cEnergy"},

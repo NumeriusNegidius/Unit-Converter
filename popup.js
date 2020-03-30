@@ -368,7 +368,7 @@ function populateSelector(selectedUnit, filterText) {
   setSortOrderCheckmark();
 
   // ...then populate list
-  let previousCategory = "";
+  let previousCategory;
   for (let i = 0; i < conversions.length; i++) {
     let sortedI;
     if (sortOrder == 0) {
@@ -380,7 +380,7 @@ function populateSelector(selectedUnit, filterText) {
     let unitDict = l10n(conversions[sortedI].unit) + " "  // Localized unit name
                  + l10n(conversions[sortedI].category) + " " // Localized category name
                  + l10n(conversions[sortedI].unit.toString() + "Dict"); // Localized unit dictionary
-    if (!filterText ||unitDict.toLowerCase().search(filterText.toLowerCase()) > -1) {
+    if (!filterText || unitDict.toLowerCase().search(filterText.toLowerCase()) > -1) {
       if (previousCategory != conversions[sortedI].category) {
         let elSelectorCategory = createEl("DT", elSelectorList, l10n(conversions[sortedI].category));
       }
@@ -395,6 +395,9 @@ function populateSelector(selectedUnit, filterText) {
       setSelectorCheckmark(selectedUnit);
       previousCategory = conversions[sortedI].category;
     }
+  }
+  if (filterText) {
+    elSelectorList.scrollTop = 0;
   }
 
   // Create Event Listeners for each unit in the selector
@@ -632,6 +635,11 @@ elSelectorFilter.addEventListener("input", function() {
 })
 
 elSelectorSelected.addEventListener("click", function() {
+  openSelector();
+});
+
+elSelectorSelected.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
   openSelector();
 });
 

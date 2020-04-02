@@ -6,7 +6,16 @@ const MIN_DECIMALS = 0;
 var decimals = 2;
 var sortOrder = 0;
 
-// ELEMENT MANIPULATION FUNCTIONS/SHORTHANDS
+
+
+
+
+
+
+
+/*****************************************
+ ELEMENT MANIPULATION FUNCTIONS/SHORTHANDS
+******************************************/
 function l10n(text, arg) {
   return browser.i18n.getMessage(text.toString(), arg);
 }
@@ -42,7 +51,16 @@ function emptyEl(element) {
   }
 }
 
-// MAKE VARIABLES OF AV ELEMENTS USED
+
+
+
+
+
+
+
+/*****************************************
+ SET ALL USED ELEMENTS AS VARIABLES
+******************************************/
 var elSelectorSelected = getEl("selectorSelected");
 var elSelector = getEl("selector");
 var elSelectorVeil = getEl("selectorVeil");
@@ -67,6 +85,16 @@ var elDisclaimerDismiss = getEl("disclaimerDismiss");
 var elDisclaimerText = getEl("disclaimerText");
 var elPopup = getEl("popup");
 
+
+
+
+
+
+
+
+/*****************************************
+ OUTPUT
+******************************************/
 function round(val, decimals) {
   return Number.parseFloat(val).toFixed(decimals);
 }
@@ -294,147 +322,6 @@ function handleCopyButtons() {
   }
 }
 
-// Show closed selector and set hidden value
-function setSelectorSelectedText(selectedUnit) {
-  let unitIndex = conversions.findIndex(function(item){
-    return item.unit === selectedUnit;
-  });
-  let category = conversions[unitIndex].category;
-  let tags = conversions[unitIndex].tag;
-
-  elUnit.value = selectedUnit;
-
-  elSelectorSelected.textContent = l10n(selectedUnit);
-  for (let n = 0; n < tags.length; n++) {
-    let elSelectorUnitTag = createEl("SPAN", elSelectorSelected, l10n(tags[n]), "systemTag");
-  }
-  let elUnitName = createEl("SPAN", elSelectorSelected, " | " + l10n(category) + "");
-}
-
-// Sort {conversions} by category and localized unit name
-// By creating an array with conversion positions in order
-function sortConversions() {
-  var tempArray = [];     // Array used for each category
-  var sortedArray = [];   // Concatenated array used for all, sorted by category, name
-
-  for (let i = 0; i < conversions.length; i++) {       // Iterate through all conversions
-    let data = l10n(conversions[i].unit) + "|" + i     // Create a localized entry + position separated by |
-    tempArray.push(data);
-
-    if (i < conversions.length -1) {
-      if (conversions[i].category != conversions[i+1].category) {  // If next category is not same as current...
-        tempArray.sort();                                          // ...Sort all entries in category
-        sortedArray = sortedArray.concat(tempArray);               // ...Add them to the bigger array
-        tempArray = [];                                            // ...Empty the array
-      }
-    } else if (i = conversions.length) {                           // The above applies for the last conversion in category
-      tempArray.sort();
-      sortedArray = sortedArray.concat(tempArray);
-      tempArray = [];
-    }
-  }
-
-  var finalArray = [];
-  for (let i = 0; i < sortedArray.length; i++) {              // Iterate through the sorted array
-    finalArray.push(parseInt(sortedArray[i].split("|")[1]));  // Create a new array with only positions
-  }
-  return finalArray;
-}
-
-function setSortOrderCheckmark() {
-  if (sortOrder == 0) {
-    elSort0.classList.add("selected");
-    elSort1.classList.remove("selected");
-  } else if (sortOrder == 1) {
-    elSort0.classList.remove("selected");
-    elSort1.classList.add("selected");
-  }
-}
-
-// Populate selector list
-function populateSelector(selectedUnit, filterText) {
-  if (selectedUnit) {
-    setSelectorSelectedText(selectedUnit);
-  }
-
-  // Empty list first...
-  let elSelectorChild = elSelectorList.lastElementChild;
-  while (elSelectorChild) {
-    elSelectorList.removeChild(elSelectorChild);
-    elSelectorChild = elSelectorList.lastElementChild;
-  }
-
-  let sortedConversions = sortConversions();
-  setSortOrderCheckmark();
-
-  // ...then populate list
-  let previousCategory;
-  let firstMatch;
-  for (let i = 0; i < conversions.length; i++) {
-    let sortedI;
-    if (sortOrder == 0) {
-      sortedI = i;
-    } else if (sortOrder == 1) {
-      sortedI = sortedConversions[i];
-    }
-
-    let unitDict = l10n(conversions[sortedI].unit) + " "  // Localized unit name
-                 + l10n(conversions[sortedI].category) + " " // Localized category name
-                 + l10n(conversions[sortedI].unit.toString() + "Dict"); // Localized unit dictionary
-    if (!filterText || unitDict.toLowerCase().search(filterText.toLowerCase()) > -1) {
-      if (previousCategory != conversions[sortedI].category) {
-        let elSelectorCategory = createEl("DT", elSelectorList, l10n(conversions[sortedI].category));
-      }
-      let elSelectorUnit = createEl("DD", elSelectorList, l10n(conversions[sortedI].unit));
-      elSelectorUnit.dataset.unit = conversions[sortedI].unit;
-
-      let tags = conversions[sortedI].tag;
-      for (let n = 0; n < tags.length; n++) {
-        let elSelectorUnitTag = createEl("SPAN", elSelectorUnit, l10n(tags[n]), "systemTag");
-      }
-
-      setSelectorCheckmark(selectedUnit);
-      previousCategory = conversions[sortedI].category;
-
-      if (!firstMatch && filterText) {
-        firstMatch = conversions[sortedI].unit;
-        elSelectorUnit.classList.add("firstMatch");
-        elSelectorFilter.dataset.firstMatch = firstMatch;
-      }
-    }
-  }
-  if (filterText) {
-    elSelectorList.scrollTop = 0;
-  }
-
-  // Create Event Listeners for each unit in the selector
-  let elSelectorValues = document.getElementsByTagName("DD");
-  for (let i = 0; i < elSelectorValues.length; i++) {
-    elSelectorValues[i].addEventListener("click", function() {
-      selectUnit(elSelectorValues[i].dataset.unit);
-    });
-  }
-}
-
-function selectUnit(unit) {
-  elUnit.value = unit;
-
-  setSelectorSelectedText(elUnit.value);
-  closeSelector();
-  executeCalc();
-}
-
-function setSelectorCheckmark(selectedUnit) {
-  let elSelectorValues = document.getElementsByTagName("DD");
-  for (let i = 0; i < elSelectorValues.length; i++) {
-    if (elSelectorValues[i].dataset.unit != selectedUnit) {
-      elSelectorValues[i].removeAttribute("id");
-    } else {
-      elSelectorValues[i].id = "checked";
-    }
-  }
-}
-
 function changeDecimals(step) {
   if (decimals + step >= MIN_DECIMALS && decimals + step <= MAX_DECIMALS) {
     decimals = decimals + step;
@@ -456,105 +343,16 @@ function changeDecimals(step) {
   }
 }
 
-function onFilter() {
-  let selectedUnit = ""
-  if (elUnit.value) {
-    selectedUnit = elUnit.value;
-  }
 
-  if (elSelectorFilter.value.length > 0) {
-    showEl(elSelectorFilterReset);
-  }
-  else {
-    hideEl(elSelectorFilterReset);
-  }
 
-  populateSelector(selectedUnit, elSelectorFilter.value);
-}
 
-// Sanitize value input
-function onInput() {
-  // Allowed characters in input value: "0-9", ".", "/", "-"
-  let caret = elValue.selectionStart;
-  let refVal = elValue.value;
-  let returnVal = elValue.value.replace(/[^\-\d./]/g, "");
 
-  // If entered or pasted input contains non-allowed characters, position the
-  // caret to right after allowed input
-  if (refVal.length > returnVal.length) {
-    caret = caret - (refVal.length - returnVal.length);
-  }
 
-  // If entered or pasted input contains more than 1 ".", remove all but the
-  // first and position the caret to right after allowed input
-  let posFirstPoint = returnVal.indexOf(".");
-  if (returnVal.split(".").length > 2) {
-    returnVal = returnVal.substr(0, posFirstPoint + 1)
-              + returnVal.substr(posFirstPoint + 1).replace(/\./g, "");
-    caret--;
-  }
 
-  // If entered or pasted input contains "/", don't allow it to be the first
-  // character. Then remove all but one of them (the first), and position the
-  // caret to where it were
-  let posFirstDivider = returnVal.indexOf("/");
-  if (posFirstDivider == 0) {
-    returnVal = returnVal.substr(1);
-    caret--;
-  }
-  if (returnVal.split("/").length > 2) {
-    returnVal = returnVal.substr(0, posFirstDivider + 1)
-              + returnVal.substr(posFirstDivider + 1).replace(/\//g, "");
-    caret--;
-  }
 
-  // If entered or pasted input contains "-", only allow it to be the first
-  // character. Then remove all but the first, and position the caret to where
-  // it were
-  let posFirstMinus = returnVal.indexOf("-");
-  if (posFirstMinus > 0) {
-    returnVal = returnVal.replace(/-/g, "");
-    caret--;
-  }
-  else if (returnVal.split("-").length > 2) {
-    returnVal = returnVal.substr(0, 1)
-              + returnVal.substr(1).replace(/-/g, "");
-    caret--;
-  }
-
-  // Update the input value field and position the caret
-  elValue.value = returnVal;
-  elValue.setSelectionRange(caret, caret);
-
-  if (elValue.value.length > 0) {
-    showEl(elValueReset);
-  }
-  else {
-    hideEl(elValueReset);
-    hideEl(elOutput);
-  }
-}
-
-function setSortOrder(sortId) {
-  sortOrder = sortId;
-  setStorage();
-
-  let selectedUnit = ""
-  if (elUnit.value) {
-    selectedUnit = elUnit.value;
-  }
-  populateSelector(selectedUnit);
-}
-
-function setStorage() {
-  browser.storage.local.set({
-    value: elValue.value,
-    unit: elUnit.value,
-    decimals: decimals,
-    sortOrder: sortOrder,
-    timestamp: Date.now()
-  });
-}
+/*****************************************
+ INPUT: UNIT SELECTOR
+******************************************/
 
 function openSelector() {
   showEl(elSelector);
@@ -589,72 +387,171 @@ function closeSelector() {
   populateSelector(elUnit.value);
 }
 
-function initialize() {
-  // Localize
-  elSelectorSelected.textContent = l10n("selectorText");
-  elValue.placeholder = l10n("inputPlaceholder");
-  elSelectorFilter.placeholder = l10n("filterPlaceholder");
-  elDecimalsLabel.textContent = l10n("decimals");
-  elDisclaimerText.textContent = l10n("disclaimer");
+// Populate selector list
+function populateSelector(selectedUnit, filterText) {
+  if (selectedUnit) {
+    setSelectorSelectedText(selectedUnit);
+  }
 
-  // Get values from last selected
-  let getStorage = browser.storage.local.get();
+  // Empty list first...
+  let elSelectorChild = elSelectorList.lastElementChild;
+  while (elSelectorChild) {
+    elSelectorList.removeChild(elSelectorChild);
+    elSelectorChild = elSelectorList.lastElementChild;
+  }
 
-  getStorage.then((response) => {
-    if (response.decimals > -1) {
-      decimals = response.decimals;
+  let sortedConversions = sortConversions();
+  setSortOrderCheckmark();
+
+  // ...then recreate list
+  let previousCategory;
+  let firstMatch;
+  for (let i = 0; i < conversions.length; i++) {
+    let sortedI;
+    if (sortOrder == 0) {
+      sortedI = i;
+    } else if (sortOrder == 1) {
+      sortedI = sortedConversions[i];
     }
 
-    if (response.sortOrder > -1) {
-      sortOrder = response.sortOrder;
-    }
+    let unitDict = l10n(conversions[sortedI].unit) + " "  // Localized unit name
+                 + l10n(conversions[sortedI].category) + " " // Localized category name
+                 + l10n(conversions[sortedI].unit.toString() + "Dict"); // Localized unit dictionary
 
-    if (response.hideDisclaimer) {
-      hideEl(disclaimer);
-    }
+    if (!filterText || unitDict.toLowerCase().search(filterText.toLowerCase()) > -1) {
+      if (previousCategory != conversions[sortedI].category) {
+        let elSelectorCategory = createEl("DT", elSelectorList, l10n(conversions[sortedI].category));
+      }
+      previousCategory = conversions[sortedI].category;
 
-    if (response.unit) {
-      populateSelector(response.unit);
-    } else {
-      populateSelector();
-    }
+      let elSelectorUnit = createEl("DD", elSelectorList, l10n(conversions[sortedI].unit));
+      if (conversions[sortedI].unit == selectedUnit) {
+        elSelectorUnit.id = "checked"
+      }
+      elSelectorUnit.dataset.unit = conversions[sortedI].unit;
+      elSelectorUnit.addEventListener("click", function() {
+        selectUnit(elSelectorUnit.dataset.unit);
+      });
 
-    if (response.value) {
-      elValue.value = response.value;
-      showEl(elValueReset);
-    }
+      let tags = conversions[sortedI].tag;
+      for (let n = 0; n < tags.length; n++) {
+        let elSelectorUnitTag = createEl("SPAN", elSelectorUnit, l10n(tags[n]), "systemTag");
+      }
 
-    if (response.unit && response.value) {
-      executeCalc();
+      if (!firstMatch && filterText) {
+        firstMatch = conversions[sortedI].unit;
+        elSelectorUnit.classList.add("firstMatch");
+        elSelectorFilter.dataset.firstMatch = firstMatch;
+      }
     }
-  });
-
-  elValue.focus();
+  }
+  if (filterText) {
+    elSelectorList.scrollTop = 0;
+  }
 }
 
-window.onload = function() {
-  initialize();
-};
+// Sort {conversions} by category and localized unit name
+// By creating an array with conversion positions in order
+function sortConversions() {
+  var tempArray = [];     // Array used for each category
+  var sortedArray = [];   // Concatenated array used for all, sorted by category, name
 
-elValue.addEventListener("input", function() {
-  onInput();
+  for (let i = 0; i < conversions.length; i++) {       // Iterate through all conversions
+    let data = l10n(conversions[i].unit) + "|" + i     // Create a localized entry + position separated by |
+    tempArray.push(data);
+
+    if (i < conversions.length -1) {
+      if (conversions[i].category != conversions[i+1].category) {  // If next category is not same as current...
+        tempArray.sort();                                          // ...Sort all entries in category
+        sortedArray = sortedArray.concat(tempArray);               // ...Add them to the bigger array
+        tempArray = [];                                            // ...Empty the array
+      }
+    } else if (i = conversions.length) {                           // The above applies for the last conversion in category
+      tempArray.sort();
+      sortedArray = sortedArray.concat(tempArray);
+      tempArray = [];
+    }
+  }
+
+  var finalArray = [];
+  for (let i = 0; i < sortedArray.length; i++) {              // Iterate through the sorted array
+    finalArray.push(parseInt(sortedArray[i].split("|")[1]));  // Create a new array with only positions
+  }
+  return finalArray;
+}
+
+function setSortOrder(sortId) {
+  sortOrder = sortId;
+  setStorage();
+
+  let selectedUnit = ""
+  if (elUnit.value) {
+    selectedUnit = elUnit.value;
+  }
+  populateSelector(selectedUnit);
+}
+
+function setSortOrderCheckmark() {
+  if (sortOrder == 0) {
+    elSort0.classList.add("selected");
+    elSort1.classList.remove("selected");
+  } else if (sortOrder == 1) {
+    elSort0.classList.remove("selected");
+    elSort1.classList.add("selected");
+  }
+}
+
+function selectUnit(unit) {
+  elUnit.value = unit;
+
+  setSelectorSelectedText(elUnit.value);
+  closeSelector();
   executeCalc();
-});
+}
 
-elSelectorFilter.addEventListener("input", function() {
-  onFilter();
-});
+// Show closed selector and set hidden value
+function setSelectorSelectedText(selectedUnit) {
+  let unitIndex = conversions.findIndex(function(item){
+    return item.unit === selectedUnit;
+  });
+  let category = conversions[unitIndex].category;
+  let tags = conversions[unitIndex].tag;
 
-elSelectorFilter.addEventListener("keydown", function(e) {
-  if (e.key == "Enter") {
+  elUnit.value = selectedUnit;
+
+  elSelectorSelected.textContent = l10n(selectedUnit);
+  for (let n = 0; n < tags.length; n++) {
+    let elSelectorUnitTag = createEl("SPAN", elSelectorSelected, l10n(tags[n]), "systemTag");
+  }
+  let elUnitName = createEl("SPAN", elSelectorSelected, " | " + l10n(category) + "");
+}
+
+function onFilter() {
+  let selectedUnit = ""
+  if (elUnit.value) {
+    selectedUnit = elUnit.value;
+  }
+
+  if (elSelectorFilter.value.length > 0) {
+    showEl(elSelectorFilterReset);
+  }
+  else {
+    hideEl(elSelectorFilterReset);
+  }
+
+  populateSelector(selectedUnit, elSelectorFilter.value);
+}
+
+function selectorOnKeyDown(key) {
+  if (key == "Enter") {
     selectUnit(elSelectorFilter.dataset.firstMatch);
   }
 
-  if (e.key == "ArrowDown" || e.key == "ArrowUp") {
+  if (key == "ArrowDown" || key == "ArrowUp") {
     let direction;
-    if (e.key == "ArrowDown") {
+    if (key == "ArrowDown") {
       direction = "down";
-    } else if (e.key == "ArrowUp") {
+    } else if (key == "ArrowUp") {
       direction = "up";
     }
 
@@ -724,6 +621,168 @@ elSelectorFilter.addEventListener("keydown", function(e) {
       elSelectorFilter.dataset.firstMatch = elPrevMatch.dataset.unit;
     }
   }
+}
+
+
+
+
+
+/*****************************************
+ INPUT: VALUE INPUT
+******************************************/
+
+// Sanitize value input
+function onInput() {
+  // Allowed characters in input value: "0-9", ".", "/", "-"
+  let caret = elValue.selectionStart;
+  let refVal = elValue.value;
+  let returnVal = elValue.value.replace(/[^\-\d./]/g, "");
+
+  // If entered or pasted input contains non-allowed characters, position the
+  // caret to right after allowed input
+  if (refVal.length > returnVal.length) {
+    caret = caret - (refVal.length - returnVal.length);
+  }
+
+  // If entered or pasted input contains more than 1 ".", remove all but the
+  // first and position the caret to right after allowed input
+  let posFirstPoint = returnVal.indexOf(".");
+  if (returnVal.split(".").length > 2) {
+    returnVal = returnVal.substr(0, posFirstPoint + 1)
+              + returnVal.substr(posFirstPoint + 1).replace(/\./g, "");
+    caret--;
+  }
+
+  // If entered or pasted input contains "/", don't allow it to be the first
+  // character. Then remove all but one of them (the first), and position the
+  // caret to where it were
+  let posFirstDivider = returnVal.indexOf("/");
+  if (posFirstDivider == 0) {
+    returnVal = returnVal.substr(1);
+    caret--;
+  }
+  if (returnVal.split("/").length > 2) {
+    returnVal = returnVal.substr(0, posFirstDivider + 1)
+              + returnVal.substr(posFirstDivider + 1).replace(/\//g, "");
+    caret--;
+  }
+
+  // If entered or pasted input contains "-", only allow it to be the first
+  // character. Then remove all but the first, and position the caret to where
+  // it were
+  let posFirstMinus = returnVal.indexOf("-");
+  if (posFirstMinus > 0) {
+    returnVal = returnVal.replace(/-/g, "");
+    caret--;
+  }
+  else if (returnVal.split("-").length > 2) {
+    returnVal = returnVal.substr(0, 1)
+              + returnVal.substr(1).replace(/-/g, "");
+    caret--;
+  }
+
+  // Update the input value field and position the caret
+  elValue.value = returnVal;
+  elValue.setSelectionRange(caret, caret);
+
+  if (elValue.value.length > 0) {
+    showEl(elValueReset);
+  }
+  else {
+    hideEl(elValueReset);
+    hideEl(elOutput);
+  }
+}
+
+
+
+
+
+
+
+
+/*****************************************
+ INITIALIZE AND STORAGE
+******************************************/
+
+function setStorage() {
+  browser.storage.local.set({
+    value: elValue.value,
+    unit: elUnit.value,
+    decimals: decimals,
+    sortOrder: sortOrder,
+    timestamp: Date.now()
+  });
+}
+
+function initialize() {
+  // Localize
+  elSelectorSelected.textContent = l10n("selectorText");
+  elValue.placeholder = l10n("inputPlaceholder");
+  elSelectorFilter.placeholder = l10n("filterPlaceholder");
+  elDecimalsLabel.textContent = l10n("decimals");
+  elDisclaimerText.textContent = l10n("disclaimer");
+
+  // Get values from last selected
+  let getStorage = browser.storage.local.get();
+
+  getStorage.then((response) => {
+    if (response.decimals > -1) {
+      decimals = response.decimals;
+    }
+
+    if (response.sortOrder > -1) {
+      sortOrder = response.sortOrder;
+    }
+
+    if (response.hideDisclaimer) {
+      hideEl(disclaimer);
+    }
+
+    if (response.unit) {
+      populateSelector(response.unit);
+    } else {
+      populateSelector();
+    }
+
+    if (response.value) {
+      elValue.value = response.value;
+      showEl(elValueReset);
+    }
+
+    if (response.unit && response.value) {
+      executeCalc();
+    }
+  });
+
+  elValue.focus();
+}
+
+window.onload = function() {
+  initialize();
+};
+
+
+
+
+
+
+
+/*****************************************
+ GENERAL EVENT LISTENERS
+******************************************/
+
+elValue.addEventListener("input", function() {
+  onInput();
+  executeCalc();
+});
+
+elSelectorFilter.addEventListener("input", function() {
+  onFilter();
+});
+
+elSelectorFilter.addEventListener("keydown", function(e) {
+  selectorOnKeyDown(e.key);
 });
 
 elSelectorSelected.addEventListener("click", function() {
@@ -759,10 +818,12 @@ elDecimalsSubtract.addEventListener("click", function() {
 
 elSort0.addEventListener("click", function() {
   setSortOrder(0);
+  elSelectorFilter.focus();
 });
 
 elSort1.addEventListener("click", function() {
   setSortOrder(1);
+  elSelectorFilter.focus();
 });
 
 elValueReset.addEventListener("click", function() {

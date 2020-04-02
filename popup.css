@@ -187,29 +187,31 @@ input:focus {
   margin-bottom: 5px;
 }
 
-#selector dl {
+#selectorList {
   margin: 0 -10px -5px -10px;
   height: calc(var(--window-max-height) - 125px);
   overflow-y: scroll;
 }
 
-#selector dt {
+#selectorList dt {
   font-weight: bold;
   padding: 9px 12px 3px 12px;
   margin: 6px 0 0 0;
   border-top: var(--border-divider);
 }
-#selector dt:first-of-type {
+#selectorList dt:first-of-type {
   border: none;
   margin-top: 0px;
 }
 
-#selector dd {
+#selectorList dd {
   padding: 3px 32px;
   margin: 0;
 }
-#selector dd:hover {background-color: var(--color-select-bg-hover);}
-#selector dd:active {background-color: var(--color-select-bg-active);}
+#selectorList dd:hover,
+#selectorList dd.firstMatch {background-color: var(--color-select-bg-hover);}
+#selectorList:hover dd.firstMatch {background-color: transparent !important;}
+#selectorList dd:active {background-color: var(--color-select-bg-active);}
 
 .systemTag {
   display: inline-block;

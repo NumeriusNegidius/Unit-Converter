@@ -369,6 +369,7 @@ function populateSelector(selectedUnit, filterText) {
 
   // ...then populate list
   let previousCategory;
+  let firstMatch;
   for (let i = 0; i < conversions.length; i++) {
     let sortedI;
     if (sortOrder == 0) {
@@ -394,6 +395,12 @@ function populateSelector(selectedUnit, filterText) {
 
       setSelectorCheckmark(selectedUnit);
       previousCategory = conversions[sortedI].category;
+
+      if (!firstMatch && filterText) {
+        firstMatch = conversions[sortedI].unit;
+        elSelectorUnit.classList.add("firstMatch");
+        elSelectorFilter.dataset.firstMatch = firstMatch;
+      }
     }
   }
   if (filterText) {
@@ -404,13 +411,17 @@ function populateSelector(selectedUnit, filterText) {
   let elSelectorValues = document.getElementsByTagName("DD");
   for (let i = 0; i < elSelectorValues.length; i++) {
     elSelectorValues[i].addEventListener("click", function() {
-      elUnit.value = elSelectorValues[i].dataset.unit;
-
-      setSelectorSelectedText(elUnit.value);
-      closeSelector();
-      executeCalc();
+      selectUnit(elSelectorValues[i].dataset.unit);
     });
   }
+}
+
+function selectUnit(unit) {
+  elUnit.value = unit;
+
+  setSelectorSelectedText(elUnit.value);
+  closeSelector();
+  executeCalc();
 }
 
 function setSelectorCheckmark(selectedUnit) {
@@ -632,7 +643,88 @@ elValue.addEventListener("input", function() {
 
 elSelectorFilter.addEventListener("input", function() {
   onFilter();
-})
+});
+
+elSelectorFilter.addEventListener("keydown", function(e) {
+  if (e.key == "Enter") {
+    selectUnit(elSelectorFilter.dataset.firstMatch);
+  }
+
+  if (e.key == "ArrowDown" || e.key == "ArrowUp") {
+    let direction;
+    if (e.key == "ArrowDown") {
+      direction = "down";
+    } else if (e.key == "ArrowUp") {
+      direction = "up";
+    }
+
+    let elFirstMatch, elNextMatch, elPrevMatch;
+    let elDDs = elSelectorList.getElementsByTagName("DD");
+
+    // The first <DD> in the list has the class "firstMatch" if something is typed in filter <INPUT>
+    elFirstMatch = elSelectorList.getElementsByClassName("firstMatch")[0];
+
+    if (elFirstMatch) {
+      // If firstMatch <DD> exists, get the next element in <DL>
+      elNextMatch = elFirstMatch.nextElementSibling;
+      elPrevMatch = elFirstMatch.previousElementSibling;
+
+      // If firstMatch <DD> is the last element in <DL>, make the first <DD> the next (loop)
+      if (!elFirstMatch.nextElementSibling) {
+        elNextMatch = elDDs[0];
+      }
+
+      if (!elPrevMatch.previousElementSibling) {
+        elPrevMatch = elDDs[elDDs.length];
+      }
+
+      elFirstMatch.classList.remove("firstMatch");
+
+    } else {
+      // If no <DD> has class "firstMatch" (i.e. nothing typed in filter <INPUT>), treat the first <DD> as the next element
+      elNextMatch = elDDs[0];
+      elPrevMatch = elDDs[elDDs.length];
+    }
+
+    if (elNextMatch && direction == "down") {
+      // Make sure elNextMatch is a <DD>
+      while (elNextMatch.tagName != "DD") {
+        elNextMatch = elNextMatch.nextElementSibling;
+      }
+
+      if (elNextMatch.offsetTop > elSelectorList.offsetHeight) {
+        // If <DD> is below <DL> viewport, i.e. its ofsetTop > the parent's offsetHeight scroll the list.
+        // Scroll to next <DD> top pos minus <DL> height minus <DD> height
+        elSelectorList.scrollTop = elNextMatch.offsetTop - elSelectorList.offsetHeight - elNextMatch.offsetHeight;
+      } else {
+        // When elNextMatch is the first <DD> in <DL> (loop), scroll to top.
+        elSelectorList.scrollTop = 0;
+      }
+
+      elNextMatch.classList.add("firstMatch");
+      elSelectorFilter.dataset.firstMatch = elNextMatch.dataset.unit;
+    }
+
+    if (elPrevMatch && direction == "up") {
+      // Make sure elNextMatch is a <DD>
+      while (elPrevMatch.tagName != "DD") {
+        elPrevMatch = elPrevMatch.previousElementSibling;
+      }
+
+      if (elPrevMatch.offsetTop > elSelectorList.offsetHeight) {
+        // If <DD> is below <DL> viewport, i.e. its ofsetTop > the parent's offsetHeight scroll the list.
+        // Scroll to next <DD> top pos minus <DL> height minus <DD> height
+        elSelectorList.scrollTop = elPrevMatch.offsetTop - elSelectorList.offsetHeight - elPrevMatch.offsetHeight;
+      } else {
+        // When elNextMatch is the first <DD> in <DL> (loop), scroll to top.
+        elSelectorList.scrollTop = 0;
+      }
+
+      elPrevMatch.classList.add("firstMatch");
+      elSelectorFilter.dataset.firstMatch = elPrevMatch.dataset.unit;
+    }
+  }
+});
 
 elSelectorSelected.addEventListener("click", function() {
   openSelector();
@@ -641,6 +733,12 @@ elSelectorSelected.addEventListener("click", function() {
 elSelectorSelected.addEventListener("contextmenu", function(e) {
   e.preventDefault();
   openSelector();
+});
+
+elSelectorSelected.addEventListener("keydown", function(e) {
+  if (e.key == "Enter") {
+    openSelector();
+  }
 });
 
 elSelectorClose.addEventListener("click", function() {

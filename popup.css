@@ -437,7 +437,7 @@ input:focus {
   top: 120px;
   left: 0;
   right: 0;
-  animation: fadeout 1s cubic-bezier(0.680, -0.550, 0.265, 1.550);
+  animation: fadeout 0.8s cubic-bezier(0.680, -0.550, 0.265, 1.550);
   background-color: var(--color-popup-background);
   background-image: var(--icon-copy);
   background-position: center;

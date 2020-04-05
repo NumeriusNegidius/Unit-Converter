@@ -309,7 +309,7 @@ function handleCopyButtons() {
         elPopup.className = "popupCopy"
         setTimeout(function(){
           elPopup.classList.remove("popupCopy");
-        }, 2000);
+        }, 800);
         copyBuffer.select();
         document.execCommand("copy");
         output.removeChild(copyBuffer);

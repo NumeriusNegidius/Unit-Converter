@@ -112,11 +112,7 @@ function executeCalc() {
     if (inValue.indexOf("/") > 0) {
       let numerator = inValue.split("/")[0];
       let denominator = inValue.split("/")[1];
-      inValue = parseFloat(numerator) / parseFloat(denominator);
-    }
-
-    if (inValue.toString().length > MAX_INTEGER) {
-      inValue = parseFloat(inValue).toExponential().toString();
+      inValue = BigNumber(numerator).dividedBy(denominator);
     }
 
     // Only execute if input value is a number, is safe and is finite
@@ -136,9 +132,9 @@ function executeCalc() {
 
       let category = conversions[inUnitIndex].category;
       if (conversions[inUnitIndex].addToSIbase) {
-        inValue = parseFloat(inValue) - parseFloat(conversions[inUnitIndex].addToSIbase);
+        inValue = BigNumber(inValue).minus(conversions[inUnitIndex].addToSIbase);
       }
-      let inValueInSIbase = inValue * conversions[inUnitIndex].toSIbase;
+      let inValueInSIbase = BigNumber(inValue).times(conversions[inUnitIndex].toSIbase);
 
       if (parseFloat(inValue) == 0 && !conversions[inUnitIndex].allowZero) {
         console.log("[UNIT CONVERTER] No result: Input number is 0");
@@ -159,26 +155,15 @@ function executeCalc() {
             let outSystem = conversions[i].system;
             let addToSIbase = conversions[i].addToSIbase;
             let allowZero = conversions[i].allowZero;
-            let unroundedProduct = (1 / conversions[i].toSIbase) * inValueInSIbase;
+
+            let unroundedProduct = BigNumber(1).dividedBy(conversions[i].toSIbase).times(inValueInSIbase);
             if (conversions[i].addToSIbase) {
-              unroundedProduct = unroundedProduct + conversions[i].addToSIbase;
+              unroundedProduct = unroundedProduct.plus(conversions[i].addToSIbase);
             }
-            let product = round(unroundedProduct, decimals);
+            let product = BigNumber(unroundedProduct).toFixed(decimals);
 
             // Don't show input unit among output conversions
             if (elUnit.value != outUnit) {
-              let outInteger, outDecimals;
-
-              let productSign = Math.sign(product);     // Whether positive or negative. Returns 1 or -1
-              let productArray = product.split(".");    // Split at decimal point
-
-              //Convert to Esperanto, since it uses " " as thousands separator
-              outInteger = parseInt(productArray[0]).toLocaleString("eo").replace(/-/g, "");
-
-              if (productArray.length > 0) {
-                outDecimals = productArray[1];
-              }
-
               // Make wrapper + heading for each system
               var countUnitsInSystem;
               var elSystemGroup;
@@ -205,7 +190,7 @@ function executeCalc() {
               }
 
               // Hide conversions that are unsafe that are unsafe ...or 0 with current decimal settings are hidden by default
-              if (!Number.isSafeInteger(Math.round(product))) {
+              if (!Number.isSafeInteger(Math.round(unroundedProduct))) {
                 countUnitsInSystem--;
                 countUnitsHidden++;
 
@@ -239,6 +224,17 @@ function executeCalc() {
 
               // Show conversions
               } else {
+                let outInteger, outDecimals;
+
+                let productSign = Math.sign(product);     // Whether positive or negative. Returns 1 or -1
+                let productArray = product.split(".");    // Split at decimal point
+
+                //Convert absolute number (disregard Math.sign), to Esperanto, since it uses " " (i.e. ISO) as thousands separator
+                outInteger = Math.abs(productArray[0]).toLocaleString("eo");
+
+                if (productArray.length > 0) {
+                  outDecimals = productArray[1];
+                }
                 elConversionRow.classList.add("copyable");  // Add copy style
                 elConversionRow.dataset.copyText = product; // Add copy data
 

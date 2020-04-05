@@ -318,23 +318,27 @@ function handleCopyButtons() {
   }
 }
 
+function toggleDecimalButtons(decimals) {
+  if (decimals == MIN_DECIMALS) {
+    elDecimalsSubtract.disabled = true;
+  }
+  else {
+    elDecimalsSubtract.disabled = false;
+  }
+
+  if (decimals == MAX_DECIMALS) {
+    elDecimalsAdd.disabled = true;
+  }
+  else {
+    elDecimalsAdd.disabled = false;
+  }
+}
+
 function changeDecimals(step) {
   if (decimals + step >= MIN_DECIMALS && decimals + step <= MAX_DECIMALS) {
     decimals = decimals + step;
 
-    if (decimals == MIN_DECIMALS) {
-      elDecimalsSubtract.disabled = true;
-    }
-    else {
-      elDecimalsSubtract.disabled = false;
-    }
-
-    if (decimals == MAX_DECIMALS) {
-      elDecimalsAdd.disabled = true;
-    }
-    else {
-      elDecimalsAdd.disabled = false;
-    }
+    toggleDecimalButtons(decimals);
     executeCalc();
   }
 }
@@ -726,6 +730,7 @@ function initialize() {
     if (response.decimals > -1) {
       decimals = response.decimals;
     }
+    toggleDecimalButtons(decimals);
 
     if (response.sortOrder > -1) {
       sortOrder = response.sortOrder;

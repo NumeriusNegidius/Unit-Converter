@@ -192,6 +192,8 @@
   "clDict":          {"message": "cl, centilitre"},
   "tbsp":            {"message": "Tablespoons"},
   "tbspDict":        {"message": "tbsp, Metric tablespoons"},
+  "dl":              {"message": "Deciliters"},
+  "dlDict":          {"message": "dl, decilitres"},
   "l":               {"message": "Liters"},
   "lDict":           {"message": "litre"},
   "m3":              {"message": "Cubic meters"},

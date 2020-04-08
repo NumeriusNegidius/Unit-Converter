@@ -96,6 +96,7 @@ var conversions = [
   {"unit" : "tsp",    "toSIbase" : 0.005,             "system" : "sMetric",   "tag" : ["tMetric"],   "category" : "cVolume"},
   {"unit" : "cl",     "toSIbase" : 0.01,              "system" : "sMetric",   "tag" : [],            "category" : "cVolume"},
   {"unit" : "tbsp",   "toSIbase" : 0.015,             "system" : "sMetric",   "tag" : ["tMetric"],   "category" : "cVolume"},
+  {"unit" : "dl",     "toSIbase" : 0.1,               "system" : "sMetric",   "tag" : [],            "category" : "cVolume"},
   {"unit" : "l",      "toSIbase" : 1,                 "system" : "sMetric",   "tag" : [],            "category" : "cVolume"},
   {"unit" : "m3",     "toSIbase" : 1000,              "system" : "sMetric",   "tag" : [],            "category" : "cVolume"},
   {"unit" : "tspUS",  "toSIbase" : 0.00492892,        "system" : "sImperial", "tag" : ["tUS"],       "category" : "cVolume"},

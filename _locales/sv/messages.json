@@ -192,6 +192,8 @@
   "clDict":          {"message": "cl"},
   "tbsp":            {"message": "Matsked"},
   "tbspDict":        {"message": "msk, tbsp"},
+  "dl":              {"message": "Deciliter"},
+  "dlDict":          {"message": "dl"},
   "l":               {"message": "Liter"},
   "lDict":           {"message": ""},
   "m3":              {"message": "Kubikmeter"},

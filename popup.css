@@ -109,7 +109,6 @@ h1 {
 }
 #input.whenSelectorOpen {
   height: calc(var(--window-max-height) - 40px);
-  visibility: hidden;
 }
 
 button {
@@ -137,7 +136,6 @@ input:focus {
 }
 
 #selectorSelected {
-  margin: 0 0 5px 0;
   padding: 5px 10px;
   border: none;
   background-color: var(--color-select-bg);
@@ -149,7 +147,10 @@ input:focus {
 #selectorSelected:hover {background-color: var(--color-select-bg-hover);}
 #selectorSelected:active {background-color: var(--color-select-bg-active);}
 
-#value {width: 100%;}
+#value {
+  width: 100%;
+  margin: 0 0 5px 0;
+}
 
 .inputGroup {position: relative;}
 
@@ -175,7 +176,7 @@ input:focus {
 
 #selector {
   position: absolute;
-  top: 42px;
+  top: 77px;
   left: 15px;
   z-index: 3;
   width: 320px;
@@ -189,7 +190,7 @@ input:focus {
 
 #selectorList {
   margin: 0 -10px -5px -10px;
-  height: calc(var(--window-max-height) - 125px);
+  height: calc(var(--window-max-height) - 160px);
   overflow-y: scroll;
 }
 

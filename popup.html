@@ -11,12 +11,13 @@
   <header id="input">
     <input type="hidden" id="unit">
     <input type="hidden" id="keepHidableShown" value="0">
-    <div id="selectorSelected" tabindex="0"></div>
 
     <div class="inputGroup">
-      <input id="value" type="text" maxlength="15" autocomplete="off">
+      <input id="value" type="text" tabindex="1" maxlength="15" autocomplete="off">
       <button id="valueReset" class="reset">&times;</button>
     </div>
+
+    <div id="selectorSelected" tabindex="2"></div>
   </header>
 
   <div id="tools">
@@ -26,7 +27,7 @@
 
   <div id="selector">
     <div class="inputGroup">
-      <input id="selectorFilter" type="text" maxlength="50" autocomplete="off">
+      <input id="selectorFilter" type="text" tabindex="2" maxlength="50" autocomplete="off">
       <button id="selectorFilterReset" class="reset resetFilter">&times;</button>
     </div>
     <div id="selectorClose" class="">&Hat;</div>

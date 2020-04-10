@@ -283,6 +283,7 @@ function handleHiddenUnits(countUnitsHidden) {
 
     elShowHidden.addEventListener("click", function() {
       hideEl(elShowHidden);
+      elValue.focus();
       elOutput.classList.remove("whenHiddenButton");
       if (elKeepHidableShown.value == "0") {
         elKeepHidableShown.value = 1;
@@ -314,6 +315,7 @@ function handleCopyButtons() {
         document.execCommand("copy");
         output.removeChild(copyBuffer);
       }
+      elValue.focus();
     });
   }
 }
@@ -339,6 +341,7 @@ function changeDecimals(step) {
     decimals = decimals + step;
 
     toggleDecimalButtons(decimals);
+    elValue.focus();
     executeCalc();
   }
 }
@@ -776,6 +779,10 @@ window.onload = function() {
 elValue.addEventListener("input", function() {
   onInput();
   executeCalc();
+});
+
+elValue.addEventListener("focus", function() {
+  closeSelector();
 });
 
 elSelectorFilter.addEventListener("input", function() {

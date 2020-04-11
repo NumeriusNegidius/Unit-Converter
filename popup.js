@@ -805,7 +805,10 @@ elValue.addEventListener("input", function() {
 });
 
 elValue.addEventListener("focus", function() {
-  closeSelector();
+  // Run closeSelector only if element's display != none
+  if (elSelector.offsetParent) {
+    closeSelector();
+  }
 });
 
 elSelectorFilter.addEventListener("input", function() {

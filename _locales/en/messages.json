@@ -14,9 +14,10 @@
   "sImperial":            {"message": "Imperial/US Customary"},
   "sOther":               {"message": "Other"},
 
-  "tMetric":              {"message": "Metric"},
-  "tImperial":            {"message": "Imperial"},
-  "tUS":                  {"message": "US"},
+  "tMetric":              {"message": "Metric"},       "tMetricFull":    {"message": "SI or SI derived units"},
+  "tImperial":            {"message": "Imperial"},     "tImperialFull":  {"message": "Imperial System of Units"},
+  "tUS":                  {"message": "US"},           "tUSFull":        {"message": "United States customary units"},
+  "tIntl":                {"message": "Int'l"},        "tIntlFull":      {"message": "Internationally agreed non-SI units"},
 
   "cArea":                {"message": "Area"},
   "cEnergy":              {"message": "Energy"},
@@ -48,7 +49,7 @@
   "kWh":     {"message": "Kilowatt hours"},           "kWhDict":     {"message": "kWh"},
 
   "nm":      {"message": "Nanometres"},               "nmDict":      {"message": "nm, nanometers"},
-  "mcm":     {"message": "Micrometres"},              "mcmDict":     {"message": "mcm, micrometers"},
+  "mcm":     {"message": "Micrometres"},              "mcmDict":     {"message": "mcm, micrometers, micron, μm"},
   "mm":      {"message": "Millimetres"},              "mmDict":      {"message": "mm, millimeters"},
   "cm":      {"message": "Centimetres"},              "cmDict":      {"message": "cm, centimeters"},
   "dm":      {"message": "Decimetres"},               "dmDict":      {"message": "dm, decimeters"},
@@ -58,8 +59,10 @@
   "in":      {"message": "Inches"},                   "inDict":      {"message": "in"},
   "ft":      {"message": "Feet"},                     "ftDict":      {"message": "ft, foot"},
   "yd":      {"message": "Yards"},                    "ydDict":      {"message": "yd"},
+  "ftm":     {"message": "Fathoms"},                  "ftmDict":     {"message": "ftm"},
   "mi":      {"message": "Miles"},                    "miDict":      {"message": "mi"},
   "nmi":     {"message": "Nautical miles"},           "nmiDict":     {"message": "nmi"},
+  "nl":      {"message": "Nautical leagues"},         "nlDict":      {"message": "nl"},
   "au":      {"message": "Astronomical unit"},        "auDict":      {"message": "au, ua"},
   "ly":      {"message": "Light-years"},              "lyDict":      {"message": "ly, lightyears, light years"},
   "pc":      {"message": "Parsecs"},                  "pcDict":      {"message": "pc"},

@@ -14,9 +14,10 @@
   "sImperial":            {"message": "Brittiska och amerikanska system"},
   "sOther":               {"message": "Andra system"},
 
-  "tMetric":              {"message": "Metrisk"},
-  "tImperial":            {"message": "Brittisk"},
-  "tUS":                  {"message": "Amerikansk"},
+  "tMetric":              {"message": "Metrisk"},         "tMetricFull":    {"message": "SI eller härledda från SI"},
+  "tImperial":            {"message": "Brittisk"},        "tImperialFull":  {"message": "Imperial System of Units"},
+  "tUS":                  {"message": "Amerikansk"},      "tUSFull":        {"message": "United States customary units"},
+  "tIntl":                {"message": "Internationell"},  "tIntlFull":      {"message": "Internationellt överenskomna icke-SI-enheter"},
 
   "cArea":                {"message": "Area"},
   "cEnergy":              {"message": "Energi"},
@@ -48,7 +49,7 @@
   "kWh":     {"message": "Kilowattimme"},             "kWhDict":     {"message": "kWh"},
 
   "nm":      {"message": "Nanometer"},                "nmDict":      {"message": "nm"},
-  "mcm":     {"message": "Mikrometer"},               "mcmDict":     {"message": "mcm, micrometer"},
+  "mcm":     {"message": "Mikrometer"},               "mcmDict":     {"message": "mcm, micrometer, micron, μm"},
   "mm":      {"message": "Millimeter"},               "mmDict":      {"message": "mm"},
   "cm":      {"message": "Centimeter"},               "cmDict":      {"message": "cm"},
   "dm":      {"message": "Decimeter"},                "dmDict":      {"message": "dm"},
@@ -58,8 +59,10 @@
   "in":      {"message": "Tum"},                      "inDict":      {"message": "in"},
   "ft":      {"message": "Fot"},                      "ftDict":      {"message": "ft, foot, feet"},
   "yd":      {"message": "Yard"},                     "ydDict":      {"message": "yd"},
+  "ftm":     {"message": "Fathom"},                   "ftmDict":     {"message": "ftm, fathoms, famn"},
   "mi":      {"message": "Mile"},                     "miDict":      {"message": "mi"},
   "nmi":     {"message": "Nautisk mil"},              "nmiDict":     {"message": "nmi, sjömil"},
+  "nl":      {"message": "Nautical league"},          "nlDict":      {"message": "nl"},
   "au":      {"message": "Astronomisk enhet"},        "auDict":      {"message": "au, ua, ae"},
   "ly":      {"message": "Ljusår"},                   "lyDict":      {"message": "ly"},
   "pc":      {"message": "Parsec"},                   "pcDict":      {"message": "pc"},

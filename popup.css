@@ -346,6 +346,20 @@ input:focus {
   margin-bottom: 6px;
 }
 
+.systemGroup .system::before {
+  content: var(--icon-dropdown);
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.systemGroup.collapsed .system::before {
+
+  transform: rotate(-90deg);
+}
+.systemGroup.collapsed .conversion {
+  display: none;
+}
+
 .system {
   margin-top: -1px;
   padding: 12px 15px 5px 15px;

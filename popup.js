@@ -5,6 +5,7 @@ const MAX_DECIMALS = 10;
 const MIN_DECIMALS = 0;
 var decimals = 2;
 var sortOrder = 0;
+var hiddenSystems = [];
 
 
 
@@ -172,7 +173,12 @@ function executeCalc() {
                 elSystemGroup.id = outSystem;
 
                 let elSystem = createEl("DIV", elSystemGroup, l10n(outSystem), "system"); // System heading
-
+                if (hiddenSystems.includes(outSystem)) {
+                  elSystemGroup.classList.add("collapsed");
+                }
+                elSystem.addEventListener("click", function() {
+                  hideSystem(outSystem);
+                });
                 // Count potential units in system, regardless of visibility
                 let getUnitsInSystem = conversions.filter(function(data) {
                   return data.category === category && data.system === outSystem && data.unit != inUnit;
@@ -318,6 +324,18 @@ function handleCopyButtons() {
       elValue.focus();
     });
   }
+}
+
+function hideSystem(system) {
+  let systemGroup = getEl(system);
+  systemGroup.classList.toggle("collapsed");
+
+  if (hiddenSystems.includes(system)) {
+    hiddenSystems.pop(system);
+  } else {
+    hiddenSystems.push(system);
+  }
+  setStorage();
 }
 
 function toggleDecimalButtons(decimals) {
@@ -714,6 +732,7 @@ function setStorage() {
     unit: elUnit.value,
     decimals: decimals,
     sortOrder: sortOrder,
+    hiddenSystems: hiddenSystems,
     timestamp: Date.now()
   });
 }
@@ -737,6 +756,10 @@ function initialize() {
 
     if (response.sortOrder > -1) {
       sortOrder = response.sortOrder;
+    }
+
+    if (response.hiddenSystems) {
+      hiddenSystems = response.hiddenSystems;
     }
 
     if (response.hideDisclaimer) {

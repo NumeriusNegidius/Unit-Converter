@@ -331,7 +331,7 @@ function hideSystem(system) {
   systemGroup.classList.toggle("collapsed");
 
   if (hiddenSystems.includes(system)) {
-    hiddenSystems.pop(system);
+    hiddenSystems = hiddenSystems.filter(e => e !== system);
   } else {
     hiddenSystems.push(system);
   }

@@ -5,7 +5,7 @@ const MAX_DECIMALS = 10;
 const MIN_DECIMALS = 0;
 var decimals = 2;
 var sortOrder = 0;
-var hiddenSystems = [];
+var collapsedSystems = [];
 
 
 
@@ -173,12 +173,15 @@ function executeCalc() {
                 elSystemGroup.id = outSystem;
 
                 let elSystem = createEl("DIV", elSystemGroup, l10n(outSystem), "system"); // System heading
-                if (hiddenSystems.includes(outSystem)) {
+
+                // Handle collapsing of system groups
+                if (collapsedSystems.includes(outSystem)) {
                   elSystemGroup.classList.add("collapsed");
                 }
                 elSystem.addEventListener("click", function() {
                   hideSystem(outSystem);
                 });
+
                 // Count potential units in system, regardless of visibility
                 let getUnitsInSystem = conversions.filter(function(data) {
                   return data.category === category && data.system === outSystem && data.unit != inUnit;
@@ -193,6 +196,7 @@ function executeCalc() {
 
               for (let n = 0; n < outUnitTag.length; n++) {
                 let elConversionUnitTag = createEl("SPAN", elConversionUnit, l10n(outUnitTag[n]), "systemTag");
+                elConversionUnitTag.title = l10n(outUnitTag[n] + "Full");
               }
 
               // Hide conversions that are unsafe that are unsafe ...or 0 with current decimal settings are hidden by default
@@ -232,14 +236,14 @@ function executeCalc() {
               } else {
                 let outInteger, outDecimals;
 
-                let productSign = Math.sign(product);     // Whether positive or negative. Returns 1 or -1
-                let productArray = product.split(".");    // Split at decimal point
+                let productSign = Math.sign(product);       // Whether positive or negative. Returns 1 or -1
+                let productArray = product.split(".");      // Split at decimal point
 
-                //Convert absolute number (disregard Math.sign), to Esperanto, since it uses " " (i.e. ISO) as thousands separator
+                //The integer as abs converted to Esperanto, since it uses " " (i.e. ISO) as thousands separator
                 outInteger = Math.abs(productArray[0]).toLocaleString("eo");
 
                 if (productArray.length > 0) {
-                  outDecimals = productArray[1];
+                  outDecimals = productArray[1];            // These are the decimals
                 }
                 elConversionRow.classList.add("copyable");  // Add copy style
                 elConversionRow.dataset.copyText = product; // Add copy data
@@ -330,10 +334,11 @@ function hideSystem(system) {
   let systemGroup = getEl(system);
   systemGroup.classList.toggle("collapsed");
 
-  if (hiddenSystems.includes(system)) {
-    hiddenSystems = hiddenSystems.filter(e => e !== system);
+  // Remove and add, respectively, system from collapsedSystems[]
+  if (collapsedSystems.includes(system)) {
+    collapsedSystems = collapsedSystems.filter(e => e !== system);
   } else {
-    hiddenSystems.push(system);
+    collapsedSystems.push(system);
   }
   setStorage();
 }
@@ -457,6 +462,7 @@ function populateSelector(selectedUnit, filterText) {
       let tags = conversions[sortedI].tag;
       for (let n = 0; n < tags.length; n++) {
         let elSelectorUnitTag = createEl("SPAN", elSelectorUnit, l10n(tags[n]), "systemTag");
+        elSelectorUnitTag.title = l10n(tags[n] + "Full");
       }
 
       if (!firstMatch && filterText) {
@@ -509,7 +515,12 @@ function setSortOrder(sortId) {
   if (elUnit.value) {
     selectedUnit = elUnit.value;
   }
-  populateSelector(selectedUnit);
+
+  let filterText;
+  if (elSelectorFilter.value) {
+    filterText = elSelectorFilter.value;
+  }
+  populateSelector(selectedUnit, filterText);
 }
 
 function setSortOrderCheckmark() {
@@ -732,7 +743,7 @@ function setStorage() {
     unit: elUnit.value,
     decimals: decimals,
     sortOrder: sortOrder,
-    hiddenSystems: hiddenSystems,
+    collapsedSystems: collapsedSystems,
     timestamp: Date.now()
   });
 }
@@ -758,8 +769,8 @@ function initialize() {
       sortOrder = response.sortOrder;
     }
 
-    if (response.hiddenSystems) {
-      hiddenSystems = response.hiddenSystems;
+    if (response.collapsedSystems) {
+      collapsedSystems = response.collapsedSystems;
     }
 
     if (response.hideDisclaimer) {

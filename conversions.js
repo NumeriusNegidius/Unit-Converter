@@ -74,9 +74,12 @@ var conversions = [
   {"unit" : "sol",    "toSIbase" : 1079252848.8,      "system" : "sOther",    "tag" : [], "category" : "cSpeed"},
 
   // TEMPERATURE, SIbase = C.
-  {"unit" : "K",      "toSIbase" : 1,   "addToSIbase": 273.15, "allowZero": true, "system": "sMetric",   "tag" : [], "category" : "cTemperature"},
-  {"unit" : "C",      "toSIbase" : 1,   "addToSIbase": 0,      "allowZero": true, "system": "sMetric",   "tag" : [], "category" : "cTemperature"},
-  {"unit" : "F",      "toSIbase" : 5/9, "addToSIbase": 32,     "allowZero": true, "system": "sImperial", "tag" : [], "category" : "cTemperature"},
+  {"unit" : "K",      "toSIbase" : 1,     "addToSIbase": 273.15, "allowZero": true, "system": "sMetric",   "tag" : [], "category" : "cTemperature"},
+  {"unit" : "C",      "toSIbase" : 1,     "addToSIbase": 0,      "allowZero": true, "system": "sMetric",   "tag" : [], "category" : "cTemperature"},
+  {"unit" : "F",      "toSIbase" : 5/9,   "addToSIbase": 32,     "allowZero": true, "system": "sImperial", "tag" : [], "category" : "cTemperature"},
+  {"unit" : "Ra",     "toSIbase" : 5/9,   "addToSIbase": 491.67, "allowZero": true, "system": "sImperial", "tag" : [], "category" : "cTemperature"},
+  {"unit" : "Re",     "toSIbase" : 1.25,  "addToSIbase": 0,      "allowZero": true, "system": "sOther",    "tag" : [], "category" : "cTemperature"},
+  {"unit" : "Ro",     "toSIbase" : 40/21, "addToSIbase": 7.5,    "allowZero": true, "system": "sOther",    "tag" : [], "category" : "cTemperature"},
 
   // TIME, SIbase = sec.
   {"unit" : "ms",     "toSIbase" : 0.001,             "system" : "sMetric",   "tag" : [], "category" : "cTime"},

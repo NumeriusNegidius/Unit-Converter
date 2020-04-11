@@ -97,6 +97,9 @@
   "K":       {"message": "Kelvin"},                   "KDict":       {"message": "degrees"},
   "C":       {"message": "Celcius"},                  "CDict":       {"message": "degrees"},
   "F":       {"message": "Fahrenheit"},               "FDict":       {"message": "degrees"},
+  "Ra":      {"message": "Rankine"},                  "RaDict":      {"message": "degrees"},
+  "Re":      {"message": "Réaumur"},                  "ReDict":      {"message": "degrees"},
+  "Ro":      {"message": "Rømer"},                    "RoDict":      {"message": "degrees"},
 
   "ms":      {"message": "Milliseconds"},             "msDict":      {"message": "ms"},
   "sec":     {"message": "Seconds"},                  "secDict":     {"message": "secs"},

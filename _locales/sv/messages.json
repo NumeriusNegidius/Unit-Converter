@@ -97,6 +97,9 @@
   "K":       {"message": "Kelvin"},                   "KDict":       {"message": "grader"},
   "C":       {"message": "Celcius"},                  "CDict":       {"message": "grader"},
   "F":       {"message": "Fahrenheit"},               "FDict":       {"message": "grader"},
+  "Ra":      {"message": "Rankine"},                  "RaDict":      {"message": "grader"},
+  "Re":      {"message": "Réaumur"},                  "ReDict":      {"message": "grader"},
+  "Ro":      {"message": "Rømer"},                    "RoDict":      {"message": "grader"},
 
   "ms":      {"message": "Millisekunder"},            "msDict":      {"message": "ms"},
   "sec":     {"message": "Sekunder"},                 "secDict":     {"message": ""},

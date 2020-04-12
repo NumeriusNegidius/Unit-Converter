@@ -17,7 +17,7 @@
   "tMetric":              {"message": "Metrisk"},         "tMetricFull":    {"message": "SI eller härledda från SI"},
   "tImperial":            {"message": "Brittisk"},        "tImperialFull":  {"message": "Imperial System of Units"},
   "tUS":                  {"message": "Amerikansk"},      "tUSFull":        {"message": "United States customary units"},
-  "tIntl":                {"message": "Internationell"},  "tIntlFull":      {"message": "Internationellt överenskomna icke-SI-enheter"},
+  "tIntl":                {"message": "Int."},            "tIntlFull":      {"message": "Internationellt överenskomna, ej SI"},
 
   "cArea":                {"message": "Area"},
   "cEnergy":              {"message": "Energi"},
@@ -87,7 +87,7 @@
   "tonUS":   {"message": "Ton"},                      "tonUSDict":   {"message": ""},
   "tonUK":   {"message": "Ton"},                      "tonUKDict":   {"message": ""},
   "ct":      {"message": "Carat"},                    "ctDict":      {"message": "ct, cd, karat"},
-  "gr":      {"message": "Grains"},                   "grDict":      {"message": ""},
+  "gr":      {"message": "Grain"},                    "grDict":      {"message": ""},
 
   "Pa":      {"message": "Pascal"},                   "PaDict":      {"message": ""},
   "kPa":     {"message": "Kilopascal"},               "kPaDict":     {"message": "kPa"},

@@ -25,8 +25,8 @@ var conversions = [
   // FORCE, SIbase = N.
   {"unit" : "dyn",    "toSIbase" : 0.00001,           "system" : "sMetric",   "tag" : [], "category" : "cForce"},
   {"unit" : "N",      "toSIbase" : 1,                 "system" : "sMetric",   "tag" : [], "category" : "cForce"},
-  {"unit" : "lbf",    "toSIbase" : 4.4482216152605,   "system" : "sImperial", "tag" : [], "category" : "cForce"},
   {"unit" : "pdl",    "toSIbase" : 0.138254954376,    "system" : "sImperial", "tag" : [], "category" : "cForce"},
+  {"unit" : "lbf",    "toSIbase" : 4.4482216152605,   "system" : "sImperial", "tag" : [], "category" : "cForce"},
   {"unit" : "kgf",    "toSIbase" : 9.80665,           "system" : "sOther",    "tag" : [], "category" : "cForce"},
 
   // LENGTH, SIbase = m.
@@ -42,6 +42,8 @@ var conversions = [
   {"unit" : "ft",     "toSIbase" : 0.3048,            "system" : "sImperial", "tag" : ["tIntl"], "category" : "cLength"},
   {"unit" : "yd",     "toSIbase" : 0.9144,            "system" : "sImperial", "tag" : ["tIntl"], "category" : "cLength"},
   {"unit" : "ftm",    "toSIbase" : 1.8288,            "system" : "sImperial", "tag" : ["tIntl"], "category" : "cLength"},
+  {"unit" : "ch",     "toSIbase" : 20.1168,           "system" : "sImperial", "tag" : [],        "category" : "cLength"},
+  {"unit" : "fur",    "toSIbase" : 201.168,           "system" : "sImperial", "tag" : [],        "category" : "cLength"},
   {"unit" : "mi",     "toSIbase" : 1609.34,           "system" : "sImperial", "tag" : ["tIntl"], "category" : "cLength"},
   {"unit" : "nmi",    "toSIbase" : 1852,              "system" : "sOther",    "tag" : ["tIntl"], "category" : "cLength"},
   {"unit" : "nl",     "toSIbase" : 5556,              "system" : "sOther",    "tag" : [],        "category" : "cLength"},

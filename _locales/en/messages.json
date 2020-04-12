@@ -51,9 +51,9 @@
 
   "dyn":     {"message": "Dynes"},                    "dynDict":     {"message": ""},
   "N":       {"message": "Newtons"},                  "NDict":       {"message": ""},
-  "kgf":     {"message": "Kilograms-force"},          "kgfDict":     {"message": "kilopond, kp"},
-  "lbf":     {"message": "Pounds-force"},             "lbfDict":     {"message": "pound of force, lbf, pounds of force"},
   "pdl":     {"message": "Poundals"},                 "pdlDict":     {"message": "pdl"},
+  "lbf":     {"message": "Pounds-force"},             "lbfDict":     {"message": "pound of force, lbf, pounds of force"},
+  "kgf":     {"message": "Kilograms-force"},          "kgfDict":     {"message": "kilopond, kp"},
 
   "nm":      {"message": "Nanometres"},               "nmDict":      {"message": "nm, nanometers"},
   "mcm":     {"message": "Micrometres"},              "mcmDict":     {"message": "mcm, micrometers, micron, μm"},
@@ -67,6 +67,8 @@
   "ft":      {"message": "Feet"},                     "ftDict":      {"message": "ft, foot"},
   "yd":      {"message": "Yards"},                    "ydDict":      {"message": "yd"},
   "ftm":     {"message": "Fathoms"},                  "ftmDict":     {"message": "ftm"},
+  "ch":      {"message": "Chains"},                   "chDict":      {"message": ""},
+  "fur":     {"message": "Furlongs"},                 "furDict":     {"message": ""},
   "mi":      {"message": "Miles"},                    "miDict":      {"message": "mi"},
   "nmi":     {"message": "Nautical miles"},           "nmiDict":     {"message": "nmi"},
   "nl":      {"message": "Nautical leagues"},         "nlDict":      {"message": "nl"},

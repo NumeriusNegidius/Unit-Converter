@@ -21,6 +21,7 @@
 
   "cArea":                {"message": "Area"},
   "cEnergy":              {"message": "Energy"},
+  "cForce":               {"message": "Force"},
   "cLength":              {"message": "Length"},
   "cMass":                {"message": "Mass/Weight"},
   "cPressure":            {"message": "Pressure"},
@@ -48,6 +49,12 @@
   "Wh":      {"message": "Watt hours"},               "WhDict":      {"message": "Wh"},
   "kWh":     {"message": "Kilowatt hours"},           "kWhDict":     {"message": "kWh"},
 
+  "dyn":     {"message": "Dynes"},                    "dynDict":     {"message": ""},
+  "N":       {"message": "Newtons"},                  "NDict":       {"message": ""},
+  "kgf":     {"message": "Kilograms-force"},          "kgfDict":     {"message": "kilopond, kp"},
+  "lbf":     {"message": "Pounds-force"},             "lbfDict":     {"message": "pound of force, lbf, pounds of force"},
+  "pdl":     {"message": "Poundals"},                 "pdlDict":     {"message": "pdl"},
+
   "nm":      {"message": "Nanometres"},               "nmDict":      {"message": "nm, nanometers"},
   "mcm":     {"message": "Micrometres"},              "mcmDict":     {"message": "mcm, micrometers, micron, μm"},
   "mm":      {"message": "Millimetres"},              "mmDict":      {"message": "mm, millimeters"},
@@ -68,16 +75,17 @@
   "pc":      {"message": "Parsecs"},                  "pcDict":      {"message": "pc"},
 
   "mg":      {"message": "Milligrams"},               "mgDict":      {"message": "mg"},
-  "ct":      {"message": "Carat"},                    "ctDict":      {"message": "ct, cd, karat"},
   "g":       {"message": "Grams"},                    "gDict":       {"message": "g"},
   "hg":      {"message": "Hectograms"},               "hgDict":      {"message": "hg"},
-  "kg":      {"message": "Kilograms"},                "kgDict":      {"message": "kg"},
-  "t":       {"message": "Metric tonnes"},            "tDict":       {"message": "tons"},
+  "kg":      {"message": "Kilograms"},                "kgDict":      {"message": "kg, grave, gv"},
+  "t":       {"message": "Tonnes"},                   "tDict":       {"message": "tons"},
   "oz":      {"message": "Ounces"},                   "ozDict":      {"message": "oz"},
   "lb":      {"message": "Pounds"},                   "lbDict":      {"message": "lb"},
   "st":      {"message": "Stone"},                    "stDict":      {"message": ""},
-  "tonUS":   {"message": "Tonnes"},                   "tonUSDict":   {"message": "ton"},
-  "tonUK":   {"message": "Tonnes"},                   "tonUKDict":   {"message": "ton"},
+  "tonUS":   {"message": "Tons"},                     "tonUSDict":   {"message": ""},
+  "tonUK":   {"message": "Tons"},                     "tonUKDict":   {"message": ""},
+  "ct":      {"message": "Carat"},                    "ctDict":      {"message": "ct, cd, karat"},
+  "gr":      {"message": "Grains"},                   "grDict":      {"message": ""},
 
   "Pa":      {"message": "Pascals"},                  "PaDict":      {"message": ""},
   "kPa":     {"message": "Kilopascals"},              "kPaDict":     {"message": "kPa"},
@@ -92,6 +100,7 @@
 
   "kmph":    {"message": "Kilometres per hour"},      "kmphDict":    {"message": "km/h, kph, kmph, km/hr, kilometers per hour, kilometer per hour, kilometre per hour"},
   "mps":     {"message": "Metres per second"},        "mpsDict":     {"message": "m/s, mps, meters per second, meter per second, metre per second"},
+  "ips":     {"message": "Inches per second"},        "ipsDict":     {"message": "ips, in/s, inch per second"},
   "fps":     {"message": "Feet per second"},          "fpsDict":     {"message": "fps, ft/s, foot per second"},
   "mph":     {"message": "Miles per hour"},           "mphDict":     {"message": "mph, mi/h, mile per hour"},
   "kn":      {"message": "Knots"},                    "knDict":      {"message": "kn, kt, knot"},

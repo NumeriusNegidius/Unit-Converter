@@ -5,6 +5,7 @@ var conversions = [
   {"unit" : "mm2",    "toSIbase" : 0.000001,          "system" : "sMetric",   "tag" : [],        "category" : "cArea"},
   {"unit" : "cm2",    "toSIbase" : 0.0001,            "system" : "sMetric",   "tag" : [],        "category" : "cArea"},
   {"unit" : "m2",     "toSIbase" : 1,                 "system" : "sMetric",   "tag" : [],        "category" : "cArea"},
+  {"unit" : "a",      "toSIbase" : 100,               "system" : "sMetric",   "tag" : [],        "category" : "cArea"},
   {"unit" : "ha",     "toSIbase" : 10000,             "system" : "sMetric",   "tag" : [],        "category" : "cArea"},
   {"unit" : "km2",    "toSIbase" : 1000000,           "system" : "sMetric",   "tag" : [],        "category" : "cArea"},
   {"unit" : "in2",    "toSIbase" : 0.00064516,        "system" : "sImperial", "tag" : [],        "category" : "cArea"},
@@ -12,6 +13,7 @@ var conversions = [
   {"unit" : "yd2",    "toSIbase" : 0.836127,          "system" : "sImperial", "tag" : [],        "category" : "cArea"},
   {"unit" : "ac",     "toSIbase" : 4046.8564224,      "system" : "sImperial", "tag" : [],        "category" : "cArea"},
   {"unit" : "mi2",    "toSIbase" : 2589988.110336,    "system" : "sImperial", "tag" : [],        "category" : "cArea"},
+  {"unit" : "tsh",    "toSIbase" : 93239571.972096,   "system" : "sImperial", "tag" : [],        "category" : "cArea"},
 
   // ENERGY, SIbase = J.
   {"unit" : "J",      "toSIbase" : 1,                 "system" : "sMetric",   "tag" : [], "category" : "cEnergy"},
@@ -25,8 +27,10 @@ var conversions = [
   // FORCE, SIbase = N.
   {"unit" : "dyn",    "toSIbase" : 0.00001,           "system" : "sMetric",   "tag" : [], "category" : "cForce"},
   {"unit" : "N",      "toSIbase" : 1,                 "system" : "sMetric",   "tag" : [], "category" : "cForce"},
+  {"unit" : "kN",     "toSIbase" : 1000,              "system" : "sMetric",   "tag" : [], "category" : "cForce"},
   {"unit" : "pdl",    "toSIbase" : 0.138254954376,    "system" : "sImperial", "tag" : [], "category" : "cForce"},
   {"unit" : "lbf",    "toSIbase" : 4.4482216152605,   "system" : "sImperial", "tag" : [], "category" : "cForce"},
+  {"unit" : "kip",    "toSIbase" : 4448.2216152605,   "system" : "sImperial", "tag" : [], "category" : "cForce"},
   {"unit" : "kgf",    "toSIbase" : 9.80665,           "system" : "sOther",    "tag" : [], "category" : "cForce"},
 
   // LENGTH, SIbase = m.
@@ -45,6 +49,7 @@ var conversions = [
   {"unit" : "ch",     "toSIbase" : 20.1168,           "system" : "sImperial", "tag" : [],        "category" : "cLength"},
   {"unit" : "fur",    "toSIbase" : 201.168,           "system" : "sImperial", "tag" : [],        "category" : "cLength"},
   {"unit" : "mi",     "toSIbase" : 1609.34,           "system" : "sImperial", "tag" : [],        "category" : "cLength"},
+  {"unit" : "cb",     "toSIbase" : 185.2,             "system" : "sOther",    "tag" : [],        "category" : "cLength"},
   {"unit" : "nmi",    "toSIbase" : 1852,              "system" : "sOther",    "tag" : [],        "category" : "cLength"},
   {"unit" : "nl",     "toSIbase" : 5556,              "system" : "sOther",    "tag" : [],        "category" : "cLength"},
   {"unit" : "au",     "toSIbase" : 149597870700,      "system" : "sOther",    "tag" : [],        "category" : "cLength"},
@@ -57,13 +62,13 @@ var conversions = [
   {"unit" : "hg",     "toSIbase" : 0.01,              "system" : "sMetric",   "tag" : [],            "category" : "cMass"},
   {"unit" : "kg",     "toSIbase" : 1,                 "system" : "sMetric",   "tag" : [],            "category" : "cMass"},
   {"unit" : "t",      "toSIbase" : 1000,              "system" : "sMetric",   "tag" : ["tMetric"],   "category" : "cMass"},
+  {"unit" : "gr",     "toSIbase" : 0.00006479891,     "system" : "sImperial", "tag" : [],            "category" : "cMass"},
   {"unit" : "oz",     "toSIbase" : 0.028349523125,    "system" : "sImperial", "tag" : [],            "category" : "cMass"},
   {"unit" : "lb",     "toSIbase" : 0.45359237,        "system" : "sImperial", "tag" : [],            "category" : "cMass"},
   {"unit" : "st",     "toSIbase" : 6.35029,           "system" : "sImperial", "tag" : [],            "category" : "cMass"},
   {"unit" : "tonUS",  "toSIbase" : 907.1847,          "system" : "sImperial", "tag" : ["tUS"],       "category" : "cMass"},
   {"unit" : "tonUK",  "toSIbase" : 1016.047,          "system" : "sImperial", "tag" : ["tImperial"], "category" : "cMass"},
   {"unit" : "ct",     "toSIbase" : 0.0002,            "system" : "sOther",    "tag" : [],            "category" : "cMass"},
-  {"unit" : "gr",     "toSIbase" : 0.00006479891,     "system" : "sOther",    "tag" : [],            "category" : "cMass"},
 
   // PRESSURE, SIbase = Pa.
   {"unit" : "Pa",     "toSIbase" : 1,                 "system" : "sMetric",   "tag" : [], "category" : "cPressure"},
@@ -83,7 +88,7 @@ var conversions = [
   {"unit" : "ips",    "toSIbase" : 0.09144,           "system" : "sImperial", "tag" : [],        "category" : "cSpeed"},
   {"unit" : "fps",    "toSIbase" : 1.09728,           "system" : "sImperial", "tag" : [],        "category" : "cSpeed"},
   {"unit" : "mph",    "toSIbase" : 1.60934,           "system" : "sImperial", "tag" : [],        "category" : "cSpeed"},
-  {"unit" : "kn",     "toSIbase" : 1.852,             "system" : "sOther",    "tag" : [],        "category" : "cSpeed"},
+  {"unit" : "kt",     "toSIbase" : 1.852,             "system" : "sOther",    "tag" : [],        "category" : "cSpeed"},
   {"unit" : "sol",    "toSIbase" : 1079252848.8,      "system" : "sOther",    "tag" : [],        "category" : "cSpeed"},
 
   // TEMPERATURE, SIbase = C.
@@ -124,11 +129,16 @@ var conversions = [
   {"unit" : "fOzUS",  "toSIbase" : 0.0295735156,      "system" : "sImperial", "tag" : ["tUS"],       "category" : "cVolume"},
   {"unit" : "cupUS",  "toSIbase" : 0.236588125,       "system" : "sImperial", "tag" : ["tUS"],       "category" : "cVolume"},
   {"unit" : "ptUS",   "toSIbase" : 0.473176473,       "system" : "sImperial", "tag" : ["tUS"],       "category" : "cVolume"},
+  {"unit" : "ptdUS",  "toSIbase" : 0.5506104713575,   "system" : "sImperial", "tag" : ["tUS"],       "category" : "cVolume"},
   {"unit" : "ptUK",   "toSIbase" : 0.56826125,        "system" : "sImperial", "tag" : ["tImperial"], "category" : "cVolume"},
   {"unit" : "qtUS",   "toSIbase" : 0.946352946,       "system" : "sImperial", "tag" : ["tUS"],       "category" : "cVolume"},
+  {"unit" : "qtdUS",  "toSIbase" : 1.101220942715,    "system" : "sImperial", "tag" : ["tUS"],       "category" : "cVolume"},
   {"unit" : "qtUK",   "toSIbase" : 1.1365225,         "system" : "sImperial", "tag" : ["tImperial"], "category" : "cVolume"},
   {"unit" : "potUS",  "toSIbase" : 1.89270589,        "system" : "sImperial", "tag" : ["tUS"],       "category" : "cVolume"},
   {"unit" : "galUS",  "toSIbase" : 3.78541,           "system" : "sImperial", "tag" : ["tUS"],       "category" : "cVolume"},
   {"unit" : "galUK",  "toSIbase" : 4.54609,           "system" : "sImperial", "tag" : ["tImperial"], "category" : "cVolume"},
   {"unit" : "ft3",    "toSIbase" : 28.316846592,      "system" : "sImperial", "tag" : [],            "category" : "cVolume"},
+  {"unit" : "yd3",    "toSIbase" : 764.554857984,     "system" : "sImperial", "tag" : [],            "category" : "cVolume"},
+  {"unit" : "acft",   "toSIbase" : 1233481.83754752,  "system" : "sImperial", "tag" : [],            "category" : "cVolume"},
+  {"unit" : "bbl",    "toSIbase" : 158.98722,         "system" : "sOther",    "tag" : ["tUS"],       "category" : "cVolume"},
 ]

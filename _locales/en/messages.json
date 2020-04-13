@@ -32,6 +32,7 @@
 
   "mm2":     {"message": "Square millimetre"},        "mm2Dict":     {"message": "mm2, square millimeters"},
   "cm2":     {"message": "Square centimetre"},        "cm2Dict":     {"message": "cm2, square centimeters"},
+  "a":       {"message": "Are"},                      "aDict":       {"message": ""},
   "ha":      {"message": "Hectare"},                  "haDict":      {"message": "ha"},
   "km2":     {"message": "Square kilometre"},         "km2Dict":     {"message": "km2, square kilometers"},
   "in2":     {"message": "Square inch"},              "in2Dict":     {"message": "in2"},
@@ -40,6 +41,7 @@
   "m2":      {"message": "Square metre"},             "m2Dict":      {"message": "m2, square meters"},
   "ac":      {"message": "Acre"},                     "acDict":      {"message": "ac"},
   "mi2":     {"message": "Square mile"},              "mi2Dict":     {"message": "mi2"},
+  "tsh":     {"message": "Survey township"},          "tshDict":     {"message": ""},
 
   "kJ":      {"message": "Kilojoule"},                "kJDict":      {"message": "kJ"},
   "J":       {"message": "Joule"},                    "JDict":       {"message": ""},
@@ -51,8 +53,10 @@
 
   "dyn":     {"message": "Dyne"},                     "dynDict":     {"message": ""},
   "N":       {"message": "Newton"},                   "NDict":       {"message": ""},
+  "kN":      {"message": "Kilonewton"},               "kNDict":      {"message": ""},
   "pdl":     {"message": "Poundal"},                  "pdlDict":     {"message": "pdl"},
   "lbf":     {"message": "Pound-force"},              "lbfDict":     {"message": "pound of force, lbf, pounds of force"},
+  "kip":     {"message": "Kip"},                      "kipDict":     {"message": "kilopound, kipf, klb, klbf"},
   "kgf":     {"message": "Kilogram-force"},           "kgfDict":     {"message": "kilopond, kp"},
 
   "nm":      {"message": "Nanometre"},                "nmDict":      {"message": "nm, nanometers"},
@@ -70,6 +74,7 @@
   "ch":      {"message": "Chain"},                    "chDict":      {"message": ""},
   "fur":     {"message": "Furlong"},                  "furDict":     {"message": ""},
   "mi":      {"message": "Mile"},                     "miDict":      {"message": "mi"},
+  "cb":      {"message": "Cable length"},             "cbDict":      {"message": "length of cable"},
   "nmi":     {"message": "Nautical mile"},            "nmiDict":     {"message": "nmi"},
   "nl":      {"message": "Nautical league"},          "nlDict":      {"message": "nl"},
   "au":      {"message": "Astronomical unit"},        "auDict":      {"message": "au, ua"},
@@ -105,7 +110,7 @@
   "ips":     {"message": "Inch per second"},          "ipsDict":     {"message": "ips, in/s, inch per second"},
   "fps":     {"message": "Foot per second"},          "fpsDict":     {"message": "fps, ft/s, feet per second"},
   "mph":     {"message": "Mile per hour"},            "mphDict":     {"message": "mph, mi/h, mile per hour"},
-  "kn":      {"message": "Knot"},                     "knDict":      {"message": "kn, kt, knot"},
+  "kt":      {"message": "Knot"},                     "ktDict":      {"message": "kt"},
   "sol":     {"message": "Speed of light"},           "solDict":     {"message": "Lightspeed"},
 
   "K":       {"message": "Kelvin"},                   "KDict":       {"message": "degrees"},
@@ -143,11 +148,16 @@
   "fOzUS":   {"message": "Fluid ounce"},              "fOzUSDict":   {"message": "fl oz, floz, ozfl, oz fl, fl. oz., oz. fl."},
   "cupUS":   {"message": "Cup"},                      "cupUSDict":   {"message": ""},
   "ptUS":    {"message": "Liquid pint"},              "ptUSDict":    {"message": "pt"},
+  "ptdUS":   {"message": "Dry pint"},                 "ptdUSDict":   {"message": "pt"},
   "ptUK":    {"message": "Pint"},                     "ptUKDict":    {"message": "pt"},
   "qtUS":    {"message": "Liquid quart"},             "qtUSDict":    {"message": "qt"},
+  "qtdUS":   {"message": "Dry quart"},                "qtdUSDict":   {"message": "qt"},
   "qtUK":    {"message": "Quart"},                    "qtUKDict":    {"message": "qt"},
   "potUS":   {"message": "Pottle"},                   "potUSDict":   {"message": ""},
   "galUS":   {"message": "Gallon"},                   "galUSDict":   {"message": ""},
   "galUK":   {"message": "Gallon"},                   "galUKDict":   {"message": ""},
-  "ft3":     {"message": "Cubic foot"},               "ft3Dict":     {"message": "ft3, cu ft, cuft, cubic feet"}
+  "ft3":     {"message": "Cubic foot"},               "ft3Dict":     {"message": "ft3, cu ft, cuft, cubic feet"},
+  "yd3":     {"message": "Cubic yard"},               "yd3Dict":     {"message": "yd3, cu yd, cuyd"},
+  "acft":    {"message": "Acre-foot"},                "acftDict":    {"message": "acre ft, acft, ac ft"},
+  "bbl":     {"message": "Oil barrel"},               "bblDict":     {"message": "bbl, blue barrel"}
 }

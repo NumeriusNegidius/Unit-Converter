@@ -9,6 +9,8 @@
   "errorTooLarge":        { "message": "Too large" },
   "errorTooSmall":        { "message": "Close to zero" },
   "errorTooFewDecimals":  { "message": "More decimals needed" },
+  "sortSystemAndSize":    { "message": "System & Size" },
+  "sortName":             { "message": "Name" },
 
   "sMetric":              {"message": "Metric"},
   "sImperial":            {"message": "Imperial/US Customary"},

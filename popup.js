@@ -755,6 +755,8 @@ function initialize() {
   elSelectorFilter.placeholder = l10n("filterPlaceholder");
   elDecimalsLabel.textContent = l10n("decimals");
   elDisclaimerText.textContent = l10n("disclaimer");
+  elSort0.textContent = l10n("sortSystemAndSize");
+  elSort1.textContent = l10n("sortName");
 
   // Get values from last selected
   let getStorage = browser.storage.local.get();

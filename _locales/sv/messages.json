@@ -9,6 +9,8 @@
   "errorTooLarge":        { "message": "För stort" },
   "errorTooSmall":        { "message": "Nära noll" },
   "errorTooFewDecimals":  { "message": "Fler decimaler behövs" },
+  "sortSystemAndSize":    { "message": "System & storlek" },
+  "sortName":             { "message": "Namn" },
 
   "sMetric":              {"message": "Metersystemet"},
   "sImperial":            {"message": "Brittiska och amerikanska system"},

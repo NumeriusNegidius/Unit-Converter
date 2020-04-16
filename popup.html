@@ -14,7 +14,7 @@
 
     <div class="inputGroup">
       <input id="value" type="text" tabindex="1" maxlength="15" autocomplete="off">
-      <button id="valueReset" class="reset">&times;</button>
+      <button id="valueReset" class="reset" tabindex="-1">&times;</button>
     </div>
 
     <div id="selectorSelected" tabindex="2"></div>
@@ -27,15 +27,15 @@
 
   <div id="selector">
     <div class="inputGroup">
-      <input id="selectorFilter" type="text" tabindex="2" maxlength="50" autocomplete="off">
+      <input id="selectorFilter" type="text" tabindex="3" maxlength="50" autocomplete="off">
       <button id="selectorFilterReset" class="reset resetFilter">&times;</button>
     </div>
     <div id="selectorClose" class="">&Hat;</div>
     <div id="selectorSort">
-      <span class="sort" id="sort0">System & Size</span>
-      <span class="sort" id="sort1">Name</span>
+      <span class="sort" id="sort0"></span>
+      <span class="sort" id="sort1"></span>
     </div>
-    <dl id="selectorList"></dl>
+    <dl id="selectorList" tabindex="-1"></dl>
   </div>
 
   <main id="output"></main>

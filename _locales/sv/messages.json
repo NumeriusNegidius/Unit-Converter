@@ -12,6 +12,10 @@
   "sortSystemAndSize":    { "message": "System & storlek" },
   "sortName":             { "message": "Namn" },
 
+  // RegEx for characters (case insensitive) allowed in unit filter based on locale and unit names,
+  // Hard-coded allowed: a-z, 0-9, whitespace, dash, period, double-quote (inch), single-qoute (foot) and hash (pound)
+  "filterRegEx":          { "message": "øé´åäö"},
+
   "sMetric":              {"message": "Metersystemet"},
   "sImperial":            {"message": "Brittiska och amerikanska system"},
   "sOther":               {"message": "Andra system"},
@@ -69,8 +73,8 @@
   "m":       {"message": "Meter"},                    "mDict":       {"message": "avstånd"},
   "km":      {"message": "Kilometer"},                "kmDict":      {"message": "km"},
   "th":      {"message": "Tusendels tum"},            "thDict":      {"message": "thou, mil"},
-  "in":      {"message": "Tum"},                      "inDict":      {"message": "in"},
-  "ft":      {"message": "Fot"},                      "ftDict":      {"message": "ft, foot, feet"},
+  "in":      {"message": "Tum"},                      "inDict":      {"message": "inch, \""},
+  "ft":      {"message": "Fot"},                      "ftDict":      {"message": "ft, foot, feet, '"},
   "yd":      {"message": "Yard"},                     "ydDict":      {"message": "yd"},
   "ftm":     {"message": "Fathom"},                   "ftmDict":     {"message": "ftm, fathoms, famn"},
   "ch":      {"message": "Chain"},                    "chDict":      {"message": ""},
@@ -89,7 +93,7 @@
   "kg":      {"message": "Kilogram"},                 "kgDict":      {"message": "kg, grave, gv"},
   "t":       {"message": "Ton"},                      "tDict":       {"message": ""},
   "oz":      {"message": "Ounce"},                    "ozDict":      {"message": "oz, uns"},
-  "lb":      {"message": "Pund"},                     "lbDict":      {"message": "lb"},
+  "lb":      {"message": "Pund"},                     "lbDict":      {"message": "lb, #"},
   "st":      {"message": "Stone"},                    "stDict":      {"message": ""},
   "tonUS":   {"message": "Ton"},                      "tonUSDict":   {"message": ""},
   "tonUK":   {"message": "Ton"},                      "tonUKDict":   {"message": ""},
@@ -119,8 +123,8 @@
   "C":       {"message": "Celcius"},                  "CDict":       {"message": "grader"},
   "F":       {"message": "Fahrenheit"},               "FDict":       {"message": "grader"},
   "Ra":      {"message": "Rankine"},                  "RaDict":      {"message": "grader"},
-  "Re":      {"message": "Réaumur"},                  "ReDict":      {"message": "grader"},
-  "Ro":      {"message": "Rømer"},                    "RoDict":      {"message": "grader"},
+  "Re":      {"message": "Réaumur"},                  "ReDict":      {"message": "reaumur, grader"},
+  "Ro":      {"message": "Rømer"},                    "RoDict":      {"message": "römer, romer, grader"},
 
   "ms":      {"message": "Millisekunder"},            "msDict":      {"message": "ms"},
   "sec":     {"message": "Sekunder"},                 "secDict":     {"message": ""},

@@ -559,6 +559,23 @@ function setSelectorSelectedText(selectedUnit) {
 }
 
 function onFilter() {
+  // Allowed characters in selector filter: "0-9", "a-z", ".", "-", " ", """, "'", "#" + l10n chars
+  let caret = elSelectorFilter.selectionStart;
+  let refVal = elSelectorFilter.value;
+  let allowedChars = "[^\\d\\w\\s-.#'\"" + l10n("filterRegEx") + "]"
+  let filterRegex = new RegExp(allowedChars, "gi");
+  let returnVal = elSelectorFilter.value.replace(filterRegex, "");
+
+  // If entered or pasted input contains non-allowed characters, position the
+  // caret to right after allowed input
+  if (refVal.length > returnVal.length) {
+    caret = caret - (refVal.length - returnVal.length);
+  }
+
+  // Update the input value field and position the caret
+  elSelectorFilter.value = returnVal;
+  elSelectorFilter.setSelectionRange(caret, caret);
+
   let selectedUnit = ""
   if (elUnit.value) {
     selectedUnit = elUnit.value;
